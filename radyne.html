@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radyně</title>
+    <link rel="shortcut icon" href="./media/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/microsite_style.css">
+</head>
+
+<body>
+    <header>
+        <img src="./media/logo.svg" alt="">
+        <nav>
+            <a href="">Lokality</a>
+            <a href="">Příšery</a>
+            <a href="">Galerie</a>
+            <a href="">Kontakty</a>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="infobar" id="infobar">
+            <h1>Radyně u plzně</h1>
+            <h2>O hradu</h2>
+            <p>Hrad založil před rokem 1361 král Karel IV. Do konce čtrnáctého století zůstal královským majetkem, ale
+                roku 1400 jej Václav IV. poprvé zastavil. Během husitských válek Radyně představovala významný opěrný
+                bod katolické šlechty. V následujících letech se v držení hradu vystřídali zástupci nižší šlechty, a
+                význam hradu upadal. Koncem patnáctého století už sloužil jen jako lovecké sídlo pánů ze Šternberka a
+                někdy během první poloviny šestnáctého století vyhořel. Roku 1536 Radyni získal Adam ze Šternberka do
+                dědičného vlastnictví, ale v roce 1558 už byl hrad označen jako pustý.</p>
+            <h2>Bájná bytost: Radouš</h2>
+            <p>Jeho matka urazila sudičku, a tak se ji narodil člověk s oslíma ušima, kančími kly a kozí
+                bradkou, rodina ho se ho hned zbavila a byl vychován cizími lidmi, lidi se mu smáli, tak
+                odešel do lesa, kde zotročil skřítky a postavil hrad Radyně, našel si hezkou manželku, ale
+                jeho dítě stejně vypadalo jako on, následně svoji manželku a dítě zabil, to se opakovalo
+                7krát, dokud jeho sedmá žena neutekla </p>
+        </div>
+        <div id="fullscreenbutton" class="fullscreenbutton button" onclick="toggleFullscreen()"><img
+                src="./media/fullscreen.svg" alt="">
+        </div>
+        <div id="nextbutton" class="nextbutton button" onclick="toggleView()"><img src="./media/arrowright.svg" alt="">
+        </div>
+        <div class="canvascontainer" id="canvascontainer">
+            <canvas class="container" id="threecontainer"></canvas>
+            <canvas class="container" id="imagecontainer"></canvas>
+        </div>
+    </div>
+    <script>
+        const canvascontainer = document.getElementById('canvascontainer')
+        const threecontainer = document.getElementById('threecontainer');
+        const imagecontainer = document.getElementById('imagecontainer');
+        const infobar = document.getElementById('infobar');
+        const nextbutton = document.getElementById('nextbutton');
+        const fullscreenbutton = document.getElementById('fullscreenbutton');
+
+        function toggleFullscreen() {
+            requestAnimationFrame(() => {
+                canvascontainer.classList.toggle('fullscreen');
+                infobar.classList.toggle('hideinfobar');
+                nextbutton.classList.toggle('hidebutton');
+            })
+        }
+
+        function toggleView() {
+            requestAnimationFrame(() => {
+                threecontainer.classList.toggle('move');
+                imagecontainer.classList.toggle('move');
+                fullscreenbutton.classList.toggle('hidebutton')
+                nextbutton.classList.toggle('flip');
+            })
+        }
+    </script>
+    <script type="importmap">
+        {
+            "imports": {
+              "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js",
+              "three/webgpu": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.webgpu.js",
+              "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm/"
+            }
+          }
+      
+    </script>
+    <script type="module">
+        import { Three } from "./js/threejs/main.js";
+
+        const modelName = "radyne";
+        const three = new Three(threecontainer, modelName);
+        await three.init();
+        three.render();
+        three.start();
+    </script>
+    <script type="module">
+        import { ImageRenderer } from "./js/imageRenderer/main.js";
+
+        const imageName = "splhac";
+        const imageRenderer = new ImageRenderer(imagecontainer, imageName);
+    </script>
+</body>
+
+</html>

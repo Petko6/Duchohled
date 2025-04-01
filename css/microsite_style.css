@@ -1,0 +1,175 @@
+@import "./variables.css";
+
+/* Global settings */
+html,
+body {
+  height: 100%;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  color: var(--text);
+  background-color: var(--background);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+}
+
+/* Navigation */
+header {
+  width: 100vw;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 8rem;
+  background-color: var(--secondary);
+  z-index: 15;
+}
+
+header img {
+  width: 4rem;
+  height: auto;
+}
+
+nav {
+  font: var(--size3);
+}
+
+a {
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Layout */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  height: 90%;
+}
+
+/* Info Bar */
+.infobar {
+  flex: 1;
+  max-width: 60%;
+  padding: 4rem 8rem;
+  overflow-y: auto;
+  transition: flex 0.5s ease, max-width 0.3s ease, padding 0.5s ease;
+  transform-origin: left; /* Animace se smrští doleva */
+}
+
+.infobar h2 {
+  margin-top: 2rem;
+}
+
+.infobar p {
+  text-align: justify;
+  font: 400 1.777rem var(--ffb);
+}
+
+.hideinfobar {
+  max-width: 0;
+  padding: 0;
+}
+
+/* Canvas Container */
+.canvascontainer {
+  flex: 1;
+  max-width: 40%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 100% 100%;
+  grid-template-rows: 100%;
+  overflow: hidden;
+  will-change: transform;
+  transition: max-width 0.3s ease, flex 0.5s ease;
+}
+
+.canvascontainer:hover,
+.button:hover ~ .canvascontainer {
+  max-width: 45%;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+#threecontainer,
+#imagecontainer {
+  transition: translate 0.5s ease;
+  will-change: transform;
+}
+
+#imagecontainer {
+  object-fit: cover;
+  object-position: center;
+  z-index: 3;
+}
+
+/* Buttons */
+.button {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.75rem;
+  position: absolute;
+  border-radius: 2rem;
+  background-color: var(--text);
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s, rotate 0.2s, opacity 0.2s;
+}
+
+.button:hover {
+  transform: scale(1.125);
+}
+
+.fullscreenbutton {
+  right: 2rem;
+  bottom: 2rem;
+}
+
+.nextbutton {
+  right: 2rem;
+  bottom: 50%;
+}
+
+.hidebutton {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fullscreen {
+  max-width: 100% !important;
+  z-index: 5;
+}
+
+.move {
+  translate: -100%;
+}
+
+.flip {
+  rotate: -180deg;
+}

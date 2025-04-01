@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css?family=MedievalSharp|Lora");
+
+/* Variables */
+:root {
+  /* colors */
+  --text: #f6f6f6;
+  --background: #14100a;
+  --primary: #b9afa2;
+  --secondary: #af9b74;
+  --accent: #8b7e4b;
+
+  /* Font sizes */
+  --ffb: "Lora";
+  --ffh: "MedievalSharp";
+  --size1: bold 4.21rem var(--ffh);
+  --size2: bold 3.158rem var(--ffh);
+  --size3: bold 2.369rem var(--ffh);
+  --size4: bold 1.777rem var(--ffh);
+  --size5: bold 1.333rem var(--ffh);
+  --p: 1rem var(--ffb);
+  --small: 0.75rem var(--ffb);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Reset default margin for text elements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+.small {
+  margin: 0;
+}
+
+html {
+  font-size: 100%;
+}
+
+h1 {
+  font: var(--size1);
+}
+h2 {
+  font: var(--size2);
+}
+h3 {
+  font: var(--size3);
+}
+h4 {
+  font: var(--size4);
+}
+h5 {
+  font: var(--size5);
+}
+.big {
+  font: var(--big);
+}
+p,
+.small {
+  font: var(--p);
+}
+.bold {
+  font-weight: 700;
+}
+body {
+  font: var(--p);
+}

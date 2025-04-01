@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loket</title>
+    <link rel="shortcut icon" href="./media/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/microsite_style.css">
+</head>
+
+<body>
+    <header>
+        <img src="./media/logo.svg" alt="">
+        <nav>
+            <a href="">Lokality</a>
+            <a href="">Příšery</a>
+            <a href="">Galerie</a>
+            <a href="">Kontakty</a>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="infobar" id="infobar">
+            <h1>hrad Loket</h1>
+            <h2>O hradu</h2>
+            <p>Loket (německy Elbogen) je hrad ve stejnojmenném městě v okrese Sokolov. Stojí na skalním ostrohu nad
+                řekou Ohří v chráněné krajinné oblasti Slavkovský les. Hrad je chráněn jako kulturní památka.<br>
+                Podle starší německé tradice hrad Loket založili chebští ministeriálové v době, kdy sedleckou kastelánii
+                v sedmdesátých až osmdesátých letech dvanáctého století ovládali Štaufové. Vzhledem k neexistujícím
+                písemným pramenům a přítomnosti rotundy, typické pro české prostředí, je pravděpodobnější, že
+                zakladatelem hradu byl král Přemysl Otakar I.</p>
+            <h2>Bájná bytost: Štrakakal</h2>
+            <p>skřet, co nosí hřeben a pronásleduje neučesané děti, češe děti proti jejich vůli dokud je
+                neučeše, při česání je mlátí tlustou knihou do zad, po učesání je nechá být, měl
+                spadeno i mladého Karla IV (tenkrát ještě Václava)</p>
+        </div>
+        <div id="fullscreenbutton" class="fullscreenbutton button" onclick="toggleFullscreen()"><img
+                src="./media/fullscreen.svg" alt="">
+        </div>
+        <div id="nextbutton" class="nextbutton button" onclick="toggleView()"><img src="./media/arrowright.svg" alt="">
+        </div>
+        <div class="canvascontainer" id="canvascontainer">
+            <canvas class="container" id="threecontainer"></canvas>
+            <canvas class="container" id="imagecontainer"></canvas>
+        </div>
+    </div>
+    <script>
+        const canvascontainer = document.getElementById('canvascontainer')
+        const threecontainer = document.getElementById('threecontainer');
+        const imagecontainer = document.getElementById('imagecontainer');
+        const infobar = document.getElementById('infobar');
+        const nextbutton = document.getElementById('nextbutton');
+        const fullscreenbutton = document.getElementById('fullscreenbutton');
+
+        function toggleFullscreen() {
+            requestAnimationFrame(() => {
+                canvascontainer.classList.toggle('fullscreen');
+                infobar.classList.toggle('hideinfobar');
+                nextbutton.classList.toggle('hidebutton');
+            })
+        }
+
+        function toggleView() {
+            requestAnimationFrame(() => {
+                threecontainer.classList.toggle('move');
+                imagecontainer.classList.toggle('move');
+                fullscreenbutton.classList.toggle('hidebutton')
+                nextbutton.classList.toggle('flip');
+            })
+        }
+    </script>
+    <script type="importmap">
+        {
+            "imports": {
+              "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js",
+              "three/webgpu": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.webgpu.js",
+              "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm/"
+            }
+          }
+      
+    </script>
+    <script type="module">
+        import { Three } from "./js/threejs/main.js";
+
+        const modelName = "loket";
+        const three = new Three(threecontainer, modelName);
+        await three.init();
+        three.render();
+        three.start();
+    </script>
+    <script type="module">
+        import { ImageRenderer } from "./js/imageRenderer/main.js";
+
+        const imageName = "splhac";
+        const imageRenderer = new ImageRenderer(imagecontainer, imageName);
+    </script>
+</body>
+
+</html>

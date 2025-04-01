@@ -1,0 +1,107 @@
+@import "./variables.css";
+
+/* Global settings */
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  color: var(--text);
+  background-color: var(--background);
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-y: scroll;
+  height: 100dvh;
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.section {
+  padding: 4rem 16rem;
+  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/*Nav*/
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 8rem;
+}
+
+header img {
+  width: 4rem;
+  height: auto;
+}
+
+nav {
+  display: flex;
+  font: var(--size3);
+  gap: 2rem;
+}
+
+/*Hero section*/
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 35vh;
+  width: 100%;
+  height: 100dvh;
+  background: url("../media/hero.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+}
+
+.hero h1 {
+  place-self: center;
+  text-align: center;
+  text-shadow: black 0.25rem 0.25rem 0.5rem;
+  font-size: 8rem;
+}
+
+/*Castle section*/
+.castlerow {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+}
+
+.castlecell {
+  background-color: var(--primary);
+  border-radius: 2rem;
+  padding: 1.5rem;
+  aspect-ratio: 2/3;
+  align-content: end;
+  flex: 1 1 0;
+  cursor: pointer;
+}
+
+.highlight {
+  outline: var(--text) 0.25rem solid;
+  transition: all 0.1s ease-in-out;
+}

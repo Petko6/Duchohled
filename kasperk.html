@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kašperk</title>
+    <link rel="shortcut icon" href="./media/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/microsite_style.css">
+</head>
+
+<body>
+    <header>
+        <img src="./media/logo.svg" alt="">
+        <nav>
+            <a href="">Lokality</a>
+            <a href="">Příšery</a>
+            <a href="">Galerie</a>
+            <a href="">Kontakty</a>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="infobar" id="infobar">
+            <h1>hrad Kašperk</h1>
+            <h2>O hradu</h2>
+            <p>Kašperk (německy Karlsberg) je zřícenina hradu v Šumavském podhůří v okrese Klatovy v Plzeňském kraji.
+                Nachází se asi 2,5 kilometru severovýchodně od Kašperských Hor v katastrálním území Žlíbek na území
+                přírodního parku Kašperská vrchovina. Zřícenina je chráněna jako kulturní památka a v návštěvních
+                hodinách je přístupná veřejnosti.<br>
+                Hrad založil jako pohraniční pevnost král Karel IV. v roce 1356. V královské správě Kašperk zůstal jen
+                do roku 1365, kdy jej panovník zastavil Janu Očkovi z Vlašimi. Zástavní držitelé se poté na hradě
+                střídali až do jeho opuštění na začátku sedmnáctého století. Patřili mezi ně například Petr Zmrzlík ze
+                Svojšína se svým synem, páni ze Švamberka nebo Zdeněk Konopišťský ze Šternberka. Koncem šestnáctého
+                století si hrad pronajalo město Kašperské Hory, ale měšťané se zajímali spíše o užitky z hradního
+                panství, a samotný hrad zanedbávali. Ten proto chátral, a když se po skončení třicetileté války stal
+                zdrojem stavebního materiálu, změnil se rychle ve zříceninu.</p>
+            <h2>Bájná bytost: Šplhavec</h2>
+            <p>bílý, vysoký, bez obličeje, humanoid nebo pavouk (liší se od zdroje), šplhá podél vnějších
+                stěn hradu a vlézá do oken, kde se v noci svítí, oběť po jeho zásahu přijde o všechny
+                svoje vzpomínky (to, jestli trvale nebo dočasně není uvedeno), své oběti trhá na kousky </p>
+        </div>
+        <div id="fullscreenbutton" class="fullscreenbutton button" onclick="toggleFullscreen()"><img
+                src="./media/fullscreen.svg" alt="">
+        </div>
+        <div id="nextbutton" class="nextbutton button" onclick="toggleView()"><img src="./media/arrowright.svg" alt="">
+        </div>
+        <div class="canvascontainer" id="canvascontainer">
+            <canvas class="container" id="threecontainer"></canvas>
+            <canvas class="container" id="imagecontainer"></canvas>
+        </div>
+    </div>
+    <script>
+        const canvascontainer = document.getElementById('canvascontainer')
+        const threecontainer = document.getElementById('threecontainer');
+        const imagecontainer = document.getElementById('imagecontainer');
+        const infobar = document.getElementById('infobar');
+        const nextbutton = document.getElementById('nextbutton');
+        const fullscreenbutton = document.getElementById('fullscreenbutton');
+
+        function toggleFullscreen() {
+            requestAnimationFrame(() => {
+                canvascontainer.classList.toggle('fullscreen');
+                infobar.classList.toggle('hideinfobar');
+                nextbutton.classList.toggle('hidebutton');
+            })
+        }
+
+        function toggleView() {
+            requestAnimationFrame(() => {
+                threecontainer.classList.toggle('move');
+                imagecontainer.classList.toggle('move');
+                fullscreenbutton.classList.toggle('hidebutton')
+                nextbutton.classList.toggle('flip');
+            })
+        }
+    </script>
+    <script type="importmap">
+        {
+            "imports": {
+              "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js",
+              "three/webgpu": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.webgpu.js",
+              "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm/"
+            }
+          }
+      
+    </script>
+    <script type="module">
+        import { Three } from "./js/threejs/main.js";
+
+        const modelName = "kasperk";
+        const three = new Three(threecontainer, modelName);
+        await three.init();
+        three.render();
+        three.start();
+    </script>
+    <script type="module">
+        import { ImageRenderer } from "./js/imageRenderer/main.js";
+
+        const imageName = "splhac";
+        const imageRenderer = new ImageRenderer(imagecontainer, imageName);
+    </script>
+</body>
+
+</html>

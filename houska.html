@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Houska</title>
+    <link rel="shortcut icon" href="./media/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/microsite_style.css">
+</head>
+
+<body>
+    <header>
+        <img src="./media/logo.svg" alt="">
+        <nav>
+            <a href="">Lokality</a>
+            <a href="">Příšery</a>
+            <a href="">Galerie</a>
+            <a href="">Kontakty</a>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="infobar" id="infobar">
+            <h1>hrad Houska</h1>
+            <h2>O hradu</h2>
+            <p>Houska je hrad přestavěný na zámek ve východní části chráněné krajinné oblasti Kokořínsko. Stojí v
+                katastrálním území Houska u obce Blatce v okrese Česká Lípa v Libereckém kraji. Zámek je chráněn jako
+                kulturní památka a v návštěvních hodinách je přístupný veřejnosti.<br>
+                Gotický hrad založil na začátku své vlády král Přemysl Otakar II. Měl se stát správním centrem okolní
+                krajiny, ale jeho funkci brzy přejal o něco později založený Bezděz. Housku poté získali Berkové z Dubé,
+                kteří ji vlastnili do roku 1432, kdy od nich celé panství koupil Jan Smiřický. Jeho potomkům hrad patřil
+                do roku 1502. O přestavbu hradu na renesanční zámek se v šestnáctém století zasloužili příslušníci rodu
+                Hrzánů z Harasova, kteří na něm sídlili do začátku sedmnáctého století.</p>
+            <h2>Bájná bytost: Mnich bez tváře</h2>
+            <p>Postava v černé mnišské kápi, která nemá obličej a sleduje opovážlivce, kteří by chtěli
+                Housku navštívit v noci, nebo zde dokonce přenocovat.</p>
+        </div>
+        <div id="fullscreenbutton" class="fullscreenbutton button" onclick="toggleFullscreen()"><img
+                src="./media/fullscreen.svg" alt="">
+        </div>
+        <div id="nextbutton" class="nextbutton button" onclick="toggleView()"><img src="./media/arrowright.svg" alt="">
+        </div>
+        <div class="canvascontainer" id="canvascontainer">
+            <canvas class="container" id="threecontainer"></canvas>
+            <canvas class="container" id="imagecontainer"></canvas>
+        </div>
+    </div>
+    <script>
+        const canvascontainer = document.getElementById('canvascontainer')
+        const threecontainer = document.getElementById('threecontainer');
+        const imagecontainer = document.getElementById('imagecontainer');
+        const infobar = document.getElementById('infobar');
+        const nextbutton = document.getElementById('nextbutton');
+        const fullscreenbutton = document.getElementById('fullscreenbutton');
+
+        function toggleFullscreen() {
+            requestAnimationFrame(() => {
+                canvascontainer.classList.toggle('fullscreen');
+                infobar.classList.toggle('hideinfobar');
+                nextbutton.classList.toggle('hidebutton');
+            })
+        }
+
+        function toggleView() {
+            requestAnimationFrame(() => {
+                threecontainer.classList.toggle('move');
+                imagecontainer.classList.toggle('move');
+                fullscreenbutton.classList.toggle('hidebutton')
+                nextbutton.classList.toggle('flip');
+            })
+        }
+    </script>
+    <script type="importmap">
+        {
+            "imports": {
+              "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js",
+              "three/webgpu": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.webgpu.js",
+              "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm/"
+            }
+          }
+      
+    </script>
+    <script type="module">
+        import { Three } from "./js/threejs/main.js";
+
+        const modelName = "houska";
+        const three = new Three(threecontainer, modelName);
+        await three.init();
+        three.render();
+        three.start();
+    </script>
+    <script type="module">
+        import { ImageRenderer } from "./js/imageRenderer/main.js";
+
+        const imageName = "splhac";
+        const imageRenderer = new ImageRenderer(imagecontainer, imageName);
+    </script>
+</body>
+
+</html>
