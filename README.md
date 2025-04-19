@@ -12,7 +12,7 @@ This web application delivers an immersive storytelling experience focused on Cz
 **State Persistence:** Checkbox states saved in localStorage for user continuity.
 
 ## Technologies:
-> Three.js, WebGPU, Leaflet, HLS/DASH, WebP, localStorage
+> Three.js, WebGPU, Leaflet, HLS/DASH, WebP, localStorage\
 > JavaScript (ES modules), HTML5, CSS3
 
 ## Purpose: 
@@ -21,6 +21,6 @@ Designed to engage users in Czech history and folklore through a visually rich, 
 **Demo Link:** [Duchohled](https://prochazkap.soskolin.eu/duchohled)
 
 ## Creators:
-> **Petr Procházka** - Web developer [Portfolio](https://prochazkap.soskolin.eu)
-> **Vojtěch Čtveráček** - 3D designer
+> **Petr Procházka** - Web developer [Portfolio](https://prochazkap.soskolin.eu)\
+> **Vojtěch Čtveráček** - 3D designer\
 > **Vojtěch Bareš** - Graphics designer
