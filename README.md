@@ -23,4 +23,4 @@ Designed to engage users in Czech history and folklore through a visually rich, 
 ## Creators:
 > **Petr Procházka** - Web developer [Behance](https://www.behance.net/petrprochxzka) [Portfolio](https://prochazkap.soskolin.eu)\
 > **Vojtěch Čtveráček** - 3D designer [Behance](https://www.behance.net/ctveracek)\
-> **Vojtěch Bareš** - Graphics designer
+> **Vojtěch Bareš** - Graphics designer [Portfolio](https://bares.soskolin.eu)
