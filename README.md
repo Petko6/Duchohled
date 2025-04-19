@@ -5,11 +5,11 @@ Interactive Historical Storytelling Web Application
 This web application delivers an immersive storytelling experience focused on Czech castles and legends. Built with modern web technologies, it features interactive 3D models, adaptive video streaming, dynamic maps, and responsive design. Users can explore castles via a Leaflet map, toggle between 3D and image views powered by Three.js, and engage with animated models and HDR-lit scenes. The interface supports mobile and desktop, with touch-friendly controls, fullscreen toggling, and persistent user selections via localStorage. Video content uses HLS and DASH for cross-browser compatibility, while lazy-loaded images and WebGPU rendering optimize performance.
 
 ## Key Features:
-**Interactive Map:** Leaflet-based map with castle markers, hover effects, and click navigation.
-**3D Visualization:** Three.js scenes with HDR lighting, OrbitControls, and animated GLTF models.
-**Responsive Design:** Mobile-friendly with touch events, view toggling, and dynamic resizing.
-**Multimedia:** Adaptive video streaming (HLS/DASH) and lazy-loaded WebP images.
-**State Persistence:** Checkbox states saved in localStorage for user continuity.
+**Interactive Map:** Leaflet-based map with castle markers, hover effects, and click navigation.\
+**3D Visualization:** Three.js scenes with HDR lighting, OrbitControls, and animated GLTF models.\
+**Responsive Design:** Mobile-friendly with touch events, view toggling, and dynamic resizing.\
+**Multimedia:** Adaptive video streaming (HLS/DASH) and lazy-loaded WebP images.\
+**State Persistence:** Checkbox states saved in localStorage for user continuity.\
 
 ## Technologies:
 > Three.js, WebGPU, Leaflet, HLS/DASH, WebP, localStorage\
