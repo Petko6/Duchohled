@@ -1,64 +1,321 @@
+<!-- Declares the document type as HTML5 -->
 <!DOCTYPE html>
+<!-- Defines the HTML document with Czech language setting -->
 <html lang="cs">
 
 <head>
+    <!-- Sets character encoding to UTF-8 for proper display of special characters -->
     <meta charset="UTF-8">
+    <!-- Ensures compatibility with Internet Explorer -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Makes the website responsive for different devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the page title displayed in the browser tab -->
     <title>Duchohled</title>
+    <!-- Links to the main CSS stylesheet for styling the website -->
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/map_style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="shortcut icon" href="./media/logo.svg" type="image/x-icon">
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Links to Leaflet CSS for interactive map functionality -->
+    <link rel="stylesheet" href="./css/libraries/leaflet.css" />
+    <!-- Links to AOS (Animate On Scroll) CSS for scroll animations -->
+    <link rel="stylesheet" href="./css/libraries/aos.css">
+    <!-- Sets the favicon (icon shown in the browser tab) -->
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+
+    <!-- Loads Dash.js for adaptive video streaming (deferred to improve page load) -->
+    <script defer src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+    <!-- Loads HLS.js for streaming video in browsers (deferred) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- Custom script for handling video playback -->
+    <script defer src="./js/video.js"></script>
+    <!-- Loads Leaflet.js for interactive map functionality -->
+    <script defer src="./js/libraries/leaflet.js"></script>
+    <!-- Loads Labelgun for managing map labels -->
+    <script defer src="./js/libraries/labelgun.min.js"></script>
+    <!-- Custom script for map-related functionality -->
+    <script src="./js/mapScript.js"></script>
+    <!-- Loads AOS.js for scroll-based animations -->
+    <script src="./js/libraries/aos.js"></script>
+    <!-- Custom script for adventure section functionality -->
+    <script defer src="./js/adventure.js"></script>
+    <!-- Custom script for mobile navigation -->
+    <script defer src="./js/nav.js"></script>
 </head>
 
 <body>
-    <script src="./js/mapScript.js"></script>
 
-    <div class="hero">
+    <!-- Home section with header and introductory content -->
+    <div id="home" class="home">
+        <!-- Header containing logo and navigation -->
         <header>
-            <img src="./media/logo.svg" alt="">
-            <nav>
-                <a href="">Lokality</a>
-                <a href="">Příšery</a>
-                <a href="">Galerie</a>
-                <a href="">Kontakty</a>
+            <!-- Logo with animation (AOS) that links to the home section -->
+            <a id="logo" data-aos="fade-right" data-aos-duration="500" data-aos-easing="ease-in-sine" href="./#home">
+                <img alt="logo" src="./media/svg/logo.svg">
+            </a>
+            <!-- Desktop navigation menu with links to different sections -->
+            <nav data-aos="fade-left" data-aos-duration="500" data-aos-easing="ease-in-sine" class="desktop">
+                <a href="#lore">Zákulisí</a>
+                <a href="#adventure">Objevník</a>
+                <a href="#contact">Kontakt</a>
+                <a class="main-button" href="#localities">Průzkum</a>
+            </nav>
+
+            <!-- Mobile navigation with a hamburger menu icon -->
+            <div aria-label="Toggle mobile navigation" data-aos="fade-left" data-aos-duration="500"
+                data-aos-easing="ease-in-sine" id="hamburger" class="hamburger mobile">
+                <svg width="32pt" height="32pt" viewBox="0 0 26 23" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke-linecap="round" fill-rule="evenodd" fill="#f6f6f6">
+                        <!-- Čára 1: Y +0 -->
+                        <path class="line top-line"
+                            d="M 1.636 0 L 2.271 0.195 A 23.196 23.196 0 0 0 4.823 0.689 Q 7.595 1.082 11.559 1.155 A 101.615 101.615 0 0 0 13.428 1.172 Q 18.359 1.172 23.706 0 A 25.554 25.554 0 0 0 23.047 1.735 A 19.693 19.693 0 0 0 22.62 3.174 A 18.072 18.072 0 0 0 22.119 6.152 L 21.509 6.006 Q 16.431 5.151 11.06 5.151 L 10.205 5.151 Q 4.956 5.151 0 6.152 A 10.579 10.579 0 0 0 0.269 5.566 Q 0.532 4.947 0.83 4.085 A 37.71 37.71 0 0 0 0.928 3.796 A 11.87 11.87 0 0 0 1.268 2.547 Q 1.42 1.847 1.525 1.034 A 24.407 24.407 0 0 0 1.636 0 Z" />
+
+                        <!-- Čára 2: Y +7 -->
+                        <path class="line middle-line"
+                            d="M 1.636 7 L 2.271 7.195 A 23.196 23.196 0 0 0 4.823 7.689 Q 7.595 8.082 11.559 8.155 A 101.615 101.615 0 0 0 13.428 8.172 Q 18.359 8.172 23.706 7 A 25.554 25.554 0 0 0 23.047 8.735 A 19.693 19.693 0 0 0 22.62 10.174 A 18.072 18.072 0 0 0 22.119 13.152 L 21.509 13.006 Q 16.431 12.151 11.06 12.151 L 10.205 12.151 Q 4.956 12.151 0 13.152 A 10.579 10.579 0 0 0 0.269 12.566 Q 0.532 11.947 0.83 11.085 A 37.71 37.71 0 0 0 0.928 10.796 A 11.87 11.87 0 0 0 1.268 9.547 Q 1.42 8.847 1.525 8.034 A 24.407 24.407 0 0 0 1.636 7 Z" />
+
+                        <!-- Čára 3: Y +14 -->
+                        <path class="line bottom-line"
+                            d="M 1.636 14 L 2.271 14.195 A 23.196 23.196 0 0 0 4.823 14.689 Q 7.595 15.082 11.559 15.155 A 101.615 101.615 0 0 0 13.428 15.172 Q 18.359 15.172 23.706 14 A 25.554 25.554 0 0 0 23.047 15.735 A 19.693 19.693 0 0 0 22.62 17.174 A 18.072 18.072 0 0 0 22.119 20.152 L 21.509 20.006 Q 16.431 19.151 11.06 19.151 L 10.205 19.151 Q 4.956 19.151 0 20.152 A 10.579 10.579 0 0 0 0.269 19.566 Q 0.532 18.947 0.83 18.085 A 37.71 37.71 0 0 0 0.928 17.796 A 11.87 11.87 0 0 0 1.268 16.547 Q 1.42 15.847 1.525 15.034 A 24.407 24.407 0 0 0 1.636 14 Z" />
+                    </g>
+                </svg>
+
+                <!-- <img src="./media/svg/hamburger.svg" alt="Hamburger menu"> -->
+            </div>
+            <nav id="mobilenav" class="mobile"> <a href="#lore">Zákulisí</a>
+                <a href="#adventure">Objevník</a>
+                <a href="#contact">Kontakt</a>
+                <a class="main-button" href="#localities">Průzkum</a>
             </nav>
         </header>
-        <h1>Duchohled</h1>
-    </div>
-    <div class="mapSection section">
-        <div id="map"></div>
-        <div class="castlerow">
-            <div id="houska" class="castlecell">
-                <h5>Hrad Houska</h5>
-                <p>Česká Republika</p>
-            </div>
-            <div id="rozmberk" class="castlecell">
-                <h5>Rožmberk</h5>
-                <p>Česká Republika</p>
-            </div>
-            <div id="vrskamyk" class="castlecell">
-                <h5>Vrškamýk</h5>
-                <p>Česká Republika</p>
-            </div>
-            <div id="radyne" class="castlecell">
-                <h5>Radyně</h5>
-                <p>Česká Republika</p>
-            </div>
-            <div id="kasperk" class="castlecell">
-                <h5>Kašperk</h5>
-                <p>Česká Republika</p>
-            </div>
-            <div id="loket" class="castlecell">
-                <h5>Loket</h5>
-                <p>Česká Republika</p>
+
+
+        <!-- Main content of the home section -->
+        <div class="home-main">
+            <!-- Main heading with zoom-in animation -->
+            <h1 data-aos="zoom-in-down" data-aos-delay="300" data-aos-duration="500">Duchohled</h1>
+            <!-- Button linking to the localities section with fade-up animation -->
+            <a data-aos="fade-up" data-aos-delay="300" data-aos-duration="500" class="main-button"
+                href="#localities">Prozkoumat</a>
+        </div>
+        <!-- Video background with controls -->
+        <div id="video-wrap">
+            <!-- Autoplaying, muted, looping video for the homepage background -->
+            <video id="home-video" muted autoplay playsinline loop poster="./media/home.webp"></video>
+            <!-- Fullscreen toggle button for the video -->
+            <div id="fullscreen-button" aria-label="Toggle fullscreen" class="button fullscreenbutton">
+                <img id="fullscreen-enter" src="./media/svg/fullscreen.svg" alt="Fullscreen icon">
+                <img id="fullscreen-exit" src="./media/svg/fullscreen-exit.svg" alt="Fullscreen icon">
             </div>
         </div>
     </div>
 
-    <script src="https://unpkg.com/labelgun/lib/labelgun.min.js"></script>
+    <!-- Localities section with an interactive map and castle information -->
+    <div id="localities" class="map-section section">
+        <!-- Container for the Leaflet map -->
+        <div id="map" class="map"></div>
+        <!-- Row of castle information cells -->
+        <div class="castlerow row">
+            <!-- Individual castle cell with name and region 
+            Span elements are present to avoid shrinking by using gap in CSS between Span and Div 
+            -->
+            <div id="houska" class="castlecell cell"><span></span>
+                <div>
+                    <p class="bold">Hrad Houska</p>
+                    <p>Kokořínsko</p>
+                </div>
+            </div>
+            <div id="rozmberk" class="castlecell cell"><span></span>
+                <div>
+                    <p class="bold">Rožmberk</p>
+                    <p>Jižní Čechy</p>
+                </div>
+            </div>
+            <div id="vrskamyk" class="castlecell cell"><span></span>
+                <div>
+                    <p class="bold">Vrškamýk</p>
+                    <p>Kamýk</p>
+                </div>
+            </div>
+            <div id="radyne" class="castlecell cell"><span></span>
+                <div>
+                    <p class="bold">Radyně</p>
+                    <p>Plzeň</p>
+                </div>
+            </div>
+            <div id="kasperk" class="castlecell cell"><span></span>
+                <div>
+                    <p class="bold">Kašperk</p>
+                    <p>Šumava</p>
+                </div>
+            </div>
+            <div id="loket" class="castlecell cell"><span></span>
+                <div>
+                    <p class="bold">Loket</p>
+                    <p>Slavkovský les</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lore section explaining the project's background -->
+    <div id="lore" class="lore-section section">
+        <h1>Zákulisí</h1>
+        <!-- Container for lore text and project details -->
+        <div class="lore-container">
+            <!-- Introductory paragraph with a styled capital letter -->
+            <p class="capital-letter">Svět kolem nás není tak prázdný, jak se zdá. Mezi stíny starých hradů a v
+                puklinách rozpadlých zdí přežívají ti, o nichž šeptají jen nejodvážnější kroniky. Duchohled jsme
+                vytvořili pro ty, kdo se chtějí podívat za hranici běžného vnímání – pro hledače tajemství, jako jsme
+                my.</p>
+            <!-- Description of the interactive map and its features -->
+            <p>Na této stránce se vám otevře mapa šesti míst, kde se hranice mezi světy zdá být tenká. Kliknutím na
+                vybranou lokalitu získáte klíčové informace: historii místa, popis bytosti, která zde byla spatřena,
+                její ilustraci a detailní 3D model hradu v jeho současné podobě. Pokud se pozorně podíváte, můžete v
+                modelech nalézt skryté detaily – fragmenty minulosti, stopy těch, kdo tu kdysi byli, či snad… něco víc?
+            </p>
+            <!-- Paragraph explaining the tools and team behind the project -->
+            <p class="capital-letter lore-skill">A pokud se ptáte, jak byl tento nástroj vytvořen – vězte, že i zde je
+                skrytý příběh. Každá ilustrace byla ručně malována grafickým tabletem
+                <img src="./media/skill/photoshop.svg" alt="Photoshop icon">
+                <img src="./media/skill/illustrator.svg" alt="Illustrator icon">, každý model pečlivě vytvořen v
+                Blenderu
+                <img src="./media/skill/blender.svg" alt="Blender icon">, každý řádek kódu napsán s pečlivostí, jakou si
+                tajemství zaslouží. Pro zobrazení mapy jsme použili Leaflet
+                <img src="./media/skill/leaflet.svg" alt="Leaflet icon">, pro modely Three.js
+                <img src="./media/skill/threejs.svg" alt="Three.js icon">, a celý web byl postaven na pevných základech
+                HTML
+                <img src="./media/skill/html.svg" alt="HTML icon"> a CSS
+                <img src="./media/skill/css.svg" alt="CSS icon">. Pracovali jsme jako tým: Vojta Bareš vdechl život
+                ilustracím, Vojta Čtveráček postavil hrady z digitálního kamene a já, Petr Procházka, jsem dal vše
+                dohromady do této brány do neznáma.
+            </p>
+            <!-- Closing statement about the project's purpose -->
+            <p>Duchohled je mostem mezi historií a tajemstvím – a nyní je jen na vás, zda se po něm vydáte.</p>
+        </div>
+    </div>
+
+    <!-- Adventure section for selecting already discovered characters -->
+    <div id="adventure" class="adventure-section section">
+        <h1>Objevník</h1>
+        <!-- Form with checkboxes for selecting entities tied to castles -->
+        <form class="row">
+            <!-- Checkbox for each entity with name and associated castle -->
+            <div id="mnich" class="cell">
+                <input type="checkbox" name="" id="mnich_check">
+                <div>
+                    <p class="bold">Mnich bez tváře</p>
+                    <p>Houska</p>
+                </div>
+            </div>
+            <div id="bilapani" class="cell">
+                <input type="checkbox" name="" id="bilapani_check">
+                <div>
+                    <p class="bold">Bílá Paní</p>
+                    <p>Rožmberk</p>
+                </div>
+            </div>
+            <div id="bilyrytir" class="cell">
+                <input type="checkbox" name="" id="bilyrytir_check">
+                <div>
+                    <p class="bold">Bílý rytíř</p>
+                    <p>Vrškamýk</p>
+                </div>
+            </div>
+            <div id="radous" class="cell">
+                <input type="checkbox" name="" id="radous_check">
+                <div>
+                    <p class="bold">Radouš</p>
+                    <p>Radyně</p>
+                </div>
+            </div>
+            <div id="splhac" class="cell">
+                <input type="checkbox" name="" id="splhac_check">
+                <div>
+                    <p class="bold">Šplhavec</p>
+                    <p>Kašperk</p>
+                </div>
+            </div>
+            <div id="strakakal" class="cell">
+                <input type="checkbox" name="" id="strakakal_check">
+                <div>
+                    <p class="bold">Štrakakal</p>
+                    <p>Loket</p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer section with contact information and form -->
+    <footer class="section" id="contact">
+        <h1>Kontakt</h1>
+        <!-- Container for contact form, map, and address -->
+        <div class="contact-container">
+            <!-- Contact form for user inquiries -->
+            <form id="contactForm" class="contact" action="">
+                <input type="text" name="name" id="name" placeholder="Jméno" required>
+                <input type="text" name="surname" id="surname" placeholder="Příjmení" required>
+                <input type="email" name="mail" id="mail" placeholder="E-mail" required>
+                <input type="tel" name="phone" id="phone" placeholder="Telefon" required>
+                <textarea name="message" id="message" placeholder="Zpráva" required></textarea>
+                <input type="submit" value="Odeslat">
+            </form>
+            <!-- Container for a secondary map (likely showing company location) -->
+            <div id="footermap" class="map"></div>
+            <!-- Company address and contact details -->
+            <div class="adress">
+                <p>Duchohled, fiktivní společnost<br>Hrad III. nádvoří 48/2<br>Hradčany<br>119 00 Praha 1</p>
+                <br>
+                <a href="tel:+420605392195">+420 605 392 195</a><br>
+                <!-- Email link with Cloudflare email protection -->
+                <a href="mailto:duchohled@gmail.com">Duchohled@gmail.com</a><br>
+                <!-- Instagram link with icon -->
+                <a href="https://instagram.com/duchohled">
+                    <!-- <img src="./media/svg/instagram.svg" alt="Instagram icon"> -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                        <path fill="#af9b74"
+                            d="M128 23.064c34.177 0 38.225.13 51.722.745c12.48.57 19.258 2.655 23.769 4.408c5.974 2.322 10.238 5.096 14.717 9.575s7.253 8.743 9.575 14.717c1.753 4.511 3.838 11.289 4.408 23.768c.615 13.498.745 17.546.745 51.723s-.13 38.226-.745 51.723c-.57 12.48-2.655 19.257-4.408 23.768c-2.322 5.974-5.096 10.239-9.575 14.718s-8.743 7.253-14.717 9.574c-4.511 1.753-11.289 3.839-23.769 4.408c-13.495.616-17.543.746-51.722.746s-38.228-.13-51.723-.746c-12.48-.57-19.257-2.655-23.768-4.408c-5.974-2.321-10.239-5.095-14.718-9.574c-4.479-4.48-7.253-8.744-9.574-14.718c-1.753-4.51-3.839-11.288-4.408-23.768c-.616-13.497-.746-17.545-.746-51.723s.13-38.225.746-51.722c.57-12.48 2.655-19.258 4.408-23.769c2.321-5.974 5.095-10.238 9.574-14.717c4.48-4.48 8.744-7.253 14.718-9.575c4.51-1.753 11.288-3.838 23.768-4.408c13.497-.615 17.545-.745 51.723-.745M128 0C93.237 0 88.878.147 75.226.77c-13.625.622-22.93 2.786-31.071 5.95c-8.418 3.271-15.556 7.648-22.672 14.764S9.991 35.738 6.72 44.155C3.555 52.297 1.392 61.602.77 75.226C.147 88.878 0 93.237 0 128s.147 39.122.77 52.774c.622 13.625 2.785 22.93 5.95 31.071c3.27 8.417 7.647 15.556 14.763 22.672s14.254 11.492 22.672 14.763c8.142 3.165 17.446 5.328 31.07 5.95c13.653.623 18.012.77 52.775.77s39.122-.147 52.774-.77c13.624-.622 22.929-2.785 31.07-5.95c8.418-3.27 15.556-7.647 22.672-14.763s11.493-14.254 14.764-22.672c3.164-8.142 5.328-17.446 5.95-31.07c.623-13.653.77-18.012.77-52.775s-.147-39.122-.77-52.774c-.622-13.624-2.786-22.929-5.95-31.07c-3.271-8.418-7.648-15.556-14.764-22.672S220.262 9.99 211.845 6.72c-8.142-3.164-17.447-5.328-31.071-5.95C167.122.147 162.763 0 128 0m0 62.27c-36.302 0-65.73 29.43-65.73 65.73s29.428 65.73 65.73 65.73c36.301 0 65.73-29.428 65.73-65.73c0-36.301-29.429-65.73-65.73-65.73m0 108.397c-23.564 0-42.667-19.103-42.667-42.667S104.436 85.333 128 85.333s42.667 19.103 42.667 42.667s-19.103 42.667-42.667 42.667m83.686-110.994c0 8.484-6.876 15.36-15.36 15.36s-15.36-6.876-15.36-15.36s6.877-15.36 15.36-15.36s15.36 6.877 15.36 15.36" />
+                    </svg>
+                </a>
+                <a href="https://github.com/petko6/duchohled">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 250">
+                        <path fill="#af9b74"
+                            d="M128.001 0C57.317 0 0 57.307 0 128.001c0 56.554 36.676 104.535 87.535 121.46c6.397 1.185 8.746-2.777 8.746-6.158c0-3.052-.12-13.135-.174-23.83c-35.61 7.742-43.124-15.103-43.124-15.103c-5.823-14.795-14.213-18.73-14.213-18.73c-11.613-7.944.876-7.78.876-7.78c12.853.902 19.621 13.19 19.621 13.19c11.417 19.568 29.945 13.911 37.249 10.64c1.149-8.272 4.466-13.92 8.127-17.116c-28.431-3.236-58.318-14.212-58.318-63.258c0-13.975 5-25.394 13.188-34.358c-1.329-3.224-5.71-16.242 1.24-33.874c0 0 10.749-3.44 35.21 13.121c10.21-2.836 21.16-4.258 32.038-4.307c10.878.049 21.837 1.47 32.066 4.307c24.431-16.56 35.165-13.12 35.165-13.12c6.967 17.63 2.584 30.65 1.255 33.873c8.207 8.964 13.173 20.383 13.173 34.358c0 49.163-29.944 59.988-58.447 63.157c4.591 3.972 8.682 11.762 8.682 23.704c0 17.126-.148 30.91-.148 35.126c0 3.407 2.304 7.398 8.792 6.14C219.37 232.5 256 184.537 256 128.002C256 57.307 198.691 0 128.001 0m-80.06 182.34c-.282.636-1.283.827-2.194.39c-.929-.417-1.45-1.284-1.15-1.922c.276-.655 1.279-.838 2.205-.399c.93.418 1.46 1.293 1.139 1.931m6.296 5.618c-.61.566-1.804.303-2.614-.591c-.837-.892-.994-2.086-.375-2.66c.63-.566 1.787-.301 2.626.591c.838.903 1 2.088.363 2.66m4.32 7.188c-.785.545-2.067.034-2.86-1.104c-.784-1.138-.784-2.503.017-3.05c.795-.547 2.058-.055 2.861 1.075c.782 1.157.782 2.522-.019 3.08m7.304 8.325c-.701.774-2.196.566-3.29-.49c-1.119-1.032-1.43-2.496-.726-3.27c.71-.776 2.213-.558 3.315.49c1.11 1.03 1.45 2.505.701 3.27m9.442 2.81c-.31 1.003-1.75 1.459-3.199 1.033c-1.448-.439-2.395-1.613-2.103-2.626c.301-1.01 1.747-1.484 3.207-1.028c1.446.436 2.396 1.602 2.095 2.622m10.744 1.193c.036 1.055-1.193 1.93-2.715 1.95c-1.53.034-2.769-.82-2.786-1.86c0-1.065 1.202-1.932 2.733-1.958c1.522-.03 2.768.818 2.768 1.868m10.555-.405c.182 1.03-.875 2.088-2.387 2.37c-1.485.271-2.861-.365-3.05-1.386c-.184-1.056.893-2.114 2.376-2.387c1.514-.263 2.868.356 3.061 1.403" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Alert div for displaying form submission status -->
+    <div class="alert" id="formStatus"></div>
+
+    <!-- JavaScript for handling contact form submission -->
+    <script>
+        // Adds event listener to the contact form
+        document.getElementById("contactForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevents page reload on form submission
+            const status = document.getElementById("formStatus"); // Gets the status alert div
+            const isSuccessful = true; // Simulates successful form submission (can be replaced with actual logic)
+            // Updates status message based on success or failure
+            if (isSuccessful) {
+                status.innerText = "Děkujeme za Vaši zprávu!";
+            } else {
+                status.innerText = "Došlo k chybě. Zkuste to prosím znovu.";
+            }
+            status.style.opacity = "1"; // Makes the status message visible
+            this.reset(); // Resets the form fields
+            // Hides the status message after 5 seconds
+            setTimeout(() => {
+                status.style.opacity = "0";
+            }, 5000);
+        });
+    </script>
+
+    <!-- Initializes AOS library for scroll animations -->
+    <script>
+        AOS.init({
+            once: false, // Animations replay when scrolling back up
+        });
+    </script>
 </body>
 
 </html>

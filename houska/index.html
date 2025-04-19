@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Houska</title>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/microsite_style.css">
+    <!-- Links to AOS (Animate On Scroll) CSS for scroll animations -->
+    <link rel="stylesheet" href="../css/libraries/aos.css">
+    <!-- Loads AOS.js for scroll-based animations -->
+    <script src="../js/libraries/aos.js"></script>
+    <!-- Custom script for mobile navigation -->
+    <script defer src="../js/nav.js"></script>
+</head>
+
+<body>
+    <!-- Header containing logo and navigation -->
+    <header>
+        <!-- Logo with animation (AOS) that links to the home section -->
+        <a id="logo" data-aos="fade-right" data-aos-duration="500" data-aos-easing="ease-in-sine" href="../#home">
+            <img alt="logo" src="../media/erby/houska.svg">
+        </a>
+        <!-- Desktop navigation menu with links to different sections -->
+        <nav data-aos="fade-left" data-aos-duration="500" data-aos-easing="ease-in-sine" class="desktop">
+            <a href="../#lore">Zákulisí</a>
+            <a href="../#adventure">Objevník</a>
+            <a href="../#contact">Kontakt</a>
+            <a class="main-button" href="../#localities">Průzkum</a>
+        </nav>
+
+        <!-- Mobile navigation with a hamburger menu icon -->
+        <div aria-label="Toggle mobile navigation" data-aos="fade-left" data-aos-duration="500"
+            data-aos-easing="ease-in-sine" id="hamburger" class="hamburger mobile">
+            <svg width="32pt" height="32pt" viewBox="0 0 26 23" xmlns="http://www.w3.org/2000/svg">
+                <g stroke-linecap="round" fill-rule="evenodd" fill="#f6f6f6">
+                    <!-- Line 1: Y +0 -->
+                    <path class="line top-line"
+                        d="M 1.636 0 L 2.271 0.195 A 23.196 23.196 0 0 0 4.823 0.689 Q 7.595 1.082 11.559 1.155 A 101.615 101.615 0 0 0 13.428 1.172 Q 18.359 1.172 23.706 0 A 25.554 25.554 0 0 0 23.047 1.735 A 19.693 19.693 0 0 0 22.62 3.174 A 18.072 18.072 0 0 0 22.119 6.152 L 21.509 6.006 Q 16.431 5.151 11.06 5.151 L 10.205 5.151 Q 4.956 5.151 0 6.152 A 10.579 10.579 0 0 0 0.269 5.566 Q 0.532 4.947 0.83 4.085 A 37.71 37.71 0 0 0 0.928 3.796 A 11.87 11.87 0 0 0 1.268 2.547 Q 1.42 1.847 1.525 1.034 A 24.407 24.407 0 0 0 1.636 0 Z" />
+
+                    <!-- Line 2: Y +7 -->
+                    <path class="line middle-line"
+                        d="M 1.636 7 L 2.271 7.195 A 23.196 23.196 0 0 0 4.823 7.689 Q 7.595 8.082 11.559 8.155 A 101.615 101.615 0 0 0 13.428 8.172 Q 18.359 8.172 23.706 7 A 25.554 25.554 0 0 0 23.047 8.735 A 19.693 19.693 0 0 0 22.62 10.174 A 18.072 18.072 0 0 0 22.119 13.152 L 21.509 13.006 Q 16.431 12.151 11.06 12.151 L 10.205 12.151 Q 4.956 12.151 0 13.152 A 10.579 10.579 0 0 0 0.269 12.566 Q 0.532 11.947 0.83 11.085 A 37.71 37.71 0 0 0 0.928 10.796 A 11.87 11.87 0 0 0 1.268 9.547 Q 1.42 8.847 1.525 8.034 A 24.407 24.407 0 0 0 1.636 7 Z" />
+
+                    <!-- Line 3: Y +14 -->
+                    <path class="line bottom-line"
+                        d="M 1.636 14 L 2.271 14.195 A 23.196 23.196 0 0 0 4.823 14.689 Q 7.595 15.082 11.559 15.155 A 101.615 101.615 0 0 0 13.428 15.172 Q 18.359 15.172 23.706 14 A 25.554 25.554 0 0 0 23.047 15.735 A 19.693 19.693 0 0 0 22.62 17.174 A 18.072 18.072 0 0 0 22.119 20.152 L 21.509 20.006 Q 16.431 19.151 11.06 19.151 L 10.205 19.151 Q 4.956 19.151 0 20.152 A 10.579 10.579 0 0 0 0.269 19.566 Q 0.532 18.947 0.83 18.085 A 37.71 37.71 0 0 0 0.928 17.796 A 11.87 11.87 0 0 0 1.268 16.547 Q 1.42 15.847 1.525 15.034 A 24.407 24.407 0 0 0 1.636 14 Z" />
+                </g>
+            </svg>
+        </div>
+        <!-- Mobile navigation menu, hidden by default and toggled by hamburger icon -->
+        <nav id="mobilenav" class="mobile">
+            <!-- Same links as desktop nav, styled for mobile -->
+            <a href="../#lore">Zákulisí</a>
+            <a href="../#adventure">Objevník</a>
+            <a href="../#contact">Kontakt</a>
+            <a class="main-button" href="../#localities">Průzkum</a>
+        </nav>
+    </header>
+    <!-- Main content section -->
+    <div class="main">
+        <!-- Information section with text about the castle and legendary character -->
+        <div class="infobar" id="infobar">
+            <h1 id="castle-paragraph">hrad Houska</h1>
+            <h2>O hradu</h2>
+            <!-- Paragraph describing the castle's mysterious history -->
+            <p>Houska, hrad ztracený v lesích Kokořínska, je jedním z nejzáhadnějších míst v Česku. Podle legend byl
+                vystavěn ne proto, aby chránil lidi, ale aby je bránil před něčím, co se nacházelo uvnitř. Údajná brána
+                do pekla, zazděná kaple a místnosti bez logického uspořádání činí z Housky epicentrum nadpřirozených
+                sil. Není divu, že právě zde se zjevuje mnich bez tváře.</p>
+            <h2 id="character-paragraph">Bájná bytost: Mnich bez tváře</h2>
+            <!-- Paragraph describing the castle's legend -->
+            <p>Ticho noci na Housce je hutné a nepřirozené. Mezi stíny se najednou zjeví vysoká postava v mnišské kápi.
+                Její tvář… není. Tam, kde by měly být oči a ústa, je jen prázdná tma. Mnich bez tváře stojí nehnutě a
+                sleduje všechny, kdo si troufnou porušit klid tohoto místa po setmění. Neútočí. Nemluví. Jen stojí… a
+                dívá se. Říká se, že kdo v noci přespí na Housce, se ráno probudí s prázdnou myslí — nebo vůbec.</p>
+        </div>
+        <!-- Fullscreen toggle button with enter/exit icons -->
+        <div aria-label="Toggle fullscreen" id="fullscreenbutton" class="fullscreenbutton button" onclick="toggleFullscreen()">
+            <img id="fullscreen-enter" src="../media/svg/fullscreen.svg" alt="">
+            <img id="fullscreen-exit" src="../media/svg/fullscreen-exit.svg" alt="">
+        </div>
+        <!-- Next view toggle button for switching between canvases -->
+        <div id="nextbutton" class="nextbutton button" onclick="toggleView()"><img src="../media/svg/arrowright.svg"
+                alt="">
+        </div>
+        <!-- Container for 3D and image canvases -->
+        <div class="canvascontainer" id="canvascontainer">
+            <!-- Canvas for rendering 3D model using Three.js -->
+            <canvas class="container" id="threecontainer"></canvas>
+            <!-- Canvas for rendering illustration using canvas 2D context -->
+            <canvas class="container" id="imagecontainer"></canvas>
+        </div>
+    </div>
+    <!-- Custom JavaScript for microsite functionality -->
+    <script src="../js/microsite.js"></script>
+    <!-- Import map for Three.js and its addons -->
+    <script type="importmap">
+        {
+            "imports": {
+              "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js",
+              "three/webgpu": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.webgpu.js",
+              "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm/"
+            }
+          }
+      
+    </script>
+    <!-- Module script to initialize and render 3D model -->
+    <script type="module">
+        import { Three } from "../js/threejs/main.js";
+
+        const modelName = "houska";
+        const three = new Three(threecontainer, modelName);
+        await three.init();
+        three.render();
+        three.start();
+    </script>
+    <!-- Module script to render image onto second Canvas -->
+    <script type="module">
+        import { ImageRenderer } from "../js/imageRenderer/main.js";
+
+        const imageName = "mnich";
+        const imageRenderer = new ImageRenderer(imagecontainer, imageName);
+    </script>
+    <!-- Initializes AOS library for scroll animations -->
+    <script>
+        AOS.init({
+            once: false, // Animations replay when scrolling back up
+        });
+    </script>
+</body>
+
+</html>

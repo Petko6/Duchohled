@@ -1,31 +1,41 @@
+/* Import external resources */
+/* Loads MedievalSharp and Lora fonts from Google Fonts for headings and body text */
 @import url("https://fonts.googleapis.com/css?family=MedievalSharp|Lora");
+/* Imports Normalize.css to standardize default browser styles for consistent rendering */
+@import "./libraries/normalize.css";
 
-/* Variables */
+/* CSS Custom Properties for reusable values */
+/* Defines colors and typography settings for easy maintenance */
 :root {
-  /* colors */
-  --text: #f6f6f6;
-  --background: #14100a;
-  --primary: #b9afa2;
-  --secondary: #af9b74;
-  --accent: #8b7e4b;
+  /* Color palette for text, background, and UI elements */
+  --text: #f6f6f6; /* Light text color */
+  --background: #14100a; /* Dark background */
+  --primary: #b9afa2; /* Primary UI color (light brown) */
+  --secondary: #af9b74; /* Secondary UI color (golden) */
+  --accent: #4a3728; /* Accent color (dark brown) */
 
-  /* Font sizes */
-  --ffb: "Lora";
-  --ffh: "MedievalSharp";
-  --size1: bold 4.21rem var(--ffh);
-  --size2: bold 3.158rem var(--ffh);
-  --size3: bold 2.369rem var(--ffh);
-  --size4: bold 1.777rem var(--ffh);
-  --size5: bold 1.333rem var(--ffh);
-  --p: 1rem var(--ffb);
-  --small: 0.75rem var(--ffb);
+  /* Font families and heading sizes */
+  --ffb: "Lora"; /* Body text font */
+  --ffh: "MedievalSharp"; /* Heading font with a medieval aesthetic */
+  --size1: bold 4.21rem var(--ffh); /* Largest heading (h1) */
+  --size2: bold 3.158rem var(--ffh); /* Heading h2 */
+  --size3: bold 2.369rem var(--ffh); /* Heading h3 */
+  --size4: bold 1.777rem var(--ffh); /* Heading h4 */
+  --size5: bold 1.333rem var(--ffh); /* Smallest heading (h5) */
+  --p: 1rem var(--ffb); /* Standard paragraph text */
+  --small: 0.75rem var(--ffb); /* Smaller text for captions or notes */
 }
 
-* {
+/* Global box-sizing rule */
+/* Ensures padding and borders are included in element dimensions */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-/* Reset default margin for text elements */
+/* Reset margins and disable text selection */
+/* Removes default margins and prevents text selection for a cleaner, controlled layout */
 h1,
 h2,
 h3,
@@ -33,17 +43,24 @@ h4,
 h5,
 h6,
 p,
-.small {
+.small,
+img,
+object,
+.hamburger {
   margin: 0;
+  user-select: none; /* Disables text selection for these elements */
 }
 
+/* Set base font size */
 html {
-  font-size: 100%;
+  font-size: 16px; /* Establishes 16px as the default font size */
 }
 
+/* Heading styles */
+/* Applies consistent typography for headings using the MedievalSharp font */
 h1 {
   font: var(--size1);
-}
+} /* Largest heading */
 h2 {
   font: var(--size2);
 }
@@ -55,17 +72,79 @@ h4 {
 }
 h5 {
   font: var(--size5);
-}
-.big {
-  font: var(--big);
-}
-p,
-.small {
+} /* Smallest heading */
+
+/* Paragraph text style */
+p {
   font: var(--p);
+} /* Standard body text style */
+
+/* Small text style */
+.small {
+  font: var(--small);
 }
+
+/* Bold text utility class */
 .bold {
   font-weight: 700;
-}
+} /* Applies bold weight to text */
+
+/* Body styles */
+/* Sets default font and enhances text rendering for readability */
 body {
   font: var(--p);
+  -webkit-font-smoothing: antialiased; /* Smooths text in Safari/Chrome */
+  -moz-osx-font-smoothing: grayscale; /* Smooths text in Firefox on macOS */
+  text-rendering: optimizeLegibility; /* Optimizes text clarity */
+}
+
+/* Button styles */
+/* Defines a circular, interactive button with hover effects */
+.button {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.75rem;
+  position: absolute; /* Allows precise positioning */
+  border-radius: 2rem; /* Circular shape */
+  background-color: var(--text); /* Light background */
+  cursor: pointer; /* Pointer cursor on hover */
+  z-index: 10; /* Ensures button is above other elements */
+  transition: transform 0.2s, rotate 0.2s, opacity 0.2s; /* Smooth animations */
+}
+
+.button:hover {
+  transform: scale(1.125); /* Scales button up slightly on hover */
+}
+
+/* Fullscreen button positioning */
+.fullscreenbutton {
+  right: 2rem;
+  bottom: 2rem; /* Places button in bottom-right corner */
+}
+
+/* Fullscreen button icon styles */
+.fullscreenbutton img {
+  position: absolute;
+  top: 20%;
+  left: 20%; /* Centers icon within button */
+  width: 60%;
+  height: 60%; /* Scales icon to fit button */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth icon transitions */
+}
+
+/* Fullscreen exit icon behavior */
+#fullscreen-exit {
+  opacity: 0;
+  transform: scale(0.1); /* Hidden by default */
+}
+
+/* Fullscreen active state */
+.fullscreen-active #fullscreen-enter {
+  opacity: 0;
+  transform: scale(0.1); /* Hides enter icon */
+}
+
+.fullscreen-active #fullscreen-exit {
+  opacity: 1;
+  transform: scale(1); /* Shows exit icon */
 }

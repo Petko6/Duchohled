@@ -1,175 +1,202 @@
+/* Import partial styles */
+/* Imports variables and header component styles for modularity */
 @import "./variables.css";
+@import "./components/header.css";
 
 /* Global settings */
+/* Configures HTML and body for full-screen layout and consistent styling */
 html,
 body {
-  height: 100%;
-  width: 100vw;
+  height: 100%; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
   margin: 0;
-  padding: 0;
-  color: var(--text);
-  background-color: var(--background);
-  box-sizing: border-box;
-  overflow: hidden;
+  padding: 0; /* Removes default spacing */
+  color: var(--text); /* Light text color from variables */
+  background-color: var(--background); /* Dark background */
+  box-sizing: border-box; /* Includes padding/border in dimensions */
+  overflow: hidden; /* Prevents scrolling */
 }
 
-/* Scrollbar */
+/* Custom scrollbar for WebKit browsers */
 ::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0.5rem; /* Thin scrollbar */
 }
-
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: var(--primary); /* Light brown scrollbar thumb */
 }
 
-/* Navigation */
+/* Navigation styles */
 header {
-  width: 100vw;
-  height: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 8rem;
-  background-color: var(--secondary);
-  z-index: 15;
+  background-color: var(--accent); /* Dark brown background */
+  z-index: 15; /* Ensures header is above other elements */
 }
-
-header img {
-  width: 4rem;
-  height: auto;
+.main-button {
+  background-color: var(--secondary); /* Golden background */
+  color: var(--accent); /* Dark brown text */
 }
-
-nav {
-  font: var(--size3);
+.main-button:hover {
+  color: var(--text) !important; /* Light text on hover */
 }
-
 a {
-  text-decoration: none;
-  color: var(--text);
-  transition: color 0.2s ease;
+  text-decoration: none; /* Removes underline from links */
+  color: var(--secondary); /* Golden link color */
+  transition: color 0.2s ease; /* Smooth color change */
 }
-
 a:hover {
-  color: var(--primary);
+  color: var(--text); /* Light text on hover */
 }
-
 ul {
-  list-style: none;
+  list-style: none; /* Removes bullet points */
   margin: 0;
-  padding: 0;
+  padding: 0; /* Removes default spacing */
+}
+h1 {
+  font: var(--size2); /* Large heading */
+}
+h2 {
+  font: var(--size3); /* Medium heading */
+}
+nav.mobile {
+  background-color: var(--accent); /* Dark brown for mobile nav */
 }
 
 /* Layout */
 body {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Stacks content vertically */
 }
-
 .main {
   display: flex;
-  height: 90%;
+  flex-direction: column;
+  justify-content: flex-end; /* Aligns content to bottom */
+  flex: 1; /* Fills available space */
+  overflow: hidden; /* Prevents overflow */
+  /* max-height: 90%; */ /* Commented-out, likely for testing */
 }
 
 /* Info Bar */
 .infobar {
-  flex: 1;
-  max-width: 60%;
-  padding: 4rem 8rem;
-  overflow-y: auto;
-  transition: flex 0.5s ease, max-width 0.3s ease, padding 0.5s ease;
-  transform-origin: left; /* Animace se smrští doleva */
+  flex: 1; /* Takes available space */
+  max-height: 60%; /* Limits height on smaller screens */
+  padding: 4vh 4vw; /* Responsive padding */
+  overflow-y: auto; /* Enables vertical scrolling */
+  transition: flex 0.5s ease, max-height 0.5s ease, padding 0.5s ease; /* Smooth animations */
+  transform-origin: bottom; /* Animations shrink from bottom */
 }
-
 .infobar h2 {
-  margin-top: 2rem;
+  margin-top: 2rem; /* Adds spacing above headings */
 }
-
 .infobar p {
-  text-align: justify;
-  font: 400 1.777rem var(--ffb);
+  text-align: justify; /* Justified text for readability */
+  font-weight: 400; /* Normal weight */
 }
-
 .hideinfobar {
-  max-width: 0;
-  padding: 0;
+  max-height: 0 !important; /* Collapses info bar */
+  padding: 0 !important; /* Removes padding */
 }
 
 /* Canvas Container */
 .canvascontainer {
-  flex: 1;
-  max-width: 40%;
-  height: 100%;
+  flex: 1; /* Takes available space */
+  max-height: 40%; /* Limits height on smaller screens */
+  width: 100%;
   display: grid;
-  grid-template-columns: 100% 100%;
-  grid-template-rows: 100%;
-  overflow: hidden;
-  will-change: transform;
-  transition: max-width 0.3s ease, flex 0.5s ease;
+  grid-template-columns: 100% 100%; /* Two full-width columns for sliding effect */
+  grid-template-rows: 100%; /* Single row */
+  overflow: hidden; /* Prevents overflow */
+  will-change: transform; /* Optimizes animation performance */
+  transition: flex 0.5s ease, max-height 0.5s ease, padding 0.5s ease; /* Smooth transitions */
 }
-
 .canvascontainer:hover,
 .button:hover ~ .canvascontainer {
-  max-width: 45%;
+  max-height: 45%; /* Slightly expands on hover */
 }
-
 .container {
   width: 100%;
-  height: 100%;
+  height: 100%; /* Full-size container */
 }
-
 #threecontainer,
 #imagecontainer {
-  transition: translate 0.5s ease;
-  will-change: transform;
+  transition: translate 0.5s ease; /* Smooth sliding animation */
+  will-change: transform; /* Optimizes animation */
 }
-
 #imagecontainer {
-  object-fit: cover;
-  object-position: center;
-  z-index: 3;
+  object-fit: cover; /* Ensures image covers container */
+  object-position: center; /* Centers image */
+  z-index: 3; /* Above other canvas elements */
 }
 
-/* Buttons */
-.button {
-  width: 3rem;
-  height: 3rem;
-  padding: 0.75rem;
-  position: absolute;
-  border-radius: 2rem;
-  background-color: var(--text);
-  cursor: pointer;
-  z-index: 10;
-  transition: transform 0.2s, rotate 0.2s, opacity 0.2s;
-}
-
-.button:hover {
-  transform: scale(1.125);
-}
-
-.fullscreenbutton {
-  right: 2rem;
-  bottom: 2rem;
-}
-
+/* Button styles */
 .nextbutton {
   right: 2rem;
-  bottom: 50%;
+  bottom: 15%; /* Positions next button */
 }
-
 .hidebutton {
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0; /* Hidden by default */
+  transform: scale(0.1); /* Shrunk */
+  pointer-events: none; /* Disables interaction */
 }
-
 .fullscreen {
-  max-width: 100% !important;
-  z-index: 5;
+  max-height: 100% !important; /* Expands to full height */
+  z-index: 5; /* Above other elements */
 }
-
 .move {
-  translate: -100%;
+  translate: -100%; /* Slides element left */
+}
+.flip {
+  rotate: -180deg; /* Rotates element */
 }
 
-.flip {
-  rotate: -180deg;
+/* Responsive adjustments */
+@media (min-width: 1000px) {
+  p {
+    font-size: 1.777rem;
+  } /* Larger paragraph text */
+  h1 {
+    font: var(--size1);
+  } /* Larger heading */
+  h2 {
+    font: var(--size2);
+  } /* Medium heading */
+  .infobar {
+    padding: 2.5vh 7.5vw;
+  } /* Wider padding */
+}
+@media (min-width: 1250px) {
+  .main {
+    flex-direction: row;
+  } /* Horizontal layout for main content */
+  .infobar {
+    max-width: 60%; /* Limits width */
+    max-height: 100%; /* Full height */
+    transition: flex 0.5s ease, max-width 0.5s ease, padding 0.5s ease; /* Smooth animations */
+    transform-origin: left; /* Animations shrink from left */
+  }
+  .canvascontainer:hover,
+  .button:hover ~ .canvascontainer {
+    max-width: 45%;
+    max-height: 100%; /* Expands on hover */
+  }
+  .canvascontainer {
+    max-width: 40%;
+    max-height: 100%; /* Limits width */
+    transition: max-width 0.5s ease, flex 0.5s ease; /* Smooth transitions */
+  }
+  .hideinfobar {
+    max-width: 0 !important; /* Collapses info bar */
+    max-height: 100% !important; /* Maintains height */
+    padding: 0 !important; /* Removes padding */
+  }
+  .fullscreen {
+    max-width: 100% !important; /* Full width */
+    z-index: 5; /* Above other elements */
+  }
+  .fullscreenbutton {
+    right: 2rem;
+    bottom: 2rem; /* Repositions fullscreen button */
+  }
+  .nextbutton {
+    right: 2rem;
+    bottom: 45%; /* Repositions next button */
+  }
 }

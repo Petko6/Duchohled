@@ -1,107 +1,380 @@
+/* Import partial styles */
+/* Imports variables, map styles, and header component styles for modularity */
 @import "./variables.css";
+@import "./map_style.css";
+@import "./components/header.css";
 
 /* Global settings */
+/* Configures the HTML element to prevent overflow and ensure full height */
 html {
-  overflow: hidden;
-  height: 100%;
+  overflow: hidden; /* Prevents horizontal scrolling */
+  height: 100%; /* Ensures HTML takes full viewport height */
 }
 
+/* Sets base styles for HTML and body */
 html,
 body {
-  box-sizing: border-box;
-  color: var(--text);
-  background-color: var(--background);
+  box-sizing: border-box; /* Includes padding/border in element dimensions */
+  color: var(--text); /* Applies text color from variables */
+  background-color: var(--background); /* Sets dark background */
   margin: 0;
-  padding: 0;
+  padding: 0; /* Removes default spacing */
 }
 
+/* Body-specific styles */
 body {
-  overflow-y: scroll;
-  height: 100dvh;
-  scroll-behavior: smooth;
+  overflow-y: scroll; /* Enables vertical scrolling */
+  height: 100dvh; /* Full viewport height, dynamic for mobile */
+  scroll-behavior: smooth; /* Smooth scrolling for anchor links */
 }
 
+/* Link styles */
 a {
-  text-decoration: none;
-  color: var(--text);
+  text-decoration: none; /* Removes underline from links */
+  color: var(--text); /* Uses light text color */
 }
-
 a:hover {
-  color: var(--primary);
+  color: var(--primary); /* Changes to primary color on hover */
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+/* Bold text with medieval font */
+.bold {
+  font-weight: bold;
+  font-family: "MedievalSharp"; /* Applies medieval-style font */
 }
 
+/* Generic section layout */
 .section {
-  padding: 4rem 16rem;
-  gap: 2rem;
+  padding: 4vh 4vw; /* Adds responsive padding */
+  width: 100%; /* Full width */
+  min-height: min-content; /* Ensures section adapts to content */
+  gap: 2rem; /* Spacing between child elements */
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centers content vertically */
+}
+.section h1 {
+  font: var(--size3); /* Medium-sized heading */
+  color: var(--secondary); /* Golden color for headings */
 }
 
-/*Nav*/
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 8rem;
-}
-
-header img {
-  width: 4rem;
-  height: auto;
-}
-
-nav {
-  display: flex;
-  font: var(--size3);
-  gap: 2rem;
-}
-
-/*Hero section*/
-.hero {
+/* Home section */
+.home {
+  position: relative; /* Allows absolute positioning of children */
   display: flex;
   flex-direction: column;
-  gap: 35vh;
   width: 100%;
-  height: 100dvh;
-  background: url("../media/hero.webp");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
+  height: 100dvh; /* Full viewport height */
 }
-
-.hero h1 {
-  place-self: center;
+#home-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures video covers the section without distortion */
+  z-index: 1; /* Places video behind content */
+}
+.home-main {
+  flex: 1; /* Fills available space */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center; /* Centers content */
+  z-index: 5; /* Above video */
+  gap: 1rem; /* Spacing between elements */
+}
+.home-main h1 {
   text-align: center;
-  text-shadow: black 0.25rem 0.25rem 0.5rem;
-  font-size: 8rem;
+  text-shadow: black 0.25rem 0.25rem 0.5rem; /* Adds shadow for readability */
+  font-size: 3.5rem; /* Large heading */
 }
-
-/*Castle section*/
-.castlerow {
-  display: flex;
-  flex-wrap: wrap;
+.home-main .main-button {
+  font: var(--size5); /* Smaller heading size for button text */
+}
+#video-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%; /* Wrapper for making possible to have exit button in fullscreen */
+}
+
+/* Map section */
+.map-section {
+  align-items: center;
+  justify-content: center; /* Centers map content */
+}
+.map-section .cell {
+  cursor: pointer; /* Indicates cells are clickable */
+}
+
+/* Grid layout for cells */
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2-column grid for mobile */
+  gap: 1rem; /* Spacing between cells */
+  width: 100%;
+  align-items: center;
+  justify-content: center; /* Centers grid content */
+}
+.cell {
+  background: var(--primary); /* Light brown background */
+  border-radius: 2rem; /* Rounded corners */
+  padding: 1rem;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Square shape for mobile */
   display: flex;
-  gap: 2rem;
+  flex-direction: column;
+  justify-content: end; /* Aligns content to bottom */
+  transition: all 0.3s ease; /* Smooth transitions for hover effects */
+  z-index: 5; /* Above other elements */
 }
 
-.castlecell {
-  background-color: var(--primary);
-  border-radius: 2rem;
-  padding: 1.5rem;
-  aspect-ratio: 2/3;
-  align-content: end;
-  flex: 1 1 0;
+/* Adventure section */
+.adventure-section {
+  min-height: 100dvh; /* Full viewport height */
+}
+.adventure-section .row {
+  flex: 1; /* Fills available space */
+}
+.adventure-section .cell {
+  align-items: start; /* Aligns content to top */
+  justify-content: space-between; /* Distributes content vertically */
+  height: 100%; /* Full cell height */
+}
+.adventure-section .cell:hover {
+  transform: scale(1.05); /* Scales up on hover */
+}
+.adventure-section .cell p {
+  font-size: 1.333rem; /* Larger text for readability */
+}
+.adventure-section input {
+  width: 2rem;
+  height: 2rem;
+  border: 0.1rem solid var(--primary); /* Light brown border */
+  border-radius: 0.5rem; /* Rounded corners */
+  appearance: none; /* Removes default checkbox style */
+  background-color: var(--text); /* Light background */
   cursor: pointer;
+  transition: all 0.2s ease; /* Smooth transitions */
+  position: relative;
+}
+.adventure-section input:checked {
+  background-color: var(--secondary); /* Golden background when checked */
 }
 
+/* Footer */
+.contact-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  width: 100%;
+  gap: 2rem; /* Spacing between items */
+}
+
+.contact {
+  display: grid;
+  grid-template: 1fr 1fr 1fr 1fr / 1fr 1fr; /* 4x2 grid for form layout */
+  gap: 1rem;
+  flex: 1 0 100%; /* Full width on small screens */
+}
+
+.adress p,
+.adress a {
+  font-weight: bold; /* Bold text for address */
+}
+
+.adress svg {
+  margin-top: 1rem; /* Gap between svg and adress */
+  margin-right: 1rem; /* Gap between svg logos */
+  height: 4rem;
+  width: 4rem; /* Square logo/image */
+}
+
+.adress svg path {
+  transition: fill 0.3s ease;
+}
+
+.adress svg:hover path {
+  fill: var(--text);
+}
+
+textarea {
+  grid-column: 1 / span 2; /* Spans both columns */
+  grid-row: 3 / span 3; /* Spans three rows */
+  resize: none; /* Disables resizing */
+}
+footer input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+input[type="submit"] {
+  border-radius: 2rem; /* Rounded corners */
+  background: var(--accent); /* Dark brown background */
+  color: var(--text); /* Light text */
+  border: none;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  transition: transform 0.3s ease; /* Smooth scaling on focus */
+}
+footer input[type="submit"] {
+  grid-column: 2; /* Places submit button in second column */
+  place-self: end; /* Aligns to bottom-right */
+  background-color: var(--secondary); /* Golden background */
+  max-width: 75%; /* Slightly smaller width */
+  cursor: pointer;
+  font: var(--size5);
+  color: var(--background);
+}
+footer input:focus,
+textarea:focus {
+  outline: 0; /* Removes default outline */
+  transform: scale(1.05); /* Scales up slightly */
+}
+textarea:focus {
+  transform: scale(1.025) !important; /* Slightly smaller scale for textarea */
+}
+footer input[type="submit"]:hover {
+  transform: scale(1.05); /* Scales up on hover */
+}
+
+/* Alert notification */
+.alert {
+  position: absolute;
+  top: 2rem;
+  left: 2rem; /* Top-left corner */
+  background-color: var(--secondary); /* Golden background */
+  border-radius: 2rem; /* Rounded corners */
+  padding: 1rem 1.5rem;
+  pointer-events: none; /* Prevents interaction */
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.5s ease; /* Smooth fade-in/out */
+  z-index: 5000; /* High z-index to appear above all */
+}
+
+/* Responsive adjustments for larger screens */
+@media (min-width: 600px) {
+  .row {
+    gap: 2rem;
+  } /* Increases spacing in grid */
+  .section h1 {
+    font: var(--size1) !important;
+  } /* Larger heading */
+  .home-main h1 {
+    font-size: 6rem;
+  } /* Extra-large hero heading */
+  footer input[type="submit"] {
+    font: var(--size4);
+  }
+}
+@media (min-width: 1000px) {
+  .row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  } /* 3-column grid */
+  .cell {
+    aspect-ratio: unset;
+    gap: 4rem;
+  } /* Removes square ratio */
+  .adventure-section .cell {
+    gap: 8rem;
+    aspect-ratio: unset;
+  } /* Larger gaps */
+  .lore-container p {
+    font-size: 1.777rem;
+  } /* Larger lore text */
+  header {
+    padding: 2rem 8rem;
+  } /* Wider header padding */
+  .section {
+    height: auto;
+    padding: 2.5vh 7.5vw;
+  } /* Adjusted section padding */
+  .home-main {
+    gap: 0rem;
+  } /* Removes gap in hero */
+  .contact-container {
+    flex-direction: row;
+  } /* Horizontal layout */
+  .adventure-section .cell:hover {
+    transform: scale(1.1);
+  } /* Larger hover scale */
+}
+@media (min-width: 1250px) {
+  nav.desktop {
+    display: flex;
+  } /* Shows desktop navigation */
+  .home h1 {
+    font-size: 12rem;
+  } /* Massive hero heading */
+  .home-main .main-button {
+    font: var(--size4);
+  } /* Larger button text */
+  .adress a,
+  .adress p {
+    font-size: 1.333rem;
+  } /* Larger address text */
+}
+@media (min-width: 1500px) {
+  .map-section .row {
+    grid-template-columns: repeat(6, 1fr);
+  } /* 6-column grid */
+  .cell {
+    aspect-ratio: 1 / 1;
+    padding: 1.25rem;
+  } /* Square cells again */
+  .adventure-section .cell {
+    gap: 12rem;
+  } /* Even larger gaps */
+  .adventure-section .cell p {
+    font-size: 1.777rem;
+  } /* Larger Ulrich text */
+  .section {
+    padding: 5vh 10vw;
+  } /* Wider section padding */
+  .contact {
+    flex: 1 0 0;
+  } /* Flexible contact form */
+}
+
+/* Highlight effect */
 .highlight {
-  outline: var(--text) 0.25rem solid;
-  transition: all 0.1s ease-in-out;
+  transform: scale(1.1); /* Scales up element for emphasis */
+}
+
+/* Lore section */
+.lore-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Spacing between lore elements */
+}
+.lore-container p {
+  text-align: justify; /* Justified text */
+  line-height: 1.25; /* Improved readability */
+}
+.capital-letter::first-letter {
+  initial-letter: 3 2; /* Large first letter for medieval style */
+  font-family: "MedievalSharp", serif;
+  margin-right: 0.5rem;
+  line-height: 1;
+  color: var(--primary); /* Light brown color */
+}
+@supports not (initial-letter: 3 2) {
+  .capital-letter::first-letter {
+    font-size: 6em; /* Fallback for unsupported browsers */
+    float: left;
+    line-height: 1;
+    margin-right: 0.4rem;
+  }
+}
+.lore-skill img {
+  display: inline-block;
+  vertical-align: middle; /* Aligns images with text */
+  width: auto;
+  max-width: 100%;
+  height: 1.25em; /* Consistent height */
+  line-height: 1.25em;
+  object-fit: contain; /* Ensures proper image scaling */
 }
