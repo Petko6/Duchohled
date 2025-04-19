@@ -9,7 +9,7 @@ This web application delivers an immersive storytelling experience focused on Cz
 **3D Visualization:** Three.js scenes with HDR lighting, OrbitControls, and animated GLTF models.\
 **Responsive Design:** Mobile-friendly with touch events, view toggling, and dynamic resizing.\
 **Multimedia:** Adaptive video streaming (HLS/DASH) and lazy-loaded WebP images.\
-**State Persistence:** Checkbox states saved in localStorage for user continuity.\
+**State Persistence:** Checkbox states saved in localStorage for user continuity.
 
 ## Technologies:
 > Three.js, WebGPU, Leaflet, HLS/DASH, WebP, localStorage\
@@ -21,6 +21,6 @@ Designed to engage users in Czech history and folklore through a visually rich, 
 **Demo Link:** [Duchohled](https://prochazkap.soskolin.eu/duchohled)
 
 ## Creators:
-> **Petr Procházka** - Web developer [Portfolio](https://prochazkap.soskolin.eu)\
-> **Vojtěch Čtveráček** - 3D designer\
+> **Petr Procházka** - Web developer [Behance](https://www.behance.net/petrprochxzka) [Portfolio](https://prochazkap.soskolin.eu)\
+> **Vojtěch Čtveráček** - 3D designer[Behance](https://www.behance.net/ctveracek)\
 > **Vojtěch Bareš** - Graphics designer
