@@ -149,10 +149,10 @@ a:hover {
   font-size: 1.333rem; /* Larger text for readability */
 }
 .adventure-section input {
-  width: 4rem;
-  height: 4rem;
+  width: 2rem;
+  height: 2rem;
   border: 0.1rem solid var(--primary); /* Light brown border */
-  border-radius: 1rem; /* Rounded corners */
+  border-radius: 0.5rem; /* Rounded corners */
   appearance: none; /* Removes default checkbox style */
   background-color: var(--text); /* Light background */
   cursor: pointer;
@@ -265,6 +265,11 @@ footer input[type="submit"]:hover {
   } /* Extra-large hero heading */
   footer input[type="submit"] {
     font: var(--size4);
+  }
+  .adventure-section input {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 1rem; /* Rounded corners */
   }
 }
 @media (min-width: 1000px) {
