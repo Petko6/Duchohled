@@ -140,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
       icon: "./media/erby/houska.svg",
       url: "./houska",
       divId: "houska",
+      characterId: "mnich",
     },
     {
       name: "Loket",
@@ -147,6 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
       icon: "./media/erby/loket.svg",
       url: "./loket",
       divId: "loket",
+      characterId: "strakakal",
     },
     {
       name: "Rožmberk",
@@ -154,6 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
       icon: "./media/erby/rozmberk.svg",
       url: "./rozmberk",
       divId: "rozmberk",
+      characterId: "bilapani",
     },
     {
       name: "Radyně",
@@ -161,6 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
       icon: "./media/erby/radyne.svg",
       url: "./radyne",
       divId: "radyne",
+      characterId: "radous",
     },
     {
       name: "Vrškamýk",
@@ -168,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
       icon: "./media/erby/vrskamyk.svg",
       url: "./vrskamyk",
       divId: "vrskamyk",
+      characterId: "bilyrytir",
     },
     {
       name: "Kašperk",
@@ -175,6 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
       icon: "./media/erby/kasperk.svg",
       url: "./kasperk",
       divId: "kasperk",
+      characterId: "splhac",
     },
   ];
 
@@ -201,8 +207,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }).addTo(map);
     }
 
-    // Gets the DOM element (cell) for the castle in the list
+    // Gets the DOM element (cell) for the castle in the list and corresponding character cell
     let castlecell = document.getElementById(castle.divId);
+    let charactercell = document.getElementById(castle.characterId);
 
     // Lazy-loads a WebP background image for the castle cell
     const img = new Image();
@@ -231,40 +238,69 @@ document.addEventListener("DOMContentLoaded", function () {
     //   }
     // };
 
-    // Opens the castle's page when the marker is clicked
-    marker?.on("click", () => {
-      window.location.href = castle.url;
-    });
-
-    // Adds hover effects for markers on desktop
-    if (!isMobile) {
-      marker?.on("mouseover", () => {
-        toggleHighlight(true, marker, castlecell); // Highlights marker and cell
-        // preloadModel();
-      });
-      marker?.on("mouseout", () => toggleHighlight(false, marker, castlecell)); // Removes highlight
+    function debounce(fn, wait) {
+      let timeout;
+      return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn(...args), wait);
+      };
     }
 
-    // Adds hover effects for the castle cell (works on mobile and desktop)
-    castlecell.addEventListener("pointerenter", () => {
-      toggleHighlight(true, marker, castlecell); // Highlights cell and marker
-      // preloadModel();
+    // Marker hover (desktop only)
+    if (!isMobile) {
+      marker?.on(
+        "mouseover",
+        debounce(() => toggleHighlight(true, marker, castlecell), 50)
+      );
+      marker?.on(
+        "mouseout",
+        debounce(() => toggleHighlight(false, marker, castlecell), 50)
+      );
+      // Opens the castle's page when the marker is clicked
+      marker?.on("click", () => {
+        window.location.href = castle.url;
+      });
+    }
+
+    // Unified hover effect
+    [castlecell, charactercell].forEach((cell) => {
+      const isCastleCell = cell === castlecell;
+      cell.addEventListener("pointerenter", () => {
+        toggleHighlight(true, isCastleCell ? marker : null, cell);
+      });
+      cell.addEventListener("pointerleave", () => {
+        toggleHighlight(false, isCastleCell ? marker : null, cell);
+      });
+      cell.addEventListener("click", (event) => {
+        // Check if the clicked element is the input checkbox
+        if (event.target.type === "checkbox") {
+          // Prevent the div's click event from doing anything
+          return;
+        }
+        if (cell === charactercell) {
+          // On the microsite load already character into view
+          window.location.href = `${castle.url}/index.html?loadCharacter=true`;
+          console.log("character");
+        } else window.location.href = castle.url;
+      });
     });
-    castlecell.addEventListener("pointerleave", () => {
-      toggleHighlight(false, marker, castlecell); // Removes highlight
-    });
+
+    // // Adds hover effects for the castle cell (works on mobile and desktop)
+    // castlecell.addEventListener("pointerenter", () => {
+    //   toggleHighlight(true, marker, castlecell); // Highlights cell and marker
+    //   // preloadModel();
+    // });
+    // castlecell.addEventListener("pointerleave", () => {
+    //   toggleHighlight(false, marker, castlecell); // Removes highlight
+    // });
 
     // Removes highlight on touch end for mobile devices
     if (isMobile) {
       document.addEventListener("touchend", () => {
         toggleHighlight(false, marker, castlecell);
+        toggleHighlight(false, null, charactercell);
       });
     }
-
-    // Opens the castle's page when the cell is clicked
-    castlecell.addEventListener("click", () => {
-      window.location.href = castle.url;
-    });
   });
 
   // Initializes the footer map centered on Prague Castle
