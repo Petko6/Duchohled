@@ -106,9 +106,6 @@ a:hover {
   align-items: center;
   justify-content: center; /* Centers map content */
 }
-.map-section .cell {
-  cursor: pointer; /* Indicates cells are clickable */
-}
 
 /* Grid layout for cells */
 .row {
@@ -130,6 +127,7 @@ a:hover {
   justify-content: end; /* Aligns content to bottom */
   transition: all 0.3s ease; /* Smooth transitions for hover effects */
   z-index: 5; /* Above other elements */
+  cursor: pointer; /* Indicates cells are clickable */
 }
 
 /* Adventure section */
@@ -151,10 +149,10 @@ a:hover {
   font-size: 1.333rem; /* Larger text for readability */
 }
 .adventure-section input {
-  width: 2rem;
-  height: 2rem;
+  width: 4rem;
+  height: 4rem;
   border: 0.1rem solid var(--primary); /* Light brown border */
-  border-radius: 0.5rem; /* Rounded corners */
+  border-radius: 1rem; /* Rounded corners */
   appearance: none; /* Removes default checkbox style */
   background-color: var(--text); /* Light background */
   cursor: pointer;
