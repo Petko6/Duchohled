@@ -28,6 +28,10 @@ body {
   scroll-behavior: smooth; /* Smooth scrolling for anchor links */
 }
 
+.hidebodyoverflow {
+  overflow: hidden !important;
+}
+
 /* Link styles */
 a {
   text-decoration: none; /* Removes underline from links */
