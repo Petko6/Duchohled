@@ -74,3 +74,9 @@ function toggleView() {
     }
   });
 }
+
+const params = new URLSearchParams(window.location.search);
+if (params.get("loadCharacter") === "true") {
+  toggleView();
+}
+
