@@ -27,6 +27,7 @@ class Loop {
       // Renders the scene with the current camera view
       this.renderer.render(this.scene, this.camera);
     });
+    // console.log("Scene rendered", performance.now());
   }
 
   // Stops the animation loop
@@ -39,11 +40,6 @@ class Loop {
   tick() {
     // Gets time since last frame for smooth animations
     const delta = clock.getDelta();
-
-    // Commented-out: Logs frame time for debugging
-    // console.log(
-    //   `The last frame rendered in ${delta * 1000} milliseconds`,
-    // );
 
     // Calls tick function on each updatable object with time delta
     for (const object of this.updatables) {
