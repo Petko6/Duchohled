@@ -1,34 +1,70 @@
-// Imports Three.js core for 3D scene management
 import * as THREE from "three";
-// Imports GLTFLoader for loading 3D models in GLTF format
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-// Asynchronously loads and configures a 3D model
-async function importModel(modelName) {
-  // Initializes GLTFLoader with the models directory path
-  const gltfLoader = new GLTFLoader().setPath("../models/");
-  // Loads the specified GLB model file asynchronously
-  const gltf = await gltfLoader.loadAsync(`/${modelName}.glb`);
+// Asynchronously loads and configures a 3D model with optional preloaded data
+async function importModel(modelName, preloadedData = null) {
+  // Initialize GLTFLoader for loading GLTF/GLB models
+  const gltfLoader = new GLTFLoader();
+  let gltf;
 
-  // Extracts the model’s scene (3D object hierarchy)
+  // Cache name for storing models
+  const CACHE_NAME = "model-cache";
+
+  if (preloadedData) {
+    // Process preloaded data (ArrayBuffer)
+    try {
+      gltf = await gltfLoader.parseAsync(preloadedData, "");
+    } catch (error) {
+      console.error(`Error parsing preloaded model ${modelName}:`, error);
+      throw error;
+    }
+  } else {
+    // Attempt to load from cache or file
+    try {
+      const cache = await caches.open(CACHE_NAME);
+      const url = `../models/${modelName}.glb`;
+      const cachedResponse = await cache.match(url);
+
+      if (cachedResponse) {
+        // Load model from cache
+        const arrayBuffer = await cachedResponse.arrayBuffer();
+        gltf = await gltfLoader.parseAsync(arrayBuffer, "");
+      } else {
+        // Load model from file and store in cache
+        gltf = await gltfLoader
+          .setPath("../models/")
+          .loadAsync(`/${modelName}.glb`);
+
+        // Cache the model data
+        try {
+          const arrayBuffer = await (await fetch(url)).arrayBuffer();
+          await cache.put(url, new Response(arrayBuffer));
+        } catch (error) {
+          console.warn(`Failed to cache model ${modelName}:`, error);
+        }
+      }
+    } catch (error) {
+      console.error(`Error loading model ${modelName}:`, error);
+      throw error;
+    }
+  }
+
+  // Extract the model’s scene and animations
   const model = gltf.scene;
-  // Retrieves any animations included in the model
   const clip = gltf.animations;
 
-  // Creates an AnimationMixer to manage model animations
+  // Set up AnimationMixer for model animations
   const mixer = new THREE.AnimationMixer(model);
-  // Defines a tick function to update animations each frame
   model.tick = (delta) => {
-    // Advances the animation mixer by the frame’s time delta
+    // Update animations based on frame delta
     mixer.update(delta);
-    // Plays all animation clips in the model
     clip.forEach((clip) => {
       mixer.clipAction(clip).play();
     });
   };
-  // Returns the configured model for scene integration
+
+  // Return the configured model
   return model;
 }
 
-// Exports importModel for use in other modules
 export { importModel };
