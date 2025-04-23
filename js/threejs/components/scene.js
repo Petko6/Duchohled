@@ -1,30 +1,68 @@
-// Imports the core Three.js library
 import * as THREE from "three";
+import { EXRLoader } from "three/addons/loaders/EXRLoader.js";
 
-// Defines an asynchronous function to create a Three.js scene
+// Creates a Three.js scene with an HDR environment map
 async function createScene(model) {
-  // Creates a new Three.js scene
+  // Initialize scene
   const scene = new THREE.Scene();
 
-  // Adds model to the scene for rendering
   scene.add(model);
 
-  const environmentTexture = await new THREE.TextureLoader()
-    // Sets the base path
-    .setPath("../media/")
-    // Loads the environment texture
-    .loadAsync("environment.jpg");
+  let exrTextureName = "venice_sunset_1k.exr";
 
-  environmentTexture.mapping = THREE.EquirectangularReflectionMapping;
+  // Cache name for storing assets
+  const CACHE_NAME = "model-cache";
+  const exrUrl = `../media/${exrTextureName}`;
+  let hdrTexture;
 
-  // Sets the environment texture as the scene’s environment map for lighting/reflections
-  scene.environment = environmentTexture;
-  // Sets a solid dark background color (hex: #201c1c)
+  // Attempt to load EXR texture from cache or file
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    const cachedResponse = await cache.match(exrUrl);
+
+    if (cachedResponse) {
+      // Load texture from cache
+      const blob = await cachedResponse.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      hdrTexture = await new EXRLoader().loadAsync(blobUrl);
+      URL.revokeObjectURL(blobUrl); // Clean up
+    } else {
+      // Load texture from file and store in cache
+      hdrTexture = await new EXRLoader()
+        .setPath("../media/")
+        .loadAsync(exrTextureName);
+
+      // Cache the texture data
+      try {
+        const response = await fetch(exrUrl);
+        if (!response.ok)
+          throw new Error(`Failed to fetch EXR texture ${exrTextureName}`);
+        await cache.put(exrUrl, response.clone());
+      } catch (error) {
+        console.warn(`Failed to cache EXR texture ${exrTextureName}:`, error);
+      }
+    }
+  } catch (error) {
+    console.error(`Error loading EXR texture ${exrTextureName}:`, error);
+    throw error;
+  }
+
+  // Configure texture for equirectangular reflection mapping
+  hdrTexture.mapping = THREE.EquirectangularReflectionMapping;
+
+  // Set scene environment and background
+  scene.environment = hdrTexture;
   scene.background = new THREE.Color().setHex(0x201c1c);
 
-  // Returns the configured scene
+  // Add dispose method to clean up resources
+  scene.dispose = function () {
+    if (scene.environment) {
+      scene.environment.dispose();
+    }
+  };
+
+  // Return the configured scene
   return scene;
 }
 
-// Exports the createScene function for use in other modules
 export { createScene };

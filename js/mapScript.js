@@ -218,15 +218,33 @@ document.addEventListener("DOMContentLoaded", function () {
       castlecell.style.background = `url('${img.src}') no-repeat top/cover`;
     };
 
-    // Preload model function
-    async function preloadModel(modelName) {
+    // Preloads model and/or EXR texture into cache
+    async function preloadAssets(
+      modelName = null,
+      exrTextureName = "venice_sunset_1k.exr"
+    ) {
       const cache = await caches.open("model-cache");
-      const url = `../models/${modelName}.glb`;
-      const cachedResponse = await cache.match(url);
-      if (!cachedResponse) {
-        const response = await fetch(url);
-        await cache.put(url, response.clone());
-        // console.log(`Model ${modelName} uložen do cache`);
+
+      // Preload model if modelName is provided
+      if (modelName) {
+        const modelUrl = `../models/${modelName}.glb`;
+        const cachedModel = await cache.match(modelUrl);
+        if (!cachedModel) {
+          const response = await fetch(modelUrl);
+          if (!response.ok)
+            throw new Error(`Failed to fetch model ${modelName}`);
+          await cache.put(modelUrl, response.clone());
+        }
+      }
+
+      // Preload EXR texture
+      const exrUrl = `../media/${exrTextureName}`;
+      const cachedExr = await cache.match(exrUrl);
+      if (!cachedExr) {
+        const response = await fetch(exrUrl);
+        if (!response.ok)
+          throw new Error(`Failed to fetch EXR texture ${exrTextureName}`);
+        await cache.put(exrUrl, response.clone());
       }
     }
 
@@ -245,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "mouseover",
         debounce(() => {
           toggleHighlight(true, marker, castlecell);
-          preloadModel(castle.divId);
+          preloadAssets(castle.divId);
         }, 50)
       );
       marker?.on(
@@ -263,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const isCastleCell = cell === castlecell;
       cell.addEventListener("pointerenter", () => {
         toggleHighlight(true, isCastleCell ? marker : null, cell);
-        preloadModel(castle.divId);
+        preloadAssets(castle.divId);
       });
       cell.addEventListener("pointerleave", () => {
         toggleHighlight(false, isCastleCell ? marker : null, cell);
