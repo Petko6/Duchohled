@@ -27,28 +27,25 @@ let stats;
 // Defines a class to manage a Three.js 3D scene
 class Three {
   // Constructor takes a canvas container and model name
-  constructor(container, modelName) {
+  constructor(container) {
     // Initializes camera for 3D perspective
     camera = createCamera();
     // Sets up Stats for FPS and performance tracking
     stats = Stats();
     // Stores the canvas container
     this.container = container;
-    // Stores the 3D model name
-    this.modelName = modelName;
 
     // Commented-out: Adds Stats panel to the DOM (for debugging)
     // document.body.appendChild(stats.dom);
   }
 
   // Initializes the 3D scene and components asynchronously
-  async init() {
+  async init(model) {
+    // Creates scene with environment and background
+    scene = await createScene(model);
     // Creates renderer for WebGL rendering
     renderer = await createRenderer(this.container);
-    // Creates scene with environment and background
-    scene = await createScene();
-    // Loads the specified 3D model
-    model = await importModel(this.modelName);
+
     // Sets up controls for camera interaction
     controls = createControls(camera, renderer.domElement);
 
@@ -58,15 +55,13 @@ class Three {
     loop.updatables.push(model);
     // Adds controls to the loop for user input handling
     loop.updatables.push(controls);
-    // Adds model to the scene for rendering
-    scene.add(model);
 
     // Defines Stats update function
-    stats.tick = () => {
-      stats.update();
-    };
+    // stats.tick = () => {
+    //   stats.update();
+    // };
     // Adds Stats to the loop for performance tracking
-    loop.updatables.push(stats);
+    // loop.updatables.push(stats);
 
     // Creates Resizer to handle canvas resizing
     const resizer = new Resizer(renderer.domElement, camera, renderer, scene);
@@ -74,9 +69,9 @@ class Three {
     loop.updatables.push(resizer);
   }
 
-  // Renders a single frame of the 3D scene
-  render() {
-    renderer.render(scene, camera);
+  async loadModel(modelName) {
+    // Loads the specified 3D model
+    return (model = await importModel(modelName));
   }
 
   // Starts the animation loop for continuous rendering

@@ -111,9 +111,9 @@
         import { Three } from "../js/threejs/main.js";
 
         const modelName = "houska";
-        const three = new Three(threecontainer, modelName);
-        await three.init();
-        three.render();
+        const three = new Three(threecontainer);
+        const model = await three.loadModel(modelName);
+        await three.init(model);
         three.start();
     </script>
     <!-- Module script to render image onto second Canvas -->

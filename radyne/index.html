@@ -31,8 +31,8 @@
         </nav>
 
         <!-- Mobile navigation with a hamburger menu icon -->
-        <div aria-label="Toggle mobile navigation" data-aos="fade-left" data-aos-duration="500" data-aos-easing="ease-in-sine" id="hamburger"
-            class="hamburger mobile">
+        <div aria-label="Toggle mobile navigation" data-aos="fade-left" data-aos-duration="500"
+            data-aos-easing="ease-in-sine" id="hamburger" class="hamburger mobile">
             <svg width="32pt" height="32pt" viewBox="0 0 26 23" xmlns="http://www.w3.org/2000/svg">
                 <g stroke-linecap="round" fill-rule="evenodd" fill="#f6f6f6">
                     <!-- Line 1: Y +0 -->
@@ -78,7 +78,8 @@
                 šeptají jeho jméno dodnes.</p>
         </div>
         <!-- Fullscreen toggle button with enter/exit icons -->
-        <div aria-label="Toggle fullscreen" id="fullscreenbutton" class="fullscreenbutton button" onclick="toggleFullscreen()">
+        <div aria-label="Toggle fullscreen" id="fullscreenbutton" class="fullscreenbutton button"
+            onclick="toggleFullscreen()">
             <img id="fullscreen-enter" src="../media/svg/fullscreen.svg" alt="">
             <img id="fullscreen-exit" src="../media/svg/fullscreen-exit.svg" alt="">
         </div>
@@ -112,9 +113,9 @@
         import { Three } from "../js/threejs/main.js";
 
         const modelName = "radyne";
-        const three = new Three(threecontainer, modelName);
-        await three.init();
-        three.render();
+        const three = new Three(threecontainer);
+        const model = await three.loadModel(modelName);
+        await three.init(model);
         three.start();
     </script>
     <!-- Module script to render image onto second Canvas -->

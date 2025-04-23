@@ -1,29 +1,27 @@
 // Imports the core Three.js library
 import * as THREE from "three";
-// Imports the EXRLoader for loading HDR environment maps
-import { EXRLoader } from "three/addons/loaders/EXRLoader.js";
 
 // Defines an asynchronous function to create a Three.js scene
-async function createScene() {
+async function createScene(model) {
   // Creates a new Three.js scene
   const scene = new THREE.Scene();
 
-  // Loads an HDR environment map asynchronously
-  const hdrTexture = await new EXRLoader()
-    // Sets the base path for the HDR file
+  // Adds model to the scene for rendering
+  scene.add(model);
+
+  const environmentTexture = await new THREE.TextureLoader()
+    // Sets the base path
     .setPath("../media/")
-    // Loads the EXR file (venice_sunset_1k.exr)
-    .loadAsync("venice_sunset_1k.exr");
+    // Loads the environment texture
+    .loadAsync("environment.jpg");
 
-  // Configures the HDR texture for equirectangular reflection mapping (360 degree image)
-  hdrTexture.mapping = THREE.EquirectangularReflectionMapping;
+  environmentTexture.mapping = THREE.EquirectangularReflectionMapping;
 
-  // Sets the HDR texture as the scene’s environment map for lighting/reflections
-  scene.environment = hdrTexture;
+  // Sets the environment texture as the scene’s environment map for lighting/reflections
+  scene.environment = environmentTexture;
   // Sets a solid dark background color (hex: #201c1c)
   scene.background = new THREE.Color().setHex(0x201c1c);
-  // Dispose of environment texture to avoid memory leaks
-  scene.environment.dispose();
+
   // Returns the configured scene
   return scene;
 }
