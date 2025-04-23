@@ -2,6 +2,10 @@
 /* Imports variables and header component styles for modularity */
 @import "./variables.css";
 @import "./components/header.css";
+/* Loads MedievalSharp and Lora fonts from Google Fonts for headings and body text */
+@import url("https://fonts.googleapis.com/css?family=MedievalSharp|Lora");
+/* Imports Normalize.css to standardize default browser styles for consistent rendering */
+@import "./libraries/normalize.css";
 
 /* Global settings */
 /* Configures HTML and body for full-screen layout and consistent styling */

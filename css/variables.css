@@ -1,8 +1,4 @@
 /* Import external resources */
-/* Loads MedievalSharp and Lora fonts from Google Fonts for headings and body text */
-@import url("https://fonts.googleapis.com/css?family=MedievalSharp|Lora");
-/* Imports Normalize.css to standardize default browser styles for consistent rendering */
-@import "./libraries/normalize.css";
 
 /* CSS Custom Properties for reusable values */
 /* Defines colors and typography settings for easy maintenance */
