@@ -120,6 +120,11 @@ body {
   transition: translate 0.5s ease; /* Smooth sliding animation */
   will-change: transform; /* Optimizes animation */
 }
+#threecontainer {
+  background: #241f1f;
+  /* Color of Three environment with environment texture on */
+}
+
 #imagecontainer {
   object-fit: cover; /* Ensures image covers container */
   object-position: center; /* Centers image */
