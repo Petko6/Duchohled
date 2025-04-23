@@ -18,7 +18,7 @@ This web application delivers an immersive storytelling experience focused on Cz
 ## Purpose: 
 Designed to engage users in Czech history and folklore through a visually rich, interactive platform, ideal for educational or tourism purposes.
 
-**Demo Link:** [Duchohled](https://prochazkap.soskolin.eu/duchohled)
+**Demo Link:** [Duchohled](https://duchohled.cz)
 
 ## Creators:
 > **Petr Procházka** - Web developer [Behance](https://www.behance.net/petrprochxzka) [Portfolio](https://prochazkap.soskolin.eu)\
