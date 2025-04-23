@@ -218,26 +218,19 @@ document.addEventListener("DOMContentLoaded", function () {
       castlecell.style.background = `url('${img.src}') no-repeat top/cover`;
     };
 
-    // Commented-out function to preload a 3D model (not currently used)
-    // const preloadModel = () => {
-    //   if (!isModelPreloaded) {
-    //     fetch(`./models/${castle.divId}.glb`, {
-    //       method: "GET",
-    //       cache: "force-cache",
-    //     })
-    //       .then(() => {
-    //         isModelPreloaded = true;
-    //         console.log(`Model pro ${castle.name} předběžně načten.`);
-    //       })
-    //       .catch((error) => {
-    //         console.error(
-    //           `Chyba při načítání modelu pro ${castle.name}:`,
-    //           error
-    //         );
-    //       });
-    //   }
-    // };
+    // Preload model function
+    async function preloadModel(modelName) {
+      const cache = await caches.open("model-cache");
+      const url = `../models/${modelName}.glb`;
+      const cachedResponse = await cache.match(url);
+      if (!cachedResponse) {
+        const response = await fetch(url);
+        await cache.put(url, response.clone());
+        // console.log(`Model ${modelName} uložen do cache`);
+      }
+    }
 
+    // Prevents spam of calls
     function debounce(fn, wait) {
       let timeout;
       return (...args) => {
@@ -250,7 +243,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!isMobile) {
       marker?.on(
         "mouseover",
-        debounce(() => toggleHighlight(true, marker, castlecell), 50)
+        debounce(() => {
+          toggleHighlight(true, marker, castlecell);
+          preloadModel(castle.divId);
+        }, 50)
       );
       marker?.on(
         "mouseout",
@@ -267,6 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const isCastleCell = cell === castlecell;
       cell.addEventListener("pointerenter", () => {
         toggleHighlight(true, isCastleCell ? marker : null, cell);
+        preloadModel(castle.divId);
       });
       cell.addEventListener("pointerleave", () => {
         toggleHighlight(false, isCastleCell ? marker : null, cell);
@@ -280,19 +277,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (cell === charactercell) {
           // On the microsite load already character into view
           window.location.href = `${castle.url}/index.html?loadCharacter=true`;
-          console.log("character");
         } else window.location.href = castle.url;
       });
     });
-
-    // // Adds hover effects for the castle cell (works on mobile and desktop)
-    // castlecell.addEventListener("pointerenter", () => {
-    //   toggleHighlight(true, marker, castlecell); // Highlights cell and marker
-    //   // preloadModel();
-    // });
-    // castlecell.addEventListener("pointerleave", () => {
-    //   toggleHighlight(false, marker, castlecell); // Removes highlight
-    // });
 
     // Removes highlight on touch end for mobile devices
     if (isMobile) {
