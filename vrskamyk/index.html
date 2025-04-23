@@ -14,6 +14,15 @@
     <!-- Custom script for mobile navigation -->
     <script defer src="../js/nav.js"></script>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WMKR900N9V"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-WMKR900N9V');
+</script>
 
 <body>
     <!-- Header containing logo and navigation -->
@@ -31,8 +40,8 @@
         </nav>
 
         <!-- Mobile navigation with a hamburger menu icon -->
-        <div aria-label="Toggle mobile navigation" data-aos="fade-left" data-aos-duration="500" data-aos-easing="ease-in-sine" id="hamburger"
-            class="hamburger mobile">
+        <div aria-label="Toggle mobile navigation" data-aos="fade-left" data-aos-duration="500"
+            data-aos-easing="ease-in-sine" id="hamburger" class="hamburger mobile">
             <svg width="32pt" height="32pt" viewBox="0 0 26 23" xmlns="http://www.w3.org/2000/svg">
                 <g stroke-linecap="round" fill-rule="evenodd" fill="#f6f6f6">
                     <!-- Čára 1: Y +0 -->
@@ -77,7 +86,8 @@
                 mezi stromy. Jen ti nejodvážnější se k hradu vydávají po setmění.</p>
         </div>
         <!-- Fullscreen toggle button with enter/exit icons -->
-        <div aria-label="Toggle fullscreen" id="fullscreenbutton" class="fullscreenbutton button" onclick="toggleFullscreen()">
+        <div aria-label="Toggle fullscreen" id="fullscreenbutton" class="fullscreenbutton button"
+            onclick="toggleFullscreen()">
             <img id="fullscreen-enter" src="../media/svg/fullscreen.svg" alt="">
             <img id="fullscreen-exit" src="../media/svg/fullscreen-exit.svg" alt="">
         </div>
