@@ -2,6 +2,15 @@
 <html lang="cs">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WMKR900N9V"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WMKR900N9V');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Houska</title>
@@ -14,15 +23,7 @@
     <!-- Custom script for mobile navigation -->
     <script defer src="../js/nav.js"></script>
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WMKR900N9V"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-WMKR900N9V');
-</script>
 <body>
     <!-- Header containing logo and navigation -->
     <header>
@@ -85,7 +86,8 @@
                 dívá se. Říká se, že kdo v noci přespí na Housce, se ráno probudí s prázdnou myslí — nebo vůbec.</p>
         </div>
         <!-- Fullscreen toggle button with enter/exit icons -->
-        <div aria-label="Toggle fullscreen" id="fullscreenbutton" class="fullscreenbutton button" onclick="toggleFullscreen()">
+        <div aria-label="Toggle fullscreen" id="fullscreenbutton" class="fullscreenbutton button"
+            onclick="toggleFullscreen()">
             <img id="fullscreen-enter" src="../media/svg/fullscreen.svg" alt="">
             <img id="fullscreen-exit" src="../media/svg/fullscreen-exit.svg" alt="">
         </div>
