@@ -4,6 +4,15 @@
 <html lang="cs">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WMKR900N9V"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WMKR900N9V');
+    </script>
     <!-- Sets character encoding to UTF-8 for proper display of special characters -->
     <meta charset="UTF-8">
     <!-- Ensures compatibility with Internet Explorer -->
@@ -13,11 +22,24 @@
     <!-- Sets the page title displayed in the browser tab -->
     <title>Duchohled</title>
     <!-- Links to the main CSS stylesheet for styling the website -->
-    <link defer rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
+
     <!-- Links to Leaflet CSS for interactive map functionality -->
-    <link rel="stylesheet" href="./css/libraries/leaflet.css" />
+    <link rel="preload" href="./css/libraries/leaflet.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="./css/libraries/leaflet.css">
+    </noscript>
     <!-- Links to AOS (Animate On Scroll) CSS for scroll animations -->
-    <link rel="stylesheet" href="./css/libraries/aos.css">
+    <link rel="preload" href="./css/libraries/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="./css/libraries/aos.css">
+    </noscript>
+    <!-- Links to normalize.css -->
+    <link rel="preload" href="./css/libraries/normalize.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="./css/libraries/normalize.css">
+    </noscript>
+
     <!-- Sets the favicon (icon shown in the browser tab) -->
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 
@@ -30,24 +52,14 @@
     <!-- Loads Labelgun for managing map labels -->
     <script defer src="./js/libraries/labelgun.min.js"></script>
     <!-- Custom script for map-related functionality -->
-    <script src="./js/mapScript.js"></script>
+    <script defer src="./js/mapScript.js"></script>
     <!-- Loads AOS.js for scroll-based animations -->
-    <script src="./js/libraries/aos.js"></script>
+    <script defer src="./js/libraries/aos.js"></script>
     <!-- Custom script for adventure section functionality -->
     <script defer src="./js/adventure.js"></script>
     <!-- Custom script for mobile navigation -->
     <script defer src="./js/nav.js"></script>
 </head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WMKR900N9V"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-WMKR900N9V');
-</script>
 
 <body>
 
@@ -319,10 +331,10 @@
     </script>
 
     <!-- Initializes AOS library for scroll animations -->
-    <script>
-        AOS.init({
-            once: false, // Animations replay when scrolling back up
-        });
+    <script>document.addEventListener("DOMContentLoaded", function () {
+            AOS.init({
+            });
+        })
     </script>
 </body>
 
