@@ -24,6 +24,7 @@ body {
 /* Body-specific styles */
 body {
   overflow-y: scroll; /* Enables vertical scrolling */
+  overflow-x: hidden;
   height: 100dvh; /* Full viewport height, dynamic for mobile */
   scroll-behavior: smooth; /* Smooth scrolling for anchor links */
 }
@@ -103,6 +104,7 @@ a:hover {
   left: 0;
   width: 100%;
   height: 100%; /* Wrapper for making possible to have exit button in fullscreen */
+  overflow: hidden;
 }
 
 /* Map section */
