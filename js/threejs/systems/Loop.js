@@ -1,8 +1,8 @@
 // Imports Three.js core for 3D rendering utilities
-import * as THREE from "three";
+import { Clock } from "three";
 
 // Creates a clock to track time deltas between frames
-const clock = new THREE.Clock();
+const clock = new Clock();
 
 // Defines a class to manage the animation loop for a Three.js scene
 class Loop {

@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import { AnimationMixer } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 // Asynchronously loads and configures a 3D model with optional preloaded data
@@ -54,7 +54,7 @@ async function importModel(modelName, preloadedData = null) {
   const clip = gltf.animations;
 
   // Set up AnimationMixer for model animations
-  const mixer = new THREE.AnimationMixer(model);
+  const mixer = new AnimationMixer(model);
   model.tick = (delta) => {
     // Update animations based on frame delta
     mixer.update(delta);

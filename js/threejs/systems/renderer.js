@@ -1,7 +1,7 @@
 // Imports WebGPURenderer for modern GPU-based rendering
 import { WebGPURenderer } from "three/webgpu";
 // Imports Three.js core for rendering utilities
-import * as THREE from "three";
+import { LinearToneMapping } from "three";
 
 // Creates a WebGPU renderer for a canvas asynchronously
 async function createRenderer(container) {
@@ -19,10 +19,8 @@ async function createRenderer(container) {
   });
   // Initializes the WebGPU backend for rendering
   await renderer.init();
-  // Sets sRGB encoding for accurate color output
-  renderer.outputEncoding = THREE.sRGBEncoding;
   // Uses linear tone mapping for natural lighting
-  renderer.toneMapping = THREE.LinearToneMapping;
+  renderer.toneMapping = LinearToneMapping;
   // Adjusts exposure for brighter visuals
   renderer.toneMappingExposure = 1.2;
   // Enables realistic light calculations

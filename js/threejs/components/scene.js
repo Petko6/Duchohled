@@ -1,10 +1,10 @@
-import * as THREE from "three";
+import { Scene, EquirectangularReflectionMapping, Color } from "three";
 import { EXRLoader } from "three/addons/loaders/EXRLoader.js";
 
 // Creates a Three.js scene with an HDR environment map
 async function createScene(model) {
   // Initialize scene
-  const scene = new THREE.Scene();
+  const scene = new Scene();
 
   scene.add(model);
 
@@ -48,11 +48,11 @@ async function createScene(model) {
   }
 
   // Configure texture for equirectangular reflection mapping
-  hdrTexture.mapping = THREE.EquirectangularReflectionMapping;
+  hdrTexture.mapping = EquirectangularReflectionMapping;
 
   // Set scene environment and background
   scene.environment = hdrTexture;
-  scene.background = new THREE.Color().setHex(0x201c1c);
+  scene.background = new Color().setHex(0x201c1c);
 
   // Add dispose method to clean up resources
   scene.dispose = function () {
