@@ -60,7 +60,7 @@
     <!-- Custom script for map-related functionality -->
     <script defer src="./js/mapScript.js"></script>
     <!-- Loads AOS.js for scroll-based animations -->
-    <script defer src="./js/libraries/aos.js"></script>
+    <script src="./js/libraries/aos.js"></script>
     <!-- Custom script for adventure section functionality -->
     <script defer src="./js/adventure.js"></script>
     <!-- Custom script for mobile navigation -->
@@ -103,8 +103,6 @@
                             d="M 1.636 14 L 2.271 14.195 A 23.196 23.196 0 0 0 4.823 14.689 Q 7.595 15.082 11.559 15.155 A 101.615 101.615 0 0 0 13.428 15.172 Q 18.359 15.172 23.706 14 A 25.554 25.554 0 0 0 23.047 15.735 A 19.693 19.693 0 0 0 22.62 17.174 A 18.072 18.072 0 0 0 22.119 20.152 L 21.509 20.006 Q 16.431 19.151 11.06 19.151 L 10.205 19.151 Q 4.956 19.151 0 20.152 A 10.579 10.579 0 0 0 0.269 19.566 Q 0.532 18.947 0.83 18.085 A 37.71 37.71 0 0 0 0.928 17.796 A 11.87 11.87 0 0 0 1.268 16.547 Q 1.42 15.847 1.525 15.034 A 24.407 24.407 0 0 0 1.636 14 Z" />
                     </g>
                 </svg>
-
-                <!-- <img src="./media/svg/hamburger.svg" alt="Hamburger menu"> -->
             </div>
             <nav id="mobilenav" class="mobile"> <a href="#lore">Zákulisí</a>
                 <a href="#adventure">Objevník</a>
@@ -127,9 +125,11 @@
             <!-- Autoplaying, muted, looping video for the homepage background -->
             <video id="home-video" muted autoplay playsinline loop poster="./media/home.webp"></video>
             <!-- Fullscreen toggle button for the video -->
-            <div id="fullscreen-button" aria-label="Toggle fullscreen" class="button fullscreenbutton">
-                <img id="fullscreen-enter" src="./media/svg/fullscreen.svg" alt="Fullscreen icon">
-                <img id="fullscreen-exit" src="./media/svg/fullscreen-exit.svg" alt="Fullscreen icon">
+            <div data-aos="fade-left" id="fullscreen-button" aria-label="Toggle fullscreen"
+                class="button fullscreenbutton">
+                <img loading="lazy" id="fullscreen-enter" src="./media/svg/fullscreen.svg" alt="Fullscreen icon">
+                <img loading="lazy" id="fullscreen-exit" src="./media/svg/fullscreen-exit.svg"
+                    alt="Fullscreen exit icon">
             </div>
         </div>
     </div>
@@ -201,16 +201,20 @@
             <!-- Paragraph explaining the tools and team behind the project -->
             <p class="capital-letter lore-skill">A pokud se ptáte, jak byl tento nástroj vytvořen – vězte, že i zde je
                 skrytý příběh. Každá ilustrace byla ručně malována grafickým tabletem
-                <img src="./media/skill/photoshop.svg" alt="Photoshop icon">
-                <img src="./media/skill/illustrator.svg" alt="Illustrator icon">, každý model pečlivě vytvořen v
+                <img loading="lazy" src="./media/skill/photoshop.svg" alt="Photoshop icon">
+                <img loading="lazy" src="./media/skill/illustrator.svg" alt="Illustrator icon">, každý model pečlivě
+                vytvořen v
                 Blenderu
-                <img src="./media/skill/blender.svg" alt="Blender icon">, každý řádek kódu napsán s pečlivostí, jakou si
+                <img loading="lazy" src="./media/skill/blender.svg" alt="Blender icon">, každý řádek kódu napsán s
+                pečlivostí, jakou si
                 tajemství zaslouží. Pro zobrazení mapy jsme použili Leaflet
-                <img src="./media/skill/leaflet.svg" alt="Leaflet icon">, pro modely Three.js
-                <img src="./media/skill/threejs.svg" alt="Three.js icon">, a celý web byl postaven na pevných základech
+                <img loading="lazy" src="./media/skill/leaflet.svg" alt="Leaflet icon">, pro modely Three.js
+                <img loading="lazy" src="./media/skill/threejs.svg" alt="Three.js icon">, a celý web byl postaven na
+                pevných základech
                 HTML
-                <img src="./media/skill/html.svg" alt="HTML icon"> a CSS
-                <img src="./media/skill/css.svg" alt="CSS icon">. Pracovali jsme jako tým: Vojta Bareš vdechl život
+                <img loading="lazy" src="./media/skill/html.svg" alt="HTML icon"> a CSS
+                <img loading="lazy" src="./media/skill/css.svg" alt="CSS icon">. Pracovali jsme jako tým: Vojta Bareš
+                vdechl život
                 ilustracím, Vojta Čtveráček postavil hrady z digitálního kamene a já, Petr Procházka, jsem dal vše
                 dohromady do této brány do neznáma.
             </p>
@@ -295,7 +299,6 @@
                 <a href="mailto:duchohled@gmail.com">Duchohled@gmail.com</a><br>
                 <!-- Instagram link with icon -->
                 <a href="https://instagram.com/duchohled">
-                    <!-- <img src="./media/svg/instagram.svg" alt="Instagram icon"> -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
                         <path fill="#af9b74"
                             d="M128 23.064c34.177 0 38.225.13 51.722.745c12.48.57 19.258 2.655 23.769 4.408c5.974 2.322 10.238 5.096 14.717 9.575s7.253 8.743 9.575 14.717c1.753 4.511 3.838 11.289 4.408 23.768c.615 13.498.745 17.546.745 51.723s-.13 38.226-.745 51.723c-.57 12.48-2.655 19.257-4.408 23.768c-2.322 5.974-5.096 10.239-9.575 14.718s-8.743 7.253-14.717 9.574c-4.511 1.753-11.289 3.839-23.769 4.408c-13.495.616-17.543.746-51.722.746s-38.228-.13-51.723-.746c-12.48-.57-19.257-2.655-23.768-4.408c-5.974-2.321-10.239-5.095-14.718-9.574c-4.479-4.48-7.253-8.744-9.574-14.718c-1.753-4.51-3.839-11.288-4.408-23.768c-.616-13.497-.746-17.545-.746-51.723s.13-38.225.746-51.722c.57-12.48 2.655-19.258 4.408-23.769c2.321-5.974 5.095-10.238 9.574-14.717c4.48-4.48 8.744-7.253 14.718-9.575c4.51-1.753 11.288-3.838 23.768-4.408c13.497-.615 17.545-.745 51.723-.745M128 0C93.237 0 88.878.147 75.226.77c-13.625.622-22.93 2.786-31.071 5.95c-8.418 3.271-15.556 7.648-22.672 14.764S9.991 35.738 6.72 44.155C3.555 52.297 1.392 61.602.77 75.226C.147 88.878 0 93.237 0 128s.147 39.122.77 52.774c.622 13.625 2.785 22.93 5.95 31.071c3.27 8.417 7.647 15.556 14.763 22.672s14.254 11.492 22.672 14.763c8.142 3.165 17.446 5.328 31.07 5.95c13.653.623 18.012.77 52.775.77s39.122-.147 52.774-.77c13.624-.622 22.929-2.785 31.07-5.95c8.418-3.27 15.556-7.647 22.672-14.763s11.493-14.254 14.764-22.672c3.164-8.142 5.328-17.446 5.95-31.07c.623-13.653.77-18.012.77-52.775s-.147-39.122-.77-52.774c-.622-13.624-2.786-22.929-5.95-31.07c-3.271-8.418-7.648-15.556-14.764-22.672S220.262 9.99 211.845 6.72c-8.142-3.164-17.447-5.328-31.071-5.95C167.122.147 162.763 0 128 0m0 62.27c-36.302 0-65.73 29.43-65.73 65.73s29.428 65.73 65.73 65.73c36.301 0 65.73-29.428 65.73-65.73c0-36.301-29.429-65.73-65.73-65.73m0 108.397c-23.564 0-42.667-19.103-42.667-42.667S104.436 85.333 128 85.333s42.667 19.103 42.667 42.667s-19.103 42.667-42.667 42.667m83.686-110.994c0 8.484-6.876 15.36-15.36 15.36s-15.36-6.876-15.36-15.36s6.877-15.36 15.36-15.36s15.36 6.877 15.36 15.36" />
@@ -337,10 +340,15 @@
     </script>
 
     <!-- Initializes AOS library for scroll animations -->
-    <script>document.addEventListener("DOMContentLoaded", function () {
-            AOS.init({
-            });
-        })
+    <script>
+        AOS.init({
+            offset: 0, // Trigger animations 100px before element enters viewport
+            duration: 600, // Animation duration in ms
+            easing: 'ease-in-sine', // Match your other animations
+            once: false, // Allow animation to trigger multiple times
+            anchorPlacement: 'top-bottom', // Ensure animation triggers when top of element hits bottom of viewport
+            startEvent: 'DOMContentLoaded' // Ensure AOS starts after DOM is loaded
+        });
     </script>
 </body>
 
