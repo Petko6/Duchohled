@@ -1,10 +1,9 @@
 // Import Motion One library for animations and hover gesture detection
 import {
   animate,
-  stagger,
-  inView,
   press,
   hover,
+  spring
 } from "https://cdn.jsdelivr.net/npm/motion@12.9.0/+esm";
 
 // Declare global variables to store the main map and footer map objects
@@ -300,14 +299,14 @@ document.addEventListener("DOMContentLoaded", function () {
               "drop-shadow(0 0 6px var(--text))",
             ],
           },
-          { duration: 0.2, easing: "ease-in-out" }
+          { duration: 0.2, easing: "easeInOut" }
         );
         if (index === 0) {
           // Only scale castle list item for main map marker
           animate(
             castlecell,
             { scale: [1, 1.05], opacity: [1, 1] },
-            { duration: 0.1, easing: "ease-in" }
+            { duration: 0.1, easing: "easeIn" }
           );
         }
         preloadAssets(castle.divId);
@@ -328,7 +327,7 @@ document.addEventListener("DOMContentLoaded", function () {
             animate(
               castlecell,
               { scale: [1.05, 1], opacity: [1, 1] },
-              { duration: 0.1, easing: "ease-out" }
+              { duration: 0.1, easing: "easeOut" }
             );
           }
         };
@@ -345,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function () {
               "drop-shadow(0 0 24px var(--text))",
             ],
           },
-          { duration: 0.3, easing: "ease-in" }
+          { duration: 0.3, easing: "easeIn" }
         ).then(() => {
           if (index === 0) {
             // Navigate to the castle's page for main map marker
@@ -366,7 +365,7 @@ document.addEventListener("DOMContentLoaded", function () {
         animate(
           element,
           { scale: [1, 1.05], opacity: [1, 1] },
-          { duration: 0.1, easing: "ease-in" }
+          { duration: 0.1, easing: "easeIn" }
         );
         if (cell === castlecell && markerElement) {
           // Add glow to the map marker when hovering the castle list item
@@ -378,7 +377,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 "drop-shadow(0 0 6px var(--text))",
               ],
             },
-            { duration: 0.2, easing: "ease-in-out" }
+            { duration: 0.2, easing: "easeInOut" }
           );
         }
         preloadAssets(castle.divId);
@@ -388,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
           animate(
             element,
             { scale: [1.05, 1], opacity: [1, 1] },
-            { duration: 0.1, easing: "ease-out" }
+            { duration: 0.1, easing: "easeOut" }
           );
           if (cell === castlecell && markerElement) {
             animate(
@@ -406,20 +405,16 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       // Handle click events on list items to navigate to a new page
-      press(cell, (marker) => {
-        console.log("press cell");
-        if (marker.matches('input[type="checkbox"]')) {
-          const checkbox = marker.querySelector('input[type="checkbox"]');
-          animate(checkbox, { scale: 0.9 });
-          return () => animate(marker, { scale: 1 });
-        }
-        console.log("continue");
-        if (marker === charactercell) {
-          console.log("charcell");
+      press(cell, (cell, event) => {
+        if (cell === charactercell) {
+          if (event.target.matches('input[type="checkbox"]')) {
+            const checkbox = event.target;
+            animate(checkbox, { scale: 0.75 }, { type: spring });
+            return () => animate(checkbox, { scale: 1 });
+          }
           // Navigate to the character page for the castle
           window.location.href = `${castle.url}/index.html?loadCharacter=true`;
         } else {
-          console.log("castlecell");
           // Navigate to the castle's page
           window.location.href = castle.url;
         }
