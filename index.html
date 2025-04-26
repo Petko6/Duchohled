@@ -4,53 +4,57 @@
 <html lang="cs">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WMKR900N9V"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-WMKR900N9V');
-    </script>
-    <!-- Sets character encoding to UTF-8 for proper display of special characters -->
+    <!-- Character encoding and viewport settings -->
     <meta charset="UTF-8">
-    <!-- Ensures compatibility with Internet Explorer -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Makes the website responsive for different devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Sets the page title displayed in the browser tab -->
-    <title>Duchohled</title>
-    <!-- Links to the main CSS stylesheet for styling the website -->
-    <link rel="stylesheet" href="./css/style.css">
 
-    <!-- Links to Leaflet CSS for interactive map functionality -->
+    <!-- Page title -->
+    <title>Duchohled</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+
+    <!-- Preloading critical resources -->
+    <link rel="preload" href="./css/motion.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="./media/video/dash/manifest.mpd" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="./media/video/hls/master.m3u8" as="fetch" crossorigin="anonymous">
     <link rel="preload" href="./css/libraries/leaflet.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="./css/libraries/normalize.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preload MedievalSharp font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/medievalsharp/v26/EvOJzAlL3oU5AQl2mP5KdgptMqZwMjvX.woff2"
+        as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400..700&family=MedievalSharp" rel="stylesheet">
+
+    <!-- CSS styles -->
+    <link rel="stylesheet" href="./css/style.css">
     <noscript>
         <link rel="stylesheet" href="./css/libraries/leaflet.css">
         <link rel="stylesheet" href="./css/libraries/normalize.css">
     </noscript>
 
-    <!-- Google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400..700&family=MedievalSharp&display=swap"
-        rel="stylesheet">
+    <!-- Google Analytics (asynchronous) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WMKR900N9V"></script>
+    <script>
+        // Initializes Google Analytics tracking
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-WMKR900N9V');
+    </script>
 
-    <!-- Sets the favicon (icon shown in the browser tab) -->
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-
-    <!-- Loads Dash.js for adaptive video streaming (deferred to improve page load) -->
-    <script defer src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
-    <!-- Custom script for handling video playback -->
-    <script defer src="./js/video.js"></script>
-    <!-- Loads Leaflet.js for interactive map functionality -->
+    <!-- Asynchronous/deferred scripts -->
+    <script defer src="./js/libraries/shaka-player.compiled.min.js"></script>
+    <script type="module" src="./js/video.js"></script>
+    <script type="module" src="./js/animate.js"></script>
     <script defer src="./js/libraries/leaflet.js"></script>
-    <!-- Loads Labelgun for managing map labels -->
     <script defer src="./js/libraries/labelgun.min.js"></script>
     <script defer type="module" src="./js/mapScript.js"></script>
     <script defer src="./js/adventure.js"></script>
-    <!-- Custom script for mobile navigation -->
     <script defer src="./js/nav.js"></script>
 </head>
 
@@ -76,27 +80,23 @@
             <div aria-label="Toggle mobile navigation" id="hamburger" class="hamburger mobile">
                 <svg width="32pt" height="32pt" viewBox="0 0 26 23" xmlns="http://www.w3.org/2000/svg">
                     <g stroke-linecap="round" fill-rule="evenodd" fill="#f6f6f6">
-                        <!-- Čára 1: Y +0 -->
+                        <!-- Hamburger menu lines -->
                         <path class="line top-line"
                             d="M 1.636 0 L 2.271 0.195 A 23.196 23.196 0 0 0 4.823 0.689 Q 7.595 1.082 11.559 1.155 A 101.615 101.615 0 0 0 13.428 1.172 Q 18.359 1.172 23.706 0 A 25.554 25.554 0 0 0 23.047 1.735 A 19.693 19.693 0 0 0 22.62 3.174 A 18.072 18.072 0 0 0 22.119 6.152 L 21.509 6.006 Q 16.431 5.151 11.06 5.151 L 10.205 5.151 Q 4.956 5.151 0 6.152 A 10.579 10.579 0 0 0 0.269 5.566 Q 0.532 4.947 0.83 4.085 A 37.71 37.71 0 0 0 0.928 3.796 A 11.87 11.87 0 0 0 1.268 2.547 Q 1.42 1.847 1.525 1.034 A 24.407 24.407 0 0 0 1.636 0 Z" />
-
-                        <!-- Čára 2: Y +7 -->
                         <path class="line middle-line"
                             d="M 1.636 7 L 2.271 7.195 A 23.196 23.196 0 0 0 4.823 7.689 Q 7.595 8.082 11.559 8.155 A 101.615 101.615 0 0 0 13.428 8.172 Q 18.359 8.172 23.706 7 A 25.554 25.554 0 0 0 23.047 8.735 A 19.693 19.693 0 0 0 22.62 10.174 A 18.072 18.072 0 0 0 22.119 13.152 L 21.509 13.006 Q 16.431 12.151 11.06 12.151 L 10.205 12.151 Q 4.956 12.151 0 13.152 A 10.579 10.579 0 0 0 0.269 12.566 Q 0.532 11.947 0.83 11.085 A 37.71 37.71 0 0 0 0.928 10.796 A 11.87 11.87 0 0 0 1.268 9.547 Q 1.42 8.847 1.525 8.034 A 24.407 24.407 0 0 0 1.636 7 Z" />
-
-                        <!-- Čára 3: Y +14 -->
                         <path class="line bottom-line"
                             d="M 1.636 14 L 2.271 14.195 A 23.196 23.196 0 0 0 4.823 14.689 Q 7.595 15.082 11.559 15.155 A 101.615 101.615 0 0 0 13.428 15.172 Q 18.359 15.172 23.706 14 A 25.554 25.554 0 0 0 23.047 15.735 A 19.693 19.693 0 0 0 22.62 17.174 A 18.072 18.072 0 0 0 22.119 20.152 L 21.509 20.006 Q 16.431 19.151 11.06 19.151 L 10.205 19.151 Q 4.956 19.151 0 20.152 A 10.579 10.579 0 0 0 0.269 19.566 Q 0.532 18.947 0.83 18.085 A 37.71 37.71 0 0 0 0.928 17.796 A 11.87 11.87 0 0 0 1.268 16.547 Q 1.42 15.847 1.525 15.034 A 24.407 24.407 0 0 0 1.636 14 Z" />
                     </g>
                 </svg>
             </div>
-            <nav id="mobilenav" class="mobile"> <a href="#lore">Zákulisí</a>
+            <nav id="mobilenav" class="mobile">
+                <a href="#lore">Zákulisí</a>
                 <a href="#adventure">Objevník</a>
                 <a href="#contact">Kontakt</a>
                 <a class="main-button" href="#localities">Průzkum</a>
             </nav>
         </header>
-
 
         <!-- Main content of the home section -->
         <div class="home-main">
@@ -124,9 +124,7 @@
         <div id="map" class="map"></div>
         <!-- Row of castle information cells -->
         <div class="castlerow row">
-            <!-- Individual castle cell with name and region 
-            Span elements are present to avoid shrinking by using gap in CSS between Span and Div 
-            -->
+            <!-- Individual castle cell with name and region -->
             <div id="houska" class="castlecell cell"><span></span>
                 <div>
                     <p class="bold">Hrad Houska</p>
@@ -279,9 +277,8 @@
                 <p>Duchohled, fiktivní společnost<br>Hrad III. nádvoří 48/2<br>Hradčany<br>119 00 Praha 1</p>
                 <br>
                 <a href="tel:+420605392195">+420 605 392 195</a><br>
-                <!-- Email link with Cloudflare email protection -->
                 <a href="mailto:duchohled@gmail.com">Duchohled@gmail.com</a><br>
-                <!-- Instagram link with icon -->
+                <!-- Instagram and GitHub links with icons -->
                 <a href="https://instagram.com/duchohled">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
                         <path fill="#af9b74"
@@ -303,20 +300,23 @@
 
     <!-- JavaScript for handling contact form submission -->
     <script>
-        // Adds event listener to the contact form
+        // Add event listener for contact form submission
         document.getElementById("contactForm").addEventListener("submit", function (e) {
-            e.preventDefault(); // Prevents page reload on form submission
-            const status = document.getElementById("formStatus"); // Gets the status alert div
-            const isSuccessful = true; // Simulates successful form submission (can be replaced with actual logic)
-            // Updates status message based on success or failure
+            e.preventDefault(); // Prevent default form submission (page reload)
+            const status = document.getElementById("formStatus"); // Reference to status alert div
+            const isSuccessful = true; // Simulate successful form submission (replace with actual logic)
+
+            // Display success or error message based on submission status
             if (isSuccessful) {
                 status.innerText = "Děkujeme za Vaši zprávu!";
             } else {
                 status.innerText = "Došlo k chybě. Zkuste to prosím znovu.";
             }
-            status.style.opacity = "1"; // Makes the status message visible
-            this.reset(); // Resets the form fields
-            // Hides the status message after 5 seconds
+
+            status.style.opacity = "1"; // Show status message
+            this.reset(); // Reset form fields
+
+            // Hide status message after 5 seconds
             setTimeout(() => {
                 status.style.opacity = "0";
             }, 5000);
