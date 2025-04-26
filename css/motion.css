@@ -1,0 +1,27 @@
+.hamburger,
+.desktop {
+  opacity: 0;
+  transform: translateX(100px);
+}
+#logo {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.home-main h1,
+.home-main .main-button,
+nav .main-button {
+  opacity: 0;
+  transform: scale(0.8);
+}
+.fullscreenbutton{
+  opacity: 0;
+}
+.castlerow .cell {
+  opacity: 0;
+  transform: translateY(50px);
+}
+.lore-container p,
+.infobar > * {
+  opacity: 0;
+  transform: translateX(-200px);
+}

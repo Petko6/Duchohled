@@ -28,15 +28,6 @@
     <link rel="preload" href="./css/libraries/leaflet.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="./css/libraries/leaflet.css">
-    </noscript>
-    <!-- Links to AOS (Animate On Scroll) CSS for scroll animations -->
-    <link rel="preload" href="./css/libraries/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="./css/libraries/aos.css">
-    </noscript>
-    <!-- Links to normalize.css -->
-    <link rel="preload" href="./css/libraries/normalize.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
         <link rel="stylesheet" href="./css/libraries/normalize.css">
     </noscript>
 
@@ -57,11 +48,7 @@
     <script defer src="./js/libraries/leaflet.js"></script>
     <!-- Loads Labelgun for managing map labels -->
     <script defer src="./js/libraries/labelgun.min.js"></script>
-    <!-- Custom script for map-related functionality -->
-    <script defer src="./js/mapScript.js"></script>
-    <!-- Loads AOS.js for scroll-based animations -->
-    <script src="./js/libraries/aos.js"></script>
-    <!-- Custom script for adventure section functionality -->
+    <script defer type="module" src="./js/mapScript.js"></script>
     <script defer src="./js/adventure.js"></script>
     <!-- Custom script for mobile navigation -->
     <script defer src="./js/nav.js"></script>
@@ -73,12 +60,12 @@
     <div id="home" class="home">
         <!-- Header containing logo and navigation -->
         <header>
-            <!-- Logo with animation (AOS) that links to the home section -->
-            <a id="logo" data-aos="fade-right" data-aos-duration="500" data-aos-easing="ease-in-sine" href="./#home">
+            <!-- Logo that links to the home section -->
+            <a id="logo" href="./#home">
                 <img alt="logo" src="./media/svg/logo.svg">
             </a>
             <!-- Desktop navigation menu with links to different sections -->
-            <nav data-aos="fade-left" data-aos-duration="500" data-aos-easing="ease-in-sine" class="desktop">
+            <nav class="desktop">
                 <a href="#lore">Zákulisí</a>
                 <a href="#adventure">Objevník</a>
                 <a href="#contact">Kontakt</a>
@@ -86,8 +73,7 @@
             </nav>
 
             <!-- Mobile navigation with a hamburger menu icon -->
-            <div aria-label="Toggle mobile navigation" data-aos="fade-left" data-aos-duration="500"
-                data-aos-easing="ease-in-sine" id="hamburger" class="hamburger mobile">
+            <div aria-label="Toggle mobile navigation" id="hamburger" class="hamburger mobile">
                 <svg width="32pt" height="32pt" viewBox="0 0 26 23" xmlns="http://www.w3.org/2000/svg">
                     <g stroke-linecap="round" fill-rule="evenodd" fill="#f6f6f6">
                         <!-- Čára 1: Y +0 -->
@@ -115,18 +101,16 @@
         <!-- Main content of the home section -->
         <div class="home-main">
             <!-- Main heading with zoom-in animation -->
-            <h1 data-aos="zoom-in-down" data-aos-delay="300" data-aos-duration="500">Duchohled</h1>
-            <!-- Button linking to the localities section with fade-up animation -->
-            <a data-aos="fade-up" data-aos-delay="300" data-aos-duration="500" class="main-button"
-                href="#localities">Prozkoumat</a>
+            <h1 class="home-heading">Duchohled</h1>
+            <!-- Button linking to the localities section with zoom-in animation -->
+            <a class="main-button" href="#localities">Prozkoumat</a>
         </div>
         <!-- Video background with controls -->
         <div id="video-wrap">
             <!-- Autoplaying, muted, looping video for the homepage background -->
             <video id="home-video" muted autoplay playsinline loop poster="./media/home.webp"></video>
             <!-- Fullscreen toggle button for the video -->
-            <div data-aos="fade-left" id="fullscreen-button" aria-label="Toggle fullscreen"
-                class="button fullscreenbutton">
+            <div id="fullscreen-button" aria-label="Toggle fullscreen" class="button fullscreenbutton">
                 <img loading="lazy" id="fullscreen-enter" src="./media/svg/fullscreen.svg" alt="Fullscreen icon">
                 <img loading="lazy" id="fullscreen-exit" src="./media/svg/fullscreen-exit.svg"
                     alt="Fullscreen exit icon">
@@ -339,17 +323,6 @@
         });
     </script>
 
-    <!-- Initializes AOS library for scroll animations -->
-    <script>
-        AOS.init({
-            offset: 0, // Trigger animations 100px before element enters viewport
-            duration: 600, // Animation duration in ms
-            easing: 'ease-in-sine', // Match your other animations
-            once: false, // Allow animation to trigger multiple times
-            anchorPlacement: 'top-bottom', // Ensure animation triggers when top of element hits bottom of viewport
-            startEvent: 'DOMContentLoaded' // Ensure AOS starts after DOM is loaded
-        });
-    </script>
 </body>
 
 </html>

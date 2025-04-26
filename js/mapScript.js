@@ -1,95 +1,89 @@
-// Declares global variables for the main map and footer map
+// Import Motion One library for animations and hover gesture detection
+import {
+  animate,
+  stagger,
+  inView,
+  press,
+  hover,
+} from "https://cdn.jsdelivr.net/npm/motion@12.9.0/+esm";
+
+// Declare global variables to store the main map and footer map objects
 let map;
 let footermap;
 
-// Defines the geographical bounds for the Czech Republic to restrict map panning
-let bounds = [
-  [48.5, 12.1], // Southwest corner
-  [51.1, 18.9], // Northeast corner
+// Define geographical boundaries for the Czech Republic to limit map panning
+const bounds = [
+  [48.5, 12.1], // Southwest corner of the Czech Republic
+  [51.1, 18.9], // Northeast corner of the Czech Republic
 ];
 
-// Defines a utility function to toggle highlight styles on markers and cells
-const toggleHighlight = (on, marker, cell) => {
-  // Toggles the 'highlight' class on the cell if it exists
-  if (cell) cell.classList.toggle("highlight", on);
-  // Toggles the 'marker-highlight' class on the marker's DOM element if it exists
-  if (marker?.getElement()) {
-    marker.getElement().classList.toggle("marker-highlight", on);
-  }
-};
-
-// Runs code after the DOM is fully loaded
+// Run code after the webpage is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
-  // Detects mobile devices based on screen width (<1000px)
+  // Check if the device is mobile by detecting screen width (<1000px)
   const isMobile = window.innerWidth < 1000;
 
-  // Initializes the main map only on non-mobile devices
+  // Initialize the main map only on non-mobile devices
   if (!isMobile) {
-    // Creates a Leaflet map centered on the Czech Republic with restricted zoom and panning
+    // Create a Leaflet map centered on the Czech Republic with restricted zoom and panning
     map = L.map("map", {
-      scrollWheelZoom: false, // Disables scroll zoom by default
-      wheelDebounceTime: 20, // Debounces wheel events
-      center: [50, 15], // Center of Czech Republic
-      zoom: 7, // Initial zoom level
-      maxBounds: bounds, // Restricts map to defined bounds
-      maxBoundsViscosity: 0.7, // Adds resistance when panning outside bounds
+      scrollWheelZoom: false, // Disable zooming with the mouse wheel by default
+      wheelDebounceTime: 20, // Delay to smooth out wheel events
+      center: [50, 15], // Center the map on the Czech Republic
+      zoom: 7, // Set initial zoom level
+      maxBounds: bounds, // Limit map movement to the defined boundaries
+      maxBoundsViscosity: 0.7, // Add resistance when trying to pan outside boundaries
     });
 
-    // Refreshes AOS animations when the map loads
-    map.on("load", function () {
-      AOS.refreshHard(); // Recalculates animation positions
-    });
-
-    // Adds a Jawg tile layer for map rendering
+    // Add a Jawg tile layer to display the map's visual tiles
     L.tileLayer(
       "https://tile.jawg.io/4d82d3b9-0ca1-4b9d-a6d0-c598dd8291c7/{z}/{x}/{y}{r}.png?access-token=Vljwn5szVctkG5hh1b5nR3oHzd3T9mW1gSO66SwVJ53KL70VC4sl3rezA1OpAcqt",
       {
-        maxZoom: 10, // Maximum zoom level
-        minZoom: 7, // Minimum zoom level
+        maxZoom: 10, // Set maximum zoom level
+        minZoom: 7, // Set minimum zoom level
       }
     ).addTo(map);
   }
 
-  // Implements custom scroll zoom behavior for the main map on desktop
+  // Implement custom scroll zoom behavior for the main map on desktop
   if (!isMobile) {
-    // Gets the map container and zoom limits
+    // Get the map container element and zoom limits
     const container = map.getContainer();
     const minZoom = map.getMinZoom();
     const maxZoom = map.getMaxZoom();
 
-    // Defines delays for enabling/disabling scroll zoom
-    const ENABLE_DELAY = 20; // Fast enable delay (ms)
-    const DISABLE_DELAY = 500; // Slower disable delay (ms)
+    // Define delays for enabling/disabling scroll zoom
+    const ENABLE_DELAY = 20; // Short delay before enabling zoom
+    const DISABLE_DELAY = 500; // Longer delay before disabling zoom
 
-    // Tracks zoom state: 'idle', 'pendingEnable', 'enabled', 'pendingDisable'
+    // Track the zoom state: 'idle', 'pendingEnable', 'enabled', or 'pendingDisable'
     let state = "idle";
     let timerId = null;
     let lastDelta = 0;
 
-    // Helper: Resets to idle state and disables scroll zoom
+    // Helper function: Reset to idle state and disable scroll zoom
     function toIdle() {
       clearTimeout(timerId);
       map.scrollWheelZoom.disable();
       state = "idle";
     }
 
-    // Helper: Schedules a function to run after a delay
+    // Helper function: Schedule a function to run after a specified delay
     function schedule(fn, delay) {
       clearTimeout(timerId);
       timerId = setTimeout(fn, delay);
     }
 
-    // Handles wheel events to enable/disable scroll zoom dynamically
+    // Handle mouse wheel events to dynamically enable/disable scroll zoom
     container.addEventListener(
       "wheel",
       (e) => {
-        const delta = e.deltaY; // Scroll direction
-        const z = map.getZoom(); // Current zoom level
-        const canZoomIn = delta < 0 && z < maxZoom; // Can zoom in
-        const canZoomOut = delta > 0 && z > minZoom; // Can zoom out
-        const actionable = canZoomIn || canZoomOut; // Zoom is possible
+        const delta = e.deltaY; // Detect scroll direction
+        const z = map.getZoom(); // Get current zoom level
+        const canZoomIn = delta < 0 && z < maxZoom; // Check if zooming in is possible
+        const canZoomOut = delta > 0 && z > minZoom; // Check if zooming out is possible
+        const actionable = canZoomIn || canZoomOut; // Determine if zoom action is valid
 
-        // Manages state transitions based on zoom conditions
+        // Manage state transitions based on zoom conditions
         switch (state) {
           case "idle":
             if (actionable) {
@@ -98,49 +92,79 @@ document.addEventListener("DOMContentLoaded", function () {
                 map.scrollWheelZoom.enable();
                 state = "enabled";
               }, ENABLE_DELAY);
-              e.preventDefault(); // Prevents page scroll
+              e.preventDefault(); // Prevent the webpage from scrolling
             }
             break;
           case "pendingEnable":
-            e.preventDefault(); // Blocks page scroll during enable delay
+            e.preventDefault(); // Block webpage scrolling during enable delay
             break;
           case "enabled":
-            e.preventDefault(); // Blocks page scroll while zooming
+            e.preventDefault(); // Block webpage scrolling while zooming
             if ((delta < 0 && z >= maxZoom) || (delta > 0 && z <= minZoom)) {
               state = "pendingDisable";
               schedule(() => toIdle(), DISABLE_DELAY);
             }
             break;
           case "pendingDisable":
-            e.preventDefault(); // Blocks page scroll
+            e.preventDefault(); // Block webpage scrolling
             if (delta * lastDelta < 0) {
-              // Reverses scroll direction
+              // Detect scroll direction change
               clearTimeout(timerId);
               state = "enabled";
             }
             break;
         }
 
-        lastDelta = delta; // Tracks last scroll direction
+        lastDelta = delta; // Store the last scroll direction
       },
-      { passive: false } // Allows preventing default scroll
+      { passive: false } // Allow preventing default scroll behavior
     );
 
-    // Disables scroll zoom when the mouse leaves the map
+    // Disable scroll zoom when the mouse leaves the map area
     container.addEventListener("mouseleave", () => {
       toIdle();
     });
   }
 
-  // Defines an array of castles with details for map markers and list cells
-  let castles = [
+  // Initialize the footer map centered on Prague Castle
+  footermap = L.map("footermap", {
+    center: [50.0907895, 14.4021669], // Coordinates for Prague Castle
+    zoom: 17, // Set detailed zoom level
+    maxBounds: bounds, // Restrict panning to the Czech Republic
+    maxBoundsViscosity: 0.7, // Add resistance when panning outside boundaries
+  });
+
+  // Add a Jawg tile layer for the footer map's visual tiles
+  L.tileLayer(
+    "https://tile.jawg.io/4d82d3b9-0ca1-4b9d-a6d0-c598dd8291c7/{z}/{x}/{y}{r}.png?access-token=Vljwn5szVctkG5hh1b5nR3oHzd3T9mW1gSO66SwVJ53KL70VC4sl3rezA1OpAcqt",
+    {
+      maxZoom: 20, // Allow high zoom for detailed view
+      minZoom: 10, // Set minimum zoom level
+    }
+  ).addTo(footermap);
+
+  // Create a custom icon for the footer map marker
+  const duchohledIcon = L.icon({
+    iconUrl: "./media/svg/logo.svg", // Use Duchohled logo as the marker icon
+    iconSize: [40, 40], // Set icon size
+    iconAnchor: [20, 20], // Center the icon on the marker point
+    className: "duchohled-marker", // Add a custom class for styling
+  });
+
+  // Add a marker for the address on the footer map
+  const footerMarker = L.marker([50.0907895, 14.4021669], {
+    icon: duchohledIcon,
+  }).addTo(footermap);
+
+  // Define an array of castles with details for map markers and list items
+  const castles = [
     {
       name: "Houska",
-      coords: [50.485, 14.653],
-      icon: "./media/erby/houska.svg",
-      url: "./houska",
-      divId: "houska",
-      characterId: "mnich",
+      coords: [50.485, 14.653], // Coordinates for Houska Castle
+      icon: "./media/erby/houska.svg", // Icon for the marker
+      url: "./houska", // URL to navigate to
+      divId: "houska", // ID of the castle's list item
+      characterId: "mnich", // ID of the associated character
     },
     {
       name: "Loket",
@@ -184,172 +208,229 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   ];
 
-  // Iterates over castles to add markers and handle interactions
+  // Loop through each castle to add markers and handle interactions
   castles.forEach((castle) => {
-    // Declares variables for marker and preload state
-    let label;
+    // Declare a variable to store the map marker
     let marker;
-    let isModelPreloaded = false; // Prevents repeated model loading
 
-    // Creates a marker with a custom icon on desktop only
+    // Get the DOM elements for the castle and character list items
+    const castlecell = document.getElementById(castle.divId);
+    const charactercell = document.getElementById(castle.characterId);
+
+    // Create a marker with a custom icon for the castle on desktop only
     if (!isMobile) {
-      let castleIcon = L.icon({
-        iconUrl: castle.icon, // Castle-specific SVG icon
-        iconSize: [32, 32], // Icon dimensions
-        iconAnchor: [16, 32], // Anchor point (bottom center)
-        popupAnchor: [0, -32], // Popup position
-        className: `pin-${castle.divId}`, // Custom class for styling
+      const castleIcon = L.icon({
+        iconUrl: castle.icon, // Use the castle-specific icon
+        iconSize: [32, 32], // Set icon size
+        iconAnchor: [16, 32], // Anchor icon to the bottom center
+        popupAnchor: [0, -32], // Position for popups above the marker
+        className: `pin-${castle.divId}`, // Add a custom class for styling
       });
 
-      // Adds the marker to the map at the castle's coordinates
+      // Add the marker to the main map at the castle's coordinates
       marker = L.marker(castle.coords, {
         icon: castleIcon,
       }).addTo(map);
     }
 
-    // Gets the DOM element (cell) for the castle in the list and corresponding character cell
-    let castlecell = document.getElementById(castle.divId);
-    let charactercell = document.getElementById(castle.characterId);
-
-    // Lazy-loads a WebP background image for the castle cell
+    // Load a WebP background image for the castle list item
     const img = new Image();
     img.src = `./media/hrady/${castle.divId}.webp`;
     img.onload = () => {
       castlecell.style.background = `url('${img.src}') no-repeat top/cover`;
     };
+    img.onerror = () => {
+      console.error(`Failed to load background for ${castle.divId}`);
+      castlecell.style.background =
+        "url('./media/fallback.webp') no-repeat top/cover";
+    };
 
-    // Preloads model and/or EXR texture into cache
+    // Preload 3D model and texture files to improve performance
     async function preloadAssets(
       modelName = null,
       exrTextureName = "venice_sunset_1k.exr"
     ) {
-      const cache = await caches.open("model-cache");
+      try {
+        const cache = await caches.open("model-cache");
 
-      // Preload model if modelName is provided
-      if (modelName) {
-        const modelUrl = `../models/${modelName}.glb`;
-        const cachedModel = await cache.match(modelUrl);
-        if (!cachedModel) {
-          const response = await fetch(modelUrl);
+        // Preload the 3D model if a model name is provided
+        if (modelName) {
+          const modelUrl = `../models/${modelName}.glb`;
+          const cachedModel = await cache.match(modelUrl);
+          if (!cachedModel) {
+            const response = await fetch(modelUrl);
+            if (!response.ok)
+              throw new Error(`Failed to fetch model ${modelName}`);
+            await cache.put(modelUrl, response.clone());
+          }
+        }
+
+        // Preload the EXR texture file
+        const exrUrl = `../media/${exrTextureName}`;
+        const cachedExr = await cache.match(exrUrl);
+        if (!cachedExr) {
+          const response = await fetch(exrUrl);
           if (!response.ok)
-            throw new Error(`Failed to fetch model ${modelName}`);
-          await cache.put(modelUrl, response.clone());
+            throw new Error(`Failed to fetch EXR texture ${exrTextureName}`);
+          await cache.put(exrUrl, response.clone());
         }
-      }
-
-      // Preload EXR texture
-      const exrUrl = `../media/${exrTextureName}`;
-      const cachedExr = await cache.match(exrUrl);
-      if (!cachedExr) {
-        const response = await fetch(exrUrl);
-        if (!response.ok)
-          throw new Error(`Failed to fetch EXR texture ${exrTextureName}`);
-        await cache.put(exrUrl, response.clone());
+      } catch (error) {
+        console.error(
+          `Preload error for ${modelName || exrTextureName}:`,
+          error
+        );
       }
     }
 
-    // Prevents spam of calls
-    function debounce(fn, wait) {
-      let timeout;
-      return (...args) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => fn(...args), wait);
-      };
-    }
+    // Create an array of marker and list item elements for interaction
+    const markerElement = marker?.getElement();
+    const footerMarkerElement = footerMarker.getElement();
+    const markerElements = [markerElement, footerMarkerElement].filter(Boolean);
+    const cells = [castlecell, charactercell];
 
-    // Marker hover (desktop only)
-    if (!isMobile) {
-      marker?.on(
-        "mouseover",
-        debounce(() => {
-          toggleHighlight(true, marker, castlecell);
-          preloadAssets(castle.divId);
-        }, 50)
-      );
-      marker?.on(
-        "mouseout",
-        debounce(() => toggleHighlight(false, marker, castlecell), 50)
-      );
-      // Opens the castle's page when the marker is clicked
-      marker?.on("click", () => {
-        window.location.href = castle.url;
-      });
-    }
-
-    // Unified hover effect
-    [castlecell, charactercell].forEach((cell) => {
-      const isCastleCell = cell === castlecell;
-      cell.addEventListener("pointerenter", () => {
-        toggleHighlight(true, isCastleCell ? marker : null, cell);
+    // Apply animations to map markers
+    markerElements.forEach((marker, index) => {
+      hover(marker, (element) => {
+        // On hover: Add a glowing effect to the marker and scale the castle list item
+        animate(
+          element,
+          {
+            filter: [
+              "drop-shadow(0 0 0px var(--text))",
+              "drop-shadow(0 0 6px var(--text))",
+            ],
+          },
+          { duration: 0.2, easing: "ease-in-out" }
+        );
+        if (index === 0) {
+          // Only scale castle list item for main map marker
+          animate(
+            castlecell,
+            { scale: [1, 1.05], opacity: [1, 1] },
+            { duration: 0.1, easing: "ease-in" }
+          );
+        }
         preloadAssets(castle.divId);
+
+        // On hover end: Remove glow and reset scale
+        return () => {
+          animate(
+            element,
+            {
+              filter: [
+                "drop-shadow(0 0 6px var(--text))",
+                "drop-shadow(0 0 0px transparent)",
+              ],
+            },
+            { duration: 0.2 }
+          );
+          if (index === 0) {
+            animate(
+              castlecell,
+              { scale: [1.05, 1], opacity: [1, 1] },
+              { duration: 0.1, easing: "ease-out" }
+            );
+          }
+        };
       });
-      cell.addEventListener("pointerleave", () => {
-        toggleHighlight(false, isCastleCell ? marker : null, cell);
+
+      // Handle click events on markers to navigate to a new page
+      press(marker, (element) => {
+        console.log("markerclick");
+        animate(
+          element,
+          {
+            filter: [
+              "drop-shadow(0 0 6px var(--text))",
+              "drop-shadow(0 0 24px var(--text))",
+            ],
+          },
+          { duration: 0.3, easing: "ease-in" }
+        ).then(() => {
+          if (index === 0) {
+            // Navigate to the castle's page for main map marker
+            window.location.href = castle.url;
+          } else {
+            // Navigate to an external map for footer marker
+            window.location.href =
+              "https://mapy.cz/zakladni?source=coor&id=14.401989874205015%2C50.09066215820785&x=14.4019899&y=50.0906622&z=17";
+          }
+        });
       });
-      cell.addEventListener("click", (event) => {
-        // Check if the clicked element is the input checkbox
-        if (event.target.type === "checkbox") {
-          // Prevent the div's click event from doing anything
-          return;
+    });
+
+    // Apply animations to castle and character list items
+    cells.forEach((cell) => {
+      hover(cell, (element, startEvent) => {
+        // On hover: Scale up the list item
+        animate(
+          element,
+          { scale: [1, 1.05], opacity: [1, 1] },
+          { duration: 0.1, easing: "ease-in" }
+        );
+        if (cell === castlecell && markerElement) {
+          // Add glow to the map marker when hovering the castle list item
+          animate(
+            markerElement,
+            {
+              filter: [
+                "drop-shadow(0 0 0px var(--text))",
+                "drop-shadow(0 0 6px var(--text))",
+              ],
+            },
+            { duration: 0.2, easing: "ease-in-out" }
+          );
         }
-        if (cell === charactercell) {
-          // On the microsite load already character into view
+        preloadAssets(castle.divId);
+
+        // On hover end: Reset scale and remove marker glow
+        return () => {
+          animate(
+            element,
+            { scale: [1.05, 1], opacity: [1, 1] },
+            { duration: 0.1, easing: "ease-out" }
+          );
+          if (cell === castlecell && markerElement) {
+            animate(
+              markerElement,
+              {
+                filter: [
+                  "drop-shadow(0 0 6px var(--text))",
+                  "drop-shadow(0 0 0px transparent)",
+                ],
+              },
+              { duration: 0.2 }
+            );
+          }
+        };
+      });
+
+      // Handle click events on list items to navigate to a new page
+      press(cell, (marker) => {
+        console.log("press cell");
+        if (marker.matches('input[type="checkbox"]')) {
+          const checkbox = marker.querySelector('input[type="checkbox"]');
+          animate(checkbox, { scale: 0.9 });
+          return () => animate(marker, { scale: 1 });
+        }
+        console.log("continue");
+        if (marker === charactercell) {
+          console.log("charcell");
+          // Navigate to the character page for the castle
           window.location.href = `${castle.url}/index.html?loadCharacter=true`;
-        } else window.location.href = castle.url;
+        } else {
+          console.log("castlecell");
+          // Navigate to the castle's page
+          window.location.href = castle.url;
+        }
       });
+
+      // Remove highlight effect on mobile devices when touch ends
+      if (isMobile) {
+        cell.addEventListener("touchend", () => {
+          // toggleHighlight(false, cell === castlecell ? marker : null, cell);
+        });
+      }
     });
-
-    // Removes highlight on touch end for mobile devices
-    if (isMobile) {
-      document.addEventListener("touchend", () => {
-        toggleHighlight(false, marker, castlecell);
-        toggleHighlight(false, null, charactercell);
-      });
-    }
-  });
-
-  // Initializes the footer map centered on Prague Castle
-  let footerMarker;
-  footermap = L.map("footermap", {
-    center: [50.0907895, 14.4021669], // Prague Castle coordinates
-    zoom: 17, // Detailed zoom level
-    maxBounds: bounds, // Restricts panning to Czech Republic
-    maxBoundsViscosity: 0.7, // Adds resistance outside bounds
-  });
-
-  // Adds a Jawg tile layer for the footer map
-  L.tileLayer(
-    "https://tile.jawg.io/4d82d3b9-0ca1-4b9d-a6d0-c598dd8291c7/{z}/{x}/{y}{r}.png?access-token=Vljwn5szVctkG5hh1b5nR3oHzd3T9mW1gSO66SwVJ53KL70VC4sl3rezA1OpAcqt",
-    {
-      maxZoom: 20, // Higher max zoom for detail
-      minZoom: 10, // Minimum zoom level
-    }
-  ).addTo(footermap);
-
-  // Creates a custom icon for the footer map marker
-  const duchohledIcon = L.icon({
-    iconUrl: "./media/svg/logo.svg", // Duchohled logo icon
-    iconSize: [40, 40], // Icon dimensions
-    iconAnchor: [20, 20], // Anchor point (center)
-    className: "duchohled-marker", // Custom class for styling
-  });
-
-  // Adds a marker for the address Na Florenci 2139/2
-  footerMarker = L.marker([50.0907895, 14.4021669], {
-    icon: duchohledIcon,
-  })
-    .addTo(footermap)
-    // Opens an external map link when clicked
-    .on("click", () => {
-      window.location.href =
-        "https://mapy.cz/zakladni?source=coor&id=14.401989874205015%2C50.09066215820785&x=14.4019899&y=50.0906622&z=17";
-    });
-
-  // Adds hover effects for the footer marker  marker
-  footerMarker.on("mouseover", () => {
-    toggleHighlight(true, footerMarker);
-  });
-  footerMarker.on("mouseout", () => {
-    toggleHighlight(false, footerMarker);
   });
 });

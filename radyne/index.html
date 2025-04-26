@@ -16,10 +16,8 @@
     <title>Radyně</title>
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/microsite_style.css">
-    <!-- Links to AOS (Animate On Scroll) CSS for scroll animations -->
-    <link rel="stylesheet" href="../css/libraries/aos.css">
-    <!-- Loads AOS.js for scroll-based animations -->
-    <script src="../js/libraries/aos.js"></script>
+    <!-- Import animations from Motion -->
+    <script type="module" src="../js/animate.js"></script>
     <!-- Custom script for mobile navigation -->
     <script defer src="../js/nav.js"></script>
 </head>
@@ -27,12 +25,12 @@
 <body>
     <!-- Header containing logo and navigation -->
     <header>
-        <!-- Logo with animation (AOS) that links to the home section -->
-        <a id="logo" data-aos="fade-right" data-aos-duration="500" data-aos-easing="ease-in-sine" href="../#home">
+        <!-- Logo with animation that links to the home section -->
+        <a id="logo" href="../#home">
             <img alt="logo" src="../media/erby/radyne.svg">
         </a>
         <!-- Desktop navigation menu with links to different sections -->
-        <nav data-aos="fade-left" data-aos-duration="500" data-aos-easing="ease-in-sine" class="desktop">
+        <nav class="desktop">
             <a href="../#lore">Zákulisí</a>
             <a href="../#adventure">Objevník</a>
             <a href="../#contact">Kontakt</a>
@@ -40,8 +38,7 @@
         </nav>
 
         <!-- Mobile navigation with a hamburger menu icon -->
-        <div aria-label="Toggle mobile navigation" data-aos="fade-left" data-aos-duration="500"
-            data-aos-easing="ease-in-sine" id="hamburger" class="hamburger mobile">
+        <div aria-label="Toggle mobile navigation" id="hamburger" class="hamburger mobile">
             <svg width="32pt" height="32pt" viewBox="0 0 26 23" xmlns="http://www.w3.org/2000/svg">
                 <g stroke-linecap="round" fill-rule="evenodd" fill="#f6f6f6">
                     <!-- Line 1: Y +0 -->
@@ -133,12 +130,6 @@
 
         const imageName = "radous";
         const imageRenderer = new ImageRenderer(imagecontainer, imageName);
-    </script>
-    <!-- Initializes AOS library for scroll animations -->
-    <script>
-        AOS.init({
-            once: false, // Animations replay when scrolling back up
-        });
     </script>
 </body>
 
