@@ -131,7 +131,6 @@ a:hover {
   display: flex;
   flex-direction: column;
   justify-content: end; /* Aligns content to bottom */
-  transition: all 0.3s ease; /* Smooth transitions for hover effects */
   z-index: 5; /* Above other elements */
   cursor: pointer; /* Indicates cells are clickable */
 }
@@ -221,7 +220,6 @@ input[type="submit"] {
   border: none;
   padding: 1rem 1.5rem;
   width: 100%;
-  transition: transform 0.3s ease; /* Smooth scaling on focus */
 }
 footer input[type="submit"] {
   grid-column: 2; /* Places submit button in second column */
@@ -232,16 +230,10 @@ footer input[type="submit"] {
   font: var(--size5);
   color: var(--background);
 }
+
 footer input:focus,
 textarea:focus {
   outline: 0; /* Removes default outline */
-  transform: scale(1.05); /* Scales up slightly */
-}
-textarea:focus {
-  transform: scale(1.025) !important; /* Slightly smaller scale for textarea */
-}
-footer input[type="submit"]:hover {
-  transform: scale(1.05); /* Scales up on hover */
 }
 
 /* Alert notification */

@@ -3,6 +3,9 @@ import {
   animate,
   stagger,
   inView,
+  press,
+  spring,
+  hover,
 } from "https://cdn.jsdelivr.net/npm/motion@12.9.0/+esm";
 
 // Fade-left animation for .hamburger and .desktop elements
@@ -170,3 +173,26 @@ animate(
     easing: "ease-in",
   }
 );
+
+press(
+  'input[type="text"], input[type="email"], input[type="tel"], textarea, input[type="submit"]',
+  (element) => {
+    animate(
+      element,
+      { scale: 0.95 },
+      {
+        type: spring,
+        bounce: 0.3,
+        duration: 0.3,
+      }
+    );
+    return () => animate(element, { scale: 1 });
+  }
+);
+
+hover('input[type="submit"]', (element) => {
+  animate(element, { scale: 1.05 });
+  return () => {
+    animate(element, { scale: 1 });
+  };
+});
