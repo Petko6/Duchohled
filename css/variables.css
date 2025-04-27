@@ -45,6 +45,8 @@ object,
 .hamburger {
   margin: 0;
   user-select: none; /* Disables text selection for these elements */
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 /* Set base font size */
