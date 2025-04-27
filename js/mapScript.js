@@ -363,70 +363,93 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // Apply animations to castle and character list items
+    // Inside the castles.forEach loop, modify the cells.forEach section
     cells.forEach((cell) => {
-      hover(cell, (element, startEvent) => {
-        // On hover: Scale up the list item
-        animate(
-          element,
-          { scale: [1, 1.05], opacity: [1, 1] },
-          { duration: 0.1, easing: "easeIn" }
-        );
-        if (cell === castlecell && markerElement) {
-          // Add glow to the map marker when hovering the castle list item
-          animate(
-            markerElement,
-            {
-              filter: [
-                "drop-shadow(0 0 0px var(--text))",
-                "drop-shadow(0 0 6px var(--text))",
-              ],
-            },
-            { duration: 0.2, easing: "easeInOut" }
-          );
-        }
-        preloadAssets(castle.divId);
+      let isPressing = false; // Flag to track if the cell is being pressed
+      let isCheckboxPressing = false; // Separate flag for checkbox press
 
-        // On hover end: Reset scale and remove marker glow
-        return () => {
+      // Hover animation for the cell
+      hover(cell, (element, startEvent) => {
+        // Only apply hover animation if not in the middle of a cell press (ignore checkbox press)
+        if (!isPressing) {
           animate(
             element,
-            { scale: [1.05, 1], opacity: [1, 1] },
-            { duration: 0.1, easing: "easeOut" }
+            { scale: [1, 1.05], opacity: [1, 1] },
+            { duration: 0.1, easing: "easeIn" }
           );
           if (cell === castlecell && markerElement) {
             animate(
               markerElement,
               {
                 filter: [
+                  "drop-shadow(0 0 0px var(--text))",
                   "drop-shadow(0 0 6px var(--text))",
-                  "drop-shadow(0 0 0px transparent)",
                 ],
               },
-              { duration: 0.2 }
+              { duration: 0.2, easing: "easeInOut" }
             );
+          }
+          preloadAssets(castle.divId);
+        }
+
+        // On hover end: Reset scale and remove marker glow
+        return () => {
+          if (!isPressing) {
+            animate(
+              element,
+              { scale: [1.05, 1], opacity: [1, 1] },
+              { duration: 0.1, easing: "easeOut" }
+            );
+            if (cell === castlecell && markerElement) {
+              animate(
+                markerElement,
+                {
+                  filter: [
+                    "drop-shadow(0 0 6px var(--text))",
+                    "drop-shadow(0 0 0px transparent)",
+                  ],
+                },
+                { duration: 0.2 }
+              );
+            }
           }
         };
       });
 
-      // Handle click events on list items to navigate to a new page
+      // Press animation for the cell
       press(cell, (cell, event) => {
-        if (cell === charactercell) {
-          if (event.target.matches('input[type="checkbox"]')) {
-            const checkbox = event.target;
-            animate(checkbox, { scale: 0.75 }, { type: spring });
-            return () => animate(checkbox, { scale: 1 });
-          }
-          // Navigate to the character page for the castle
-          return (endEvent, info) => {
-            info.success
-              ? (window.location.href = `${castle.url}/index.html?loadCharacter=true`)
-              : null;
+        if (
+          cell === charactercell &&
+          event.target.matches('input[type="checkbox"]')
+        ) {
+          isCheckboxPressing = true; // Set checkbox-specific flag
+          const checkbox = event.target; // Target the checkbox
+          animate(checkbox, { scale: 0.75 }, { type: spring });
+          return () => {
+            animate(
+              checkbox,
+              { scale: 1 },
+              { duration: 0.1, easing: "easeOut" }
+            );
+            setTimeout(() => {
+              isCheckboxPressing = false; // Reset checkbox flag after animation
+            }, 100);
           };
         } else {
-          // Navigate to the castle's page
+          isPressing = true; // Set cell press flag
+          animate(cell, { scale: 0.95 }, { type: spring });
           return (endEvent, info) => {
-            info.success ? (window.location.href = castle.url) : null;
+            animate(cell, { scale: 1 }, { duration: 0.1, easing: "easeOut" });
+            setTimeout(() => {
+              isPressing = false; // Reset cell press flag after animation
+            }, 100); // Match the duration of the scale animation
+            // Execute navigation if the press was successful
+            if (info.success) {
+              window.location.href =
+                cell === charactercell
+                  ? `${castle.url}/index.html?loadCharacter=true`
+                  : castle.url;
+            }
           };
         }
       });
@@ -434,7 +457,10 @@ document.addEventListener("DOMContentLoaded", function () {
       // Remove highlight effect on mobile devices when touch ends
       if (isMobile) {
         cell.addEventListener("touchend", () => {
-          // toggleHighlight(false, cell === castlecell ? marker : null, cell);
+          setTimeout(() => {
+            isPressing = false; // Reset cell press flag
+            isCheckboxPressing = false; // Reset checkbox press flag
+          }, 100);
         });
       }
     });
