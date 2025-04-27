@@ -3,7 +3,7 @@ import {
   animate,
   press,
   hover,
-  spring
+  spring,
 } from "https://cdn.jsdelivr.net/npm/motion@12.9.0/+esm";
 
 // Declare global variables to store the main map and footer map objects
@@ -345,16 +345,21 @@ document.addEventListener("DOMContentLoaded", function () {
             ],
           },
           { duration: 0.3, easing: "easeIn" }
-        ).then(() => {
-          if (index === 0) {
-            // Navigate to the castle's page for main map marker
-            window.location.href = castle.url;
-          } else {
-            // Navigate to an external map for footer marker
-            window.location.href =
-              "https://mapy.cz/zakladni?source=coor&id=14.401989874205015%2C50.09066215820785&x=14.4019899&y=50.0906622&z=17";
-          }
-        });
+        );
+        if (index === 0) {
+          // Navigate to the castle's page for main map marker
+          return (endEvent, info) => {
+            info.success ? (window.location.href = castle.url) : null;
+          };
+        } else {
+          // Navigate to an external map for footer marker
+          return (endEvent, info) => {
+            info.success
+              ? (window.location.href =
+                  "https://mapy.cz/zakladni?source=coor&id=14.401989874205015%2C50.09066215820785&x=14.4019899&y=50.0906622&z=17")
+              : null;
+          };
+        }
       });
     });
 
@@ -413,10 +418,16 @@ document.addEventListener("DOMContentLoaded", function () {
             return () => animate(checkbox, { scale: 1 });
           }
           // Navigate to the character page for the castle
-          window.location.href = `${castle.url}/index.html?loadCharacter=true`;
+          return (endEvent, info) => {
+            info.success
+              ? (window.location.href = `${castle.url}/index.html?loadCharacter=true`)
+              : null;
+          };
         } else {
           // Navigate to the castle's page
-          window.location.href = castle.url;
+          return (endEvent, info) => {
+            info.success ? (window.location.href = castle.url) : null;
+          };
         }
       });
 
