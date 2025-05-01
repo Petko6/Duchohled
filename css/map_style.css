@@ -10,16 +10,22 @@
 
 /* Styles main map with fixed height and full width */
 #map {
-  height: 50vh; /* Takes half viewport height */
-  width: 100%; /* Full container width */
-  border-radius: 2rem; /* Rounded corners */
+  height: 50vh;
+  /* Takes half viewport height */
+  width: 100%;
+  /* Full container width */
+  border-radius: 2rem;
+  /* Rounded corners */
 }
 
 /* Styles footer map with flexible sizing */
 #footermap {
-  flex: 1; /* Grows to fill available space */
-  min-height: 25vh; /* Minimum quarter viewport height */
-  border-radius: 2rem; /* Rounded corners */
+  flex: 1;
+  /* Grows to fill available space */
+  min-height: 25vh;
+  /* Minimum quarter viewport height */
+  border-radius: 2rem;
+  /* Rounded corners */
 }
 
 #tourmap {
@@ -35,14 +41,16 @@
 /* Ensures footer map takes full width on small screens */
 @media (max-width: 600px) {
   #footermap {
-    flex: 1 0 100%; /* Full width, no shrinking */
+    flex: 1 0 100%;
+    /* Full width, no shrinking */
   }
 }
 
 /* Hides main map on medium screens and below */
 @media (max-width: 1000px) {
   #map {
-    display: none; /* Hidden for smaller screens */
+    display: none;
+    /* Hidden for smaller screens */
   }
 }
 
@@ -50,32 +58,56 @@
 
 /* Applies rounded corners to first map element = Zoom icons in the top-left corner */
 #map:first-child {
-  border-radius: 2rem; /* Ensures consistent rounding */
+  border-radius: 2rem;
+  /* Ensures consistent rounding */
 }
 
 /* Hides Leaflet attribution control */
 .leaflet-control-attribution {
-  display: none; /* Removes default attribution */
+  display: none;
+  /* Removes default attribution */
 }
 
 /* Rounds corners of zoom control */
 .leaflet-control-zoom {
-  border-radius: 1rem !important; /* Unified rounded corners */
+  border-radius: 1rem !important;
+  /* Unified rounded corners */
 }
 
 /* Rounds top zoom button */
 .leaflet-bar a:first-child {
-  border-radius: 1rem 1rem 0 0 !important; /* Top corners rounded */
+  border-radius: 1rem 1rem 0 0 !important;
+  /* Top corners rounded */
 }
 
 /* Rounds bottom zoom button */
 .leaflet-bar a:last-child {
-  border-radius: 0 0 1rem 1rem !important; /* Bottom corners rounded */
+  border-radius: 0 0 1rem 1rem !important;
+  /* Bottom corners rounded */
+}
+
+.leaflet-tooltip {
+  background: none !important;
+  border: 0 !important;
+  color: var(--text) !important;
+  box-shadow: unset !important;
+  font-family: var(--ffh);
+}
+
+.leaflet-tooltip-bottom:before {
+  border: 0 !important;
+}
+
+.leaflet-tooltip-bottom {
+  margin: 0 !important;
 }
 
 /* Highlights map marker with shadow and smooth transition */
 .marker-highlight {
-  filter: drop-shadow(0 0 6px var(--text)); /* Glowing shadow effect */
-  transition: all 0.2s ease; /* Smooth transition for effects */
-  z-index: 15; /* Ensures marker stays above others */
+  filter: drop-shadow(0 0 6px var(--text));
+  /* Glowing shadow effect */
+  transition: all 0.2s ease;
+  /* Smooth transition for effects */
+  z-index: 15;
+  /* Ensures marker stays above others */
 }

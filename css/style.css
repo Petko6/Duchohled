@@ -7,26 +7,35 @@
 /* Global settings */
 /* Configures the HTML element to prevent overflow and ensure full height */
 html {
-  overflow: hidden; /* Prevents horizontal scrolling */
-  height: 100%; /* Ensures HTML takes full viewport height */
+  overflow: hidden;
+  /* Prevents horizontal scrolling */
+  height: 100%;
+  /* Ensures HTML takes full viewport height */
 }
 
 /* Sets base styles for HTML and body */
 html,
 body {
-  box-sizing: border-box; /* Includes padding/border in element dimensions */
-  color: var(--text); /* Applies text color from variables */
-  background-color: var(--background); /* Sets dark background */
+  box-sizing: border-box;
+  /* Includes padding/border in element dimensions */
+  color: var(--text);
+  /* Applies text color from variables */
+  background-color: var(--background);
+  /* Sets dark background */
   margin: 0;
-  padding: 0; /* Removes default spacing */
+  padding: 0;
+  /* Removes default spacing */
 }
 
 /* Body-specific styles */
 body {
-  overflow-y: scroll; /* Enables vertical scrolling */
+  overflow-y: scroll;
+  /* Enables vertical scrolling */
   overflow-x: hidden;
-  height: 100dvh; /* Full viewport height, dynamic for mobile */
-  scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+  height: 100dvh;
+  /* Full viewport height, dynamic for mobile */
+  scroll-behavior: smooth;
+  /* Smooth scrolling for anchor links */
 }
 
 .hidebodyoverflow {
@@ -35,137 +44,192 @@ body {
 
 /* Link styles */
 a {
-  text-decoration: none; /* Removes underline from links */
-  color: var(--text); /* Uses light text color */
+  text-decoration: none;
+  /* Removes underline from links */
+  color: var(--text);
+  /* Uses light text color */
 }
+
 a:hover {
-  color: var(--primary); /* Changes to primary color on hover */
+  color: var(--primary);
+  /* Changes to primary color on hover */
 }
 
 /* Bold text with medieval font */
 .bold {
   font-weight: bold;
-  font-family: "MedievalSharp"; /* Applies medieval-style font */
+  font-family: "MedievalSharp";
+  /* Applies medieval-style font */
 }
 
 /* Generic section layout */
 .section {
-  padding: 4vh 4vw; /* Adds responsive padding */
-  width: 100%; /* Full width */
-  min-height: min-content; /* Ensures section adapts to content */
-  gap: 2rem; /* Spacing between child elements */
+  padding: 4vh 4vw;
+  /* Adds responsive padding */
+  width: 100%;
+  /* Full width */
+  min-height: min-content;
+  /* Ensures section adapts to content */
+  gap: 2rem;
+  /* Spacing between child elements */
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers content vertically */
+  align-items: center;
+  /* Centers content vertically */
 }
-.section h1 {
-  font: var(--size3); /* Medium-sized heading */
-  color: var(--secondary); /* Golden color for headings */
+
+.section h2 {
+  font: var(--size3);
+  /* Medium-sized heading */
+  color: var(--secondary);
+  /* Golden color for headings */
 }
 
 /* Home section */
 .home {
-  position: relative; /* Allows absolute positioning of children */
+  position: relative;
+  /* Allows absolute positioning of children */
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100dvh; /* Full viewport height */
+  height: 100dvh;
+  /* Full viewport height */
 }
+
 #home-video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures video covers the section without distortion */
-  z-index: 1; /* Places video behind content */
+  object-fit: cover;
+  /* Ensures video covers the section without distortion */
+  z-index: 1;
+  /* Places video behind content */
 }
+
 .home-main {
-  flex: 1; /* Fills available space */
+  flex: 1;
+  /* Fills available space */
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: center;
-  align-items: center; /* Centers content */
-  z-index: 5; /* Above video */
-  gap: 1rem; /* Spacing between elements */
+  align-items: center;
+  /* Centers content */
+  z-index: 5;
+  /* Above video */
+  gap: 1rem;
+  /* Spacing between elements */
 }
+
 .home-main h1 {
   text-align: center;
-  text-shadow: black 0.25rem 0.25rem 0.5rem; /* Adds shadow for readability */
-  font-size: 3.5rem; /* Large heading */
+  text-shadow: black 0.25rem 0.25rem 0.5rem;
+  /* Adds shadow for readability */
+  font-size: 3.5rem;
+  /* Large heading */
 }
+
 .home-main .main-button {
-  font: var(--size5); /* Smaller heading size for button text */
+  font: var(--size5);
+  /* Smaller heading size for button text */
 }
+
 #video-wrap {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* Wrapper for making possible to have exit button in fullscreen */
+  height: 100%;
+  /* Wrapper for making possible to have exit button in fullscreen */
   overflow: hidden;
 }
 
 /* Map section */
 .map-section {
   align-items: center;
-  justify-content: center; /* Centers map content */
+  justify-content: center;
+  /* Centers map content */
 }
 
 /* Grid layout for cells */
 .row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2-column grid for mobile */
-  gap: 1rem; /* Spacing between cells */
+  grid-template-columns: repeat(2, 1fr);
+  /* 2-column grid for mobile */
+  gap: 1rem;
+  /* Spacing between cells */
   width: 100%;
   align-items: center;
-  justify-content: center; /* Centers grid content */
+  justify-content: center;
+  /* Centers grid content */
 }
+
 .cell {
-  background: var(--primary); /* Light brown background */
-  border-radius: 2rem; /* Rounded corners */
+  background: var(--primary);
+  /* Light brown background */
+  border-radius: 2rem;
+  /* Rounded corners */
   padding: 1rem;
   width: 100%;
-  aspect-ratio: 1 / 1; /* Square shape for mobile */
+  aspect-ratio: 1 / 1;
+  /* Square shape for mobile */
   display: flex;
   flex-direction: column;
-  justify-content: end; /* Aligns content to bottom */
-  z-index: 5; /* Above other elements */
-  cursor: pointer; /* Indicates cells are clickable */
+  justify-content: end;
+  /* Aligns content to bottom */
+  z-index: 5;
+  /* Above other elements */
+  cursor: pointer;
+  /* Indicates cells are clickable */
 }
 
 /* Adventure section */
 .adventure-section {
-  min-height: 100dvh; /* Full viewport height */
+  min-height: 100dvh;
+  /* Full viewport height */
 }
+
 .adventure-section .row {
-  flex: 1; /* Fills available space */
+  flex: 1;
+  /* Fills available space */
 }
+
 .adventure-section .cell {
-  align-items: start; /* Aligns content to top */
-  justify-content: space-between; /* Distributes content vertically */
-  height: 100%; /* Full cell height */
+  align-items: start;
+  /* Aligns content to top */
+  justify-content: space-between;
+  /* Distributes content vertically */
+  height: 100%;
+  /* Full cell height */
 }
-.adventure-section .cell:hover {
-  transform: scale(1.05); /* Scales up on hover */
-}
+
 .adventure-section .cell p {
-  font-size: 1.333rem; /* Larger text for readability */
+  font-size: 1.333rem;
+  /* Larger text for readability */
 }
+
 .adventure-section input {
   width: 2rem;
   height: 2rem;
-  border: 0.1rem solid var(--primary); /* Light brown border */
-  border-radius: 0.5rem; /* Rounded corners */
-  appearance: none; /* Removes default checkbox style */
-  background-color: var(--text); /* Light background */
+  border: 0.1rem solid var(--primary);
+  /* Light brown border */
+  border-radius: 0.5rem;
+  /* Rounded corners */
+  appearance: none;
+  /* Removes default checkbox style */
+  background-color: var(--text);
+  /* Light background */
   cursor: pointer;
-  transition: all 0.2s ease; /* Smooth transitions */
+  transition: all 0.2s ease;
+  /* Smooth transitions */
   position: relative;
 }
+
 .adventure-section input:checked {
-  background-color: var(--secondary); /* Golden background when checked */
+  background-color: var(--secondary);
+  /* Golden background when checked */
 }
 
 /* Tour section */
@@ -193,28 +257,36 @@ a:hover {
 .contact-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  flex-wrap: wrap;
+  /* Allows wrapping on smaller screens */
   width: 100%;
-  gap: 2rem; /* Spacing between items */
+  gap: 2rem;
+  /* Spacing between items */
 }
 
 .contact {
   display: grid;
-  grid-template: 1fr 1fr 1fr 1fr / 1fr 1fr; /* 4x2 grid for form layout */
+  grid-template: 1fr 1fr 1fr 1fr / 1fr 1fr;
+  /* 4x2 grid for form layout */
   gap: 1rem;
-  flex: 1 0 100%; /* Full width on small screens */
+  flex: 1 0 100%;
+  /* Full width on small screens */
 }
 
 .adress p,
 .adress a {
-  font-weight: bold; /* Bold text for address */
+  font-weight: bold;
+  /* Bold text for address */
 }
 
 .adress svg {
-  margin-top: 1rem; /* Gap between svg and adress */
-  margin-right: 1rem; /* Gap between svg logos */
+  margin-top: 1rem;
+  /* Gap between svg and adress */
+  margin-right: 1rem;
+  /* Gap between svg logos */
   height: 4rem;
-  width: 4rem; /* Square logo/image */
+  width: 4rem;
+  /* Square logo/image */
 }
 
 .adress svg path {
@@ -226,27 +298,39 @@ a:hover {
 }
 
 textarea {
-  grid-column: 1 / span 2; /* Spans both columns */
-  grid-row: 3 / span 3; /* Spans three rows */
-  resize: none; /* Disables resizing */
+  grid-column: 1 / span 2;
+  /* Spans both columns */
+  grid-row: 3 / span 3;
+  /* Spans three rows */
+  resize: none;
+  /* Disables resizing */
 }
+
 footer input[type="text"],
 input[type="email"],
 input[type="tel"],
 textarea,
 input[type="submit"] {
-  border-radius: 2rem; /* Rounded corners */
-  background: var(--accent); /* Dark brown background */
-  color: var(--text); /* Light text */
+  border-radius: 2rem;
+  /* Rounded corners */
+  background: var(--accent);
+  /* Dark brown background */
+  color: var(--text);
+  /* Light text */
   border: none;
   padding: 1rem 1.5rem;
   width: 100%;
 }
+
 footer input[type="submit"] {
-  grid-column: 2; /* Places submit button in second column */
-  place-self: end; /* Aligns to bottom-right */
-  background-color: var(--secondary); /* Golden background */
-  max-width: 75%; /* Slightly smaller width */
+  grid-column: 2;
+  /* Places submit button in second column */
+  place-self: end;
+  /* Aligns to bottom-right */
+  background-color: var(--secondary);
+  /* Golden background */
+  max-width: 75%;
+  /* Slightly smaller width */
   cursor: pointer;
   font: var(--size5);
   color: var(--background);
@@ -254,149 +338,215 @@ footer input[type="submit"] {
 
 footer input:focus,
 textarea:focus {
-  outline: 0; /* Removes default outline */
+  outline: 0;
+  /* Removes default outline */
 }
 
 /* Alert notification */
 .alert {
   position: absolute;
   top: 2rem;
-  left: 2rem; /* Top-left corner */
-  background-color: var(--secondary); /* Golden background */
-  border-radius: 2rem; /* Rounded corners */
+  left: 2rem;
+  /* Top-left corner */
+  background-color: var(--secondary);
+  /* Golden background */
+  border-radius: 2rem;
+  /* Rounded corners */
   padding: 1rem 1.5rem;
-  pointer-events: none; /* Prevents interaction */
-  opacity: 0; /* Hidden by default */
-  transition: opacity 0.5s ease; /* Smooth fade-in/out */
-  z-index: 5000; /* High z-index to appear above all */
+  pointer-events: none;
+  /* Prevents interaction */
+  opacity: 0;
+  /* Hidden by default */
+  transition: opacity 0.5s ease;
+  /* Smooth fade-in/out */
+  z-index: 5000;
+  /* High z-index to appear above all */
 }
 
 /* Responsive adjustments for larger screens */
 @media (min-width: 600px) {
   .row {
     gap: 2rem;
-  } /* Increases spacing in grid */
-  .section h1 {
+  }
+
+  /* Increases spacing in grid */
+  .section h2 {
     font: var(--size1) !important;
-  } /* Larger heading */
+  }
+
+  /* Larger heading */
   .home-main h1 {
     font-size: 6rem;
-  } /* Extra-large hero heading */
+  }
+
+  /* Extra-large hero heading */
   footer input[type="submit"] {
     font: var(--size4);
   }
+
   .adventure-section input {
     width: 4rem;
     height: 4rem;
-    border-radius: 1rem; /* Rounded corners */
+    border-radius: 1rem;
+    /* Rounded corners */
   }
 }
+
 @media (min-width: 1000px) {
   .row {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-  } /* 3-column grid */
+  }
+
+  /* 3-column grid */
   .cell {
     aspect-ratio: unset;
     gap: 4rem;
-  } /* Removes square ratio */
+  }
+
+  /* Removes square ratio */
   .adventure-section .cell {
     gap: 8rem;
     aspect-ratio: unset;
-  } /* Larger gaps */
+  }
+
+  /* Larger gaps */
   .lore-container p {
     font-size: 1.777rem;
-  } /* Larger lore text */
+  }
+
+  /* Larger lore text */
   header {
     padding: 2rem 8rem;
-  } /* Wider header padding */
+  }
+
+  /* Wider header padding */
   .section {
     height: auto;
     padding: 2.5vh 7.5vw;
-  } /* Adjusted section padding */
+  }
+
+  /* Adjusted section padding */
   .home-main {
     gap: 0rem;
-  } /* Removes gap in hero */
+  }
+
+  /* Removes gap in hero */
   .contact-container {
     flex-direction: row;
-  } /* Horizontal layout */
-  .adventure-section .cell:hover {
-    transform: scale(1.1);
-  } /* Larger hover scale */
+  }
+
+  /* Horizontal layout */
 }
+
 @media (min-width: 1250px) {
   nav.desktop {
     display: flex;
-  } /* Shows desktop navigation */
+  }
+
+  /* Shows desktop navigation */
   .home h1 {
     font-size: 12rem;
-  } /* Massive hero heading */
+  }
+
+  /* Massive hero heading */
   .home-main .main-button {
     font: var(--size4);
-  } /* Larger button text */
+  }
+
+  /* Larger button text */
   .adress a,
   .adress p {
     font-size: 1.333rem;
-  } /* Larger address text */
+  }
+
+  /* Larger address text */
 }
+
 @media (min-width: 1500px) {
   .map-section .row {
     grid-template-columns: repeat(6, 1fr);
-  } /* 6-column grid */
+  }
+
+  /* 6-column grid */
   .cell {
     aspect-ratio: 1 / 1;
     padding: 1.25rem;
-  } /* Square cells again */
+  }
+
+  /* Square cells again */
   .adventure-section .cell {
     gap: 12rem;
-  } /* Even larger gaps */
+  }
+
+  /* Even larger gaps */
   .adventure-section .cell p {
     font-size: 1.777rem;
-  } /* Larger Ulrich text */
+  }
+
+  /* Larger Ulrich text */
   .section {
     padding: 5vh 10vw;
-  } /* Wider section padding */
+  }
+
+  /* Wider section padding */
   .contact {
     flex: 1 0 0;
-  } /* Flexible contact form */
+  }
+
+  /* Flexible contact form */
 }
 
 /* Highlight effect */
 .highlight {
-  transform: scale(1.1); /* Scales up element for emphasis */
+  transform: scale(1.1);
+  /* Scales up element for emphasis */
 }
 
 /* Lore section */
 .lore-container {
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* Spacing between lore elements */
+  gap: 2rem;
+  /* Spacing between lore elements */
 }
+
 .lore-container p {
-  text-align: justify; /* Justified text */
-  line-height: 1.25; /* Improved readability */
+  text-align: justify;
+  /* Justified text */
+  line-height: 1.25;
+  /* Improved readability */
 }
+
 .capital-letter::first-letter {
-  initial-letter: 3 2; /* Large first letter for medieval style */
+  initial-letter: 3 2;
+  /* Large first letter for medieval style */
   font-family: "MedievalSharp", serif;
   margin-right: 0.5rem;
   line-height: 1;
-  color: var(--primary); /* Light brown color */
+  color: var(--primary);
+  /* Light brown color */
 }
+
 @supports not (initial-letter: 3 2) {
   .capital-letter::first-letter {
-    font-size: 6em; /* Fallback for unsupported browsers */
+    font-size: 6em;
+    /* Fallback for unsupported browsers */
     float: left;
     line-height: 1;
     margin-right: 0.4rem;
   }
 }
+
 .lore-skill img {
   display: inline-block;
-  vertical-align: middle; /* Aligns images with text */
+  vertical-align: middle;
+  /* Aligns images with text */
   width: auto;
   max-width: 100%;
-  height: 1.25em; /* Consistent height */
+  height: 1.25em;
+  /* Consistent height */
   line-height: 1.25em;
-  object-fit: contain; /* Ensures proper image scaling */
+  object-fit: contain;
+  /* Ensures proper image scaling */
 }
