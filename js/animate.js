@@ -6,7 +6,9 @@ import {
   press,
   spring,
   hover,
-} from "https://cdn.jsdelivr.net/npm/motion@12.9.0/+esm";
+} from "https://cdn.jsdelivr.net/npm/motion@12.9.2/+esm";
+
+const isMobile = window.innerWidth < 1000;
 
 // Fade-left animation for .hamburger and .desktop elements
 const fadeLeftSelectors = [".hamburger", ".desktop"];
