@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DuchohledTOUR</title>
+    <link rel="canonical" href="https://duchohled.cz/tour/" />
+
+    <!-- Favicona - logo -->
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+    <!-- linkování stylů -->
+    <link rel="stylesheet" href="../css/tour_style.css">
+    <link rel="stylesheet" href="../css/map_style.css">
+    <link rel="preload" href="../css/motion.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preload MedievalSharp font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/medievalsharp/v26/EvOJzAlL3oU5AQl2mP5KdgptMqZwMjvX.woff2"
+        as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400..700&family=MedievalSharp" rel="stylesheet">
+
+    <!-- Import leafletu -->
+    <link rel="stylesheet" href="../css/libraries/leaflet.css" />
+    <script defer src="../js/libraries/leaflet.js"></script>
+    <!-- Import javascriptu -->
+    <script defer src="../js/nav.js"></script>
+    <script type="module" src="../js/tour.js"></script>
+    <script type="module" src="../js/animate.js"></script>
+</head>
+
+<body>
+    <!-- Header containing logo and navigation -->
+    <header>
+        <!-- Logo that links to the home section -->
+        <a id="logo" href="../#home">
+            <img alt="logo" src="../media/svg/logo.svg">
+        </a>
+        <!-- Desktop navigation menu with links to different sections -->
+        <nav class="desktop">
+            <a href="../#lore">Zákulisí</a>
+            <a href="../#adventure">Objevník</a>
+            <a href="../#tour">TOUR</a>
+            <a href="../#contact">Kontakt</a>
+            <a class="main-button" href="../#localities">Průzkum</a>
+        </nav>
+
+        <!-- Mobile navigation with a hamburger menu icon -->
+        <div aria-label="Toggle mobile navigation" id="hamburger" class="hamburger mobile">
+            <svg width="32pt" height="32pt" viewBox="0 0 26 23" xmlns="http://www.w3.org/2000/svg">
+                <g stroke-linecap="round" fill-rule="evenodd" fill="#f6f6f6">
+                    <!-- Hamburger menu lines -->
+                    <path class="line top-line"
+                        d="M 1.636 0 L 2.271 0.195 A 23.196 23.196 0 0 0 4.823 0.689 Q 7.595 1.082 11.559 1.155 A 101.615 101.615 0 0 0 13.428 1.172 Q 18.359 1.172 23.706 0 A 25.554 25.554 0 0 0 23.047 1.735 A 19.693 19.693 0 0 0 22.62 3.174 A 18.072 18.072 0 0 0 22.119 6.152 L 21.509 6.006 Q 16.431 5.151 11.06 5.151 L 10.205 5.151 Q 4.956 5.151 0 6.152 A 10.579 10.579 0 0 0 0.269 5.566 Q 0.532 4.947 0.83 4.085 A 37.71 37.71 0 0 0 0.928 3.796 A 11.87 11.87 0 0 0 1.268 2.547 Q 1.42 1.847 1.525 1.034 A 24.407 24.407 0 0 0 1.636 0 Z" />
+                    <path class="line middle-line"
+                        d="M 1.636 7 L 2.271 7.195 A 23.196 23.196 0 0 0 4.823 7.689 Q 7.595 8.082 11.559 8.155 A 101.615 101.615 0 0 0 13.428 8.172 Q 18.359 8.172 23.706 7 A 25.554 25.554 0 0 0 23.047 8.735 A 19.693 19.693 0 0 0 22.62 10.174 A 18.072 18.072 0 0 0 22.119 13.152 L 21.509 13.006 Q 16.431 12.151 11.06 12.151 L 10.205 12.151 Q 4.956 12.151 0 13.152 A 10.579 10.579 0 0 0 0.269 12.566 Q 0.532 11.947 0.83 11.085 A 37.71 37.71 0 0 0 0.928 10.796 A 11.87 11.87 0 0 0 1.268 9.547 Q 1.42 8.847 1.525 8.034 A 24.407 24.407 0 0 0 1.636 7 Z" />
+                    <path class="line bottom-line"
+                        d="M 1.636 14 L 2.271 14.195 A 23.196 23.196 0 0 0 4.823 14.689 Q 7.595 15.082 11.559 15.155 A 101.615 101.615 0 0 0 13.428 15.172 Q 18.359 15.172 23.706 14 A 25.554 25.554 0 0 0 23.047 15.735 A 19.693 19.693 0 0 0 22.62 17.174 A 18.072 18.072 0 0 0 22.119 20.152 L 21.509 20.006 Q 16.431 19.151 11.06 19.151 L 10.205 19.151 Q 4.956 19.151 0 20.152 A 10.579 10.579 0 0 0 0.269 19.566 Q 0.532 18.947 0.83 18.085 A 37.71 37.71 0 0 0 0.928 17.796 A 11.87 11.87 0 0 0 1.268 16.547 Q 1.42 15.847 1.525 15.034 A 24.407 24.407 0 0 0 1.636 14 Z" />
+                </g>
+            </svg>
+        </div>
+        <nav id="mobilenav" class="mobile">
+            <a href="../#lore">Zákulisí</a>
+            <a href="../#adventure">Objevník</a>
+            <a href="../#tour">TOUR</a>
+            <a href="../#contact">Kontakt</a>
+            <a class="main-button" href="../#localities">Průzkum</a>
+        </nav>
+    </header>
+    <!-- Hlavní sekce -->
+    <div class="main">
+        <div class="map-section section">
+            <div class="heading">
+                <h1>DuchohledTOUR</h1>
+            </div>
+            <div id="tourmap" class="map"></div>
+        </div>
+        <div id="scrollhere" class="tour-section section">
+            <!-- Sem scrollujeme po kliknutí na marker -->
+            <div id="click-info-text">Klikněte do mapy pro zobrazení více informací</div>
+            <div id="castle-info" class="hidden">
+                <!-- Připravené elementy na osazení textem pomocí JS -->
+                <div class="castle-text">
+                    <h2 id="castle-name">Nadpis</h2>
+                    <div id="castle-three"></div>
+                    <h3>Doporučení na výlet</h3>
+                    <h4>Tajúplné objevování</h4>
+                    <p id="scarytour"></p>
+                    <h4>Občerstvení</h4>
+                    <p id="food"></p>
+                    <h4>Ubytování</h4>
+                    <p id="hotel"></p>
+                    <h4>Doprava</h4>
+                    <p class="bold">Auto</p>
+                    <p id="car"></p>
+                    <p class="bold">Vlak</p>
+                    <p id="train"></p>
+                </div>
+                <!-- Připravený div na obrázek -->
+                <div id="castle-img"></div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Formulář -->
+    <footer class="section hidefooter" id="contact">
+        <h1>Zarezervujte si výlet již nyní!</h1>
+
+        <div class="contact-container">
+
+            <form id="contactForm" class="contact" action="">
+                <input type="text" name="name" id="name" placeholder="Jméno" required>
+                <input type="text" name="surname" id="surname" placeholder="Příjmení" required>
+                <input type="email" name="mail" id="mail" placeholder="E-mail" required>
+                <input type="tel" name="phone" id="phone" placeholder="Telefon" required>
+                <textarea name="message" id="message" placeholder="Zpráva" required></textarea>
+                <input type="submit" value="Odeslat">
+            </form>
+        </div>
+    </footer>
+
+    <!-- Alert div pro oznámení -->
+    <div class="alert" id="formStatus"></div>
+
+    <!-- JavaScript pro zobrazení alertu po odeslání formuláře -->
+    <script>
+        // Event listener, který hlídá, jestli není formulář odeslaný
+        document.getElementById("contactForm").addEventListener("submit", function (e) {
+            e.preventDefault(); // Zruší základní chování formuláře = znovunačtení stránky
+            const status = document.getElementById("formStatus"); // získáme div alertu
+            const isSuccessful = true; // Simuluje úspěšné odeslání
+            // Rezerva pro test neúspěšného odeslání
+            if (isSuccessful) {
+                status.innerText = "Děkujeme za Vaši zprávu!";
+            } else {
+                status.innerText = "Došlo k chybě. Zkuste to prosím znovu.";
+            }
+            status.style.opacity = "1"; // Zobrazí alert div
+            this.reset(); // Reset formuláře
+            // Po 5000ms = 5s schováme alert
+            setTimeout(() => {
+                status.style.opacity = "0";
+            }, 5000);
+        });
+    </script>
+</body>
+
+</html>

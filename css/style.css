@@ -168,6 +168,27 @@ a:hover {
   background-color: var(--secondary); /* Golden background when checked */
 }
 
+/* Tour section */
+.tour-section {
+  position: relative;
+}
+
+.tour-section h2 {
+  pointer-events: none;
+  position: absolute;
+  top: 45%;
+  color: var(--text);
+  z-index: 5;
+}
+
+.tour-section img {
+  width: 100%;
+  height: 90%;
+  object-fit: cover;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
 /* Footer */
 .contact-container {
   display: flex;

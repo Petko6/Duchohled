@@ -196,3 +196,65 @@ hover('input[type="submit"]', (element) => {
     animate(element, { scale: 1 });
   };
 });
+
+// Handle interactions for the tour section
+let mainTourElement = document.getElementById("tour");
+let tourElements = ["#tour img", "#tour h2"];
+
+if (mainTourElement) {
+  console.log("Tour element exists");
+
+  let isPressing = false; // Track if the tour element is being pressed
+
+  // Add hover animation for tour images
+  hover("#tour img", (element, startEvent) => {
+    // Apply hover effect only if not currently pressing
+    if (!isPressing) {
+      tourElements.forEach((tourElement) => {
+        animate(
+          tourElement,
+          { scale: [1, 1.05], opacity: [1, 1] },
+          { duration: 0.1, easing: "easeIn" }
+        );
+      });
+    }
+
+    // Reset animation on hover end
+    return () => {
+      if (!isPressing) {
+        tourElements.forEach((tourElement) => {
+          animate(
+            tourElement,
+            { scale: [1.05, 1], opacity: [1, 1] },
+            { duration: 0.1, easing: "easeOut" }
+          );
+        });
+      }
+    };
+  });
+
+  // Add press interaction for tour images
+  press("#tour img", (element, event) => {
+    isPressing = true; // Mark as pressing
+    animate(element, { scale: 0.95 }, { type: "spring" });
+    return (endEvent, info) => {
+      animate(element, { scale: 1 }, { duration: 0.1, easing: "easeOut" });
+      setTimeout(() => {
+        isPressing = false; // Reset pressing state
+      }, 100);
+      // Navigate to the tour page if press is successful
+      if (info.success) {
+        window.location.href = "./tour";
+      }
+    };
+  });
+
+  // Reset pressing state on touch end for mobile devices
+  if (isMobile) {
+    document.querySelector("#tour img").addEventListener("touchend", () => {
+      setTimeout(() => {
+        isPressing = false;
+      }, 100);
+    });
+  }
+}

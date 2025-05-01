@@ -1,0 +1,332 @@
+/* Import CSS components for modularity */
+@import "./variables.css";
+@import "./components/header.css";
+
+/* Global setup: Prevent overflow, ensure consistent sizing, and set base styles */
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  color: var(--text);
+  background-color: var(--background);
+  margin: 0;
+  padding: 0;
+}
+
+/* Body: Enable vertical scroll, smooth scrolling, and dynamic height for mobile */
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100dvh;
+  scroll-behavior: smooth;
+}
+
+/* Disable scroll when mobile menu is open */
+.hidebodyoverflow {
+  overflow: hidden !important;
+}
+
+/* Customize scrollbar appearance */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+}
+
+/* Header: Set background and ensure it stays above other content */
+header {
+  background-color: var(--accent);
+  z-index: 15;
+}
+
+/* CTA button: Define style and hover effect */
+.main-button {
+  background-color: var(--secondary);
+  color: var(--accent);
+}
+
+.main-button:hover {
+  color: var(--text) !important;
+}
+
+/* Links: Remove default styling, add smooth color transition on hover */
+a {
+  text-decoration: none;
+  color: var(--secondary);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--text);
+}
+
+/* Mobile navigation: Set background */
+nav.mobile {
+  background-color: var(--accent);
+}
+
+/* Sections: Flexible, centered layout with consistent padding */
+.section {
+  padding: 4vh 4vw;
+  width: 100%;
+  min-height: min-content;
+  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Main container: Column layout with overflow control */
+.main {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Map section: Full-height section with background image and gradient overlay */
+.map-section {
+  display: flex;
+  flex-direction: column;
+  height: 85dvh;
+  justify-content: space-between;
+  background: url("../media/tour.webp") center/cover;
+  position: relative;
+}
+
+.map-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Map section heading: Centered, flexible, with rounded background */
+.map-section .heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  border-radius: 2rem;
+}
+
+.map-section .heading h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  z-index: 2;
+}
+
+/* Tour section: Remove default section gap */
+.tour-section {
+  gap: 0;
+}
+
+/* Animated text elements: Smooth transitions for visibility */
+#castle-info,
+#click-info-text {
+  transition: translate 0.3s ease, opacity 0.3s ease, height 0.3s ease;
+}
+
+/* Click info text: Centered, sized for mobile */
+#click-info-text {
+  text-align: center;
+  font: var(--size4);
+}
+
+#click-info-text.hidden {
+  translate: 200%;
+}
+
+/* Castle info: Hidden by default, slides in from left */
+#castle-info.hidden {
+  translate: -100%;
+}
+
+#castle-info {
+  width: 100%;
+  text-align: start;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+#castle-info p {
+  text-align: justify;
+}
+
+#castle-info h2,
+h3,
+h4 {
+  margin-top: 1rem;
+}
+
+#castle-info h2 {
+  font: var(--size1);
+  justify-self: center;
+  color: var(--secondary);
+}
+
+#castle-info h4 {
+  color: var(--secondary);
+}
+
+.castle-text {
+  flex: 1;
+}
+
+/* Castle image: Square on mobile, rounded corners */
+#castle-img {
+  aspect-ratio: 1/1;
+  border-radius: 2rem;
+}
+
+/* Hidden elements: Animate height and opacity */
+.hidden {
+  height: 0 !important;
+  opacity: 0;
+}
+
+/* Hide footer when needed */
+.hidefooter {
+  display: none;
+}
+
+/* Contact form: 4x2 grid layout */
+.contact-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 2rem;
+}
+
+.contact {
+  display: grid;
+  grid-template: 1fr 1fr 1fr 1fr / 1fr 1fr;
+  gap: 1rem;
+  flex: 1 0 100%;
+}
+
+#contact h1 {
+  text-align: center;
+}
+
+/* Textarea: Span both columns and multiple rows */
+textarea {
+  grid-column: 1 / span 2;
+  grid-row: 3 / span 3;
+  resize: none;
+}
+
+/* Form inputs: Consistent styling with rounded corners and animations */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+input[type="submit"] {
+  border-radius: 2rem;
+  background: var(--accent);
+  color: var(--text);
+  border: none;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  transition: transform 0.3s ease;
+  /* font-family: "Lora"; */
+}
+
+/* Submit button: Distinct color, right-aligned */
+input[type="submit"] {
+  grid-column: 2;
+  place-self: end;
+  background-color: var(--secondary);
+  max-width: 75%;
+  cursor: pointer;
+  font: var(--size5);
+  color: var(--background);
+}
+
+/* Input focus: Remove outline, slight scale animation */
+input:focus,
+textarea:focus {
+  outline: 0;
+}
+
+/* Alert: Non-interactive notification with fade animation */
+.alert {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  background-color: var(--secondary);
+  border-radius: 2rem;
+  padding: 1rem 1.5rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 5000;
+}
+
+/* Responsive design: Mobile-first with progressive enhancements */
+@media (min-width: 600px) {
+  .map-section .heading h1 {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .map-section .heading h1 {
+    font-size: 3.5rem;
+  }
+
+  #click-info-text {
+    font: var(--size2);
+  }
+
+  #castle-info {
+    flex-direction: row;
+  }
+
+  #castle-img {
+    aspect-ratio: unset;
+    flex: 1;
+    border-radius: 2rem;
+  }
+}
+
+@media (min-width: 1250px) {
+  .map-section {
+    flex-direction: row;
+  }
+
+  .map-section::before {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
+  }
+
+  .map-section .heading {
+    height: 100%;
+  }
+}
+
+@media (min-width: 1500px) {
+  .map-section .heading h1 {
+    font-size: 5.5rem;
+  }
+}
