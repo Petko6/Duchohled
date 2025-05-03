@@ -1,6 +1,9 @@
-
 User-agent: *
-Allow: / Allow: /media/ Allow: /css/ Allow: /js/
+Allow: /
+Allow: /media/
+Allow: /css/
+Allow: /js/
 Disallow: /private/
-Disallow: /.pdf$ Disallow: /.zip$
+Disallow: /*.pdf$
+Disallow: /*.zip$
 Sitemap: https://duchohled.cz/sitemap.xml
